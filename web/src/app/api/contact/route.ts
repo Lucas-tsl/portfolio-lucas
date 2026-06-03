@@ -17,15 +17,36 @@ export async function POST(req: Request) {
 
     const { name, email, message } = validatedData;
 
-    const data = await resend.emails.send({
+    // 1. Email que TU reçois
+    const ownerEmail = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>", // Utiliser un domaine vérifié en production sur Resend
       to: process.env.CONTACT_EMAIL || "contact@lucastroteseil.com",
       subject: `Nouveau message de ${name} via le Portfolio`,
       text: `Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     });
 
+    // 2. Email de confirmation que le VISITEUR reçoit
+    // Note: Nécessite que tu aies ajouté et vérifié ton propre nom de domaine sur Resend
+    // Si tu utilises toujours l'adresse onboarding@resend.dev, ça ne marchera qu'avec ta propre adresse email de test.
+    await resend.emails.send({
+      from: "Lucas Troteseil <onboarding@resend.dev>", // Remplace par "Lucas <contact@tondomaine.com>" une fois le domaine validé
+      to: email,
+      subject: "Confirmation de réception de votre message",
+      html: `
+        <div style="font-family: sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2 style="color: #09090b;">Bonjour ${name},</h2>
+          <p>Je vous confirme la bonne réception de votre message depuis mon portfolio :</p>
+          <blockquote style="border-left: 4px solid #e5e7eb; padding-left: 16px; margin: 20px 0; color: #4b5563; font-style: italic;">
+            ${message}
+          </blockquote>
+          <p>Je prendrai le temps de le lire et je reviendrai vers vous dans les plus brefs délais.</p>
+          <p>Cordialement,<br/><strong>Lucas Troteseil</strong></p>
+        </div>
+      `,
+    });
+
     return NextResponse.json(
-      { success: true, message: "Email envoyé avec succès !", data },
+      { success: true, message: "Email envoyé avec succès !", data: ownerEmail },
       { status: 200 }
     );
   } catch (error) {
