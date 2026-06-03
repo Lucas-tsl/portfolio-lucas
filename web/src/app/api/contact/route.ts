@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const contactSchema = z.object({
   name: z.string().min(2, "Le nom est trop court"),
   email: z.string().email("L'adresse email n'est pas valide"),
@@ -12,6 +10,8 @@ const contactSchema = z.object({
 
 export async function POST(req: Request) {
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     const body = await req.json();
     const validatedData = contactSchema.parse(body);
 
