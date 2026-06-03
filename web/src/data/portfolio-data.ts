@@ -2,7 +2,7 @@ export const portfolioData = {
   profile: {
     name: "Lucas Troteseil",
     title: "Chef de projet Data / IA & Développeur Web",
-    catchphrase: "À la recherche de nouveaux défis, de projets créatifs et de collaborations inspirantes.",
+    tagline: "À la recherche de nouveaux défis, de projets créatifs et de collaborations inspirantes.",
     about: "Profil hybride, mêlant la vision technique du développement et la gestion de projet stratégique. Passionné par les nouvelles technologies, l'apprentissage continu (japonais, Swift), le surf et l'escalade.",
     email: "contact@lucastroteseil.com",
     github: "https://github.com/Lucas-tsl",
@@ -75,4 +75,6 @@ export const portfolioData = {
 
 export const profile = portfolioData.profile;
 export const technologyItems = portfolioData.skills;
+export const skillGroups = portfolioData.skills;
+export const projects = portfolioData.projects;
 export const projects = portfolioData.projects;
