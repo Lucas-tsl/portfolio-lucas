@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ExternalLink, Github } from "lucide-react";
 import { projects } from "@/data/portfolio-data";
 
 export function ProjectsSection() {
@@ -28,6 +29,30 @@ export function ProjectsSection() {
                   {tech}
                 </span>
               ))}
+            </div>
+            <div className="mt-5 flex flex-wrap gap-3">
+              {project.githubUrl ? (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
+                >
+                  <Github size={16} />
+                  Repository
+                </a>
+              ) : null}
+              {project.liveUrl ? (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+                >
+                  <ExternalLink size={16} />
+                  Démo
+                </a>
+              ) : null}
             </div>
           </motion.article>
         ))}
