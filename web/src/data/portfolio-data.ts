@@ -50,3 +50,6 @@ export const portfolioData = {
     },
   ],
 };
+
+export const profile = portfolioData.profile;
+export const technologyItems = portfolioData.skills;
