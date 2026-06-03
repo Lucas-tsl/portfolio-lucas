@@ -1,4 +1,4 @@
-export type TechnologyItem = {
+﻿export type TechnologyItem = {
   id: string;
   category: string;
   name: string;
@@ -16,6 +16,7 @@ export const portfolioData = {
     email: "contact@lucastroteseil.com",
     github: "https://github.com/Lucas-tsl",
     linkedin: "https://www.linkedin.com/in/lucas-tsl/",
+    wordpress: "https://profiles.wordpress.org/lucastsl/",
   },
   skills: [
     {

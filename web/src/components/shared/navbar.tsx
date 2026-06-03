@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { profile } from "@/data/portfolio-data";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 
@@ -10,6 +10,7 @@ export function Navbar() {
           {profile.name}
         </Link>
         <div className="hidden items-center gap-5 text-sm text-zinc-700 dark:text-zinc-300 md:flex">
+          <Link href="/" className="hover:text-zinc-950 dark:hover:text-white">Accueil</Link>
           <Link href="/about" className="hover:text-zinc-950 dark:hover:text-white">À propos</Link>
           <Link href="/#projects" className="hover:text-zinc-950 dark:hover:text-white">Projets</Link>
           <Link href="/docs" className="hover:text-zinc-950 dark:hover:text-white">Docs</Link>
@@ -22,3 +23,4 @@ export function Navbar() {
     </header>
   );
 }
+
