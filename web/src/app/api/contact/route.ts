@@ -1,48 +1,38 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 import { Resend } from "resend";
+import { z } from "zod";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const contactSchema = z.object({
-  name: z.string().min(2, "Le nom est trop court."),
-  email: z.string().email("Email invalide."),
-  message: z.string().min(10, "Le message doit contenir au moins 10 caracteres."),
+  name: z.string().min(2, "Le nom est trop court"),
+  email: z.string().email("L'adresse email n'est pas valide"),
+  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
 });
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const json = await request.json();
-    const parsed = contactSchema.safeParse(json);
+    const body = await req.json();
+    const validatedData = contactSchema.parse(body);
 
-    if (!parsed.success) {
-      return NextResponse.json(
-        { error: parsed.error.issues[0]?.message || "Donnees invalides." },
-        { status: 400 },
-      );
-    }
+    const { name, email, message } = validatedData;
 
-    const apiKey = process.env.RESEND_API_KEY;
-    const to = process.env.CONTACT_EMAIL;
-
-    if (!apiKey || !to) {
-      return NextResponse.json(
-        { error: "Configuration email manquante (RESEND_API_KEY ou CONTACT_EMAIL)." },
-        { status: 500 },
-      );
-    }
-
-    const resend = new Resend(apiKey);
-    const { name, email, message } = parsed.data;
-
-    await resend.emails.send({
-      from: "Portfolio <onboarding@resend.dev>",
-      to,
-      subject: `Nouveau message portfolio - ${name}`,
+    const data = await resend.emails.send({
+      from: "Portfolio Contact <onboarding@resend.dev>", // Utiliser un domaine vérifié en production sur Resend
+      to: process.env.CONTACT_EMAIL || "contact@lucastroteseil.com",
+      subject: `Nouveau message de ${name} via le Portfolio`,
       text: `Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-      replyTo: email,
     });
 
-    return NextResponse.json({ success: true });
-  } catch {
-    return NextResponse.json({ error: "Erreur serveur pendant l'envoi." }, { status: 500 });
+    return NextResponse.json(
+      { success: true, message: "Email envoyé avec succès !", data },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de l'email:", error);
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ success: false, error: error.errors }, { status: 400 });
+    }
+    return NextResponse.json({ success: false, error: "Erreur interne du serveur" }, { status: 500 });
   }
 }

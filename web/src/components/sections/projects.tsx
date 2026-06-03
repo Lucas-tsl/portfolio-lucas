@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, GitHub } from "lucide-react";
 import { projects } from "@/data/portfolio-data";
 
 export function ProjectsSection() {
@@ -38,7 +38,7 @@ export function ProjectsSection() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
                 >
-                  <Github size={16} />
+                  <GitHub size={16} />
                   Repository
                 </a>
               ) : null}
