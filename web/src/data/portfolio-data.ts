@@ -20,6 +20,7 @@ export type DocumentationItem = {
   audience: string;
   status: string;
   category: string;
+  tags: string[];
 };
 
 export type ArticleItem = {
@@ -28,6 +29,8 @@ export type ArticleItem = {
   summary: string;
   category: string;
   status: string;
+  tags: string[];
+  publishedAt: string;
 };
 
 export type TechnologyItem = {
@@ -36,6 +39,7 @@ export type TechnologyItem = {
   description: string;
   focus: string;
   category: string;
+  tags: string[];
 };
 
 export const profile = {
@@ -113,6 +117,7 @@ export const documentationItems: DocumentationItem[] = [
     audience: "Equipe interne",
     status: "Disponible sur demande",
     category: "Process & Ops",
+    tags: ["interne", "process", "novi"],
   },
   {
     id: "seo-core-web-vitals",
@@ -122,6 +127,7 @@ export const documentationItems: DocumentationItem[] = [
     audience: "Marketing / Produit / Tech",
     status: "Mise a jour continue",
     category: "SEO",
+    tags: ["seo", "performance", "core-web-vitals"],
   },
   {
     id: "wordpress-content-guide",
@@ -131,6 +137,7 @@ export const documentationItems: DocumentationItem[] = [
     audience: "Collaborateurs et parties prenantes",
     status: "Pret a publier",
     category: "Content",
+    tags: ["content", "wordpress", "workflow"],
   },
 ];
 
@@ -142,6 +149,8 @@ export const articleIdeas: ArticleItem[] = [
       "Pourquoi j'ai construit une experience stories pour WooCommerce et comment elle s'integre dans un tunnel de conversion.",
     category: "WordPress / WooCommerce",
     status: "Brouillon",
+    tags: ["wordpress", "woocommerce", "plugin"],
+    publishedAt: "2026-06-03",
   },
   {
     id: "ai-productivity-web",
@@ -150,6 +159,8 @@ export const articleIdeas: ArticleItem[] = [
       "Comment utiliser des outils IA pour accelerer la production sans sacrifier la qualite ni la maintenabilite.",
     category: "IA / Productivite",
     status: "Idée",
+    tags: ["ia", "productivite", "workflow"],
+    publishedAt: "2026-06-03",
   },
   {
     id: "core-web-vitals-guide",
@@ -158,6 +169,8 @@ export const articleIdeas: ArticleItem[] = [
       "Une approche pratique pour garder un site rapide, lisible et pertinent pour les moteurs de recherche.",
     category: "SEO / Performance",
     status: "Programmé",
+    tags: ["seo", "performance", "core-web-vitals"],
+    publishedAt: "2026-06-03",
   },
 ];
 
@@ -169,6 +182,7 @@ export const technologyItems: TechnologyItem[] = [
       "Base de mon portfolio et de mes futurs espaces de contenu, avec App Router pour pages et API.",
     focus: "Rendu, routes, SEO et intégration backend",
     category: "Front / Fullstack",
+    tags: ["nextjs", "react", "fullstack"],
   },
   {
     id: "wordpress",
@@ -177,6 +191,7 @@ export const technologyItems: TechnologyItem[] = [
       "Environnement dans lequel j'ai construit des plugins, des contenus et des experiences orientées metier.",
     focus: "Plugins, contenu et productivité éditoriale",
     category: "CMS",
+    tags: ["wordpress", "plugins", "cms"],
   },
   {
     id: "resend",
@@ -185,6 +200,7 @@ export const technologyItems: TechnologyItem[] = [
       "Solution d'email transactionnel pour les formulaires du portfolio et les futures notifications.",
     focus: "Formulaires, notifications et experience utilisateur",
     category: "Backend",
+    tags: ["email", "forms", "api"],
   },
   {
     id: "tailwind",
@@ -193,5 +209,10 @@ export const technologyItems: TechnologyItem[] = [
       "Utilisé pour construire un design system rapide, cohérent et maintenable sur toute la plateforme.",
     focus: "Design system et responsiveness",
     category: "UI",
+    tags: ["tailwind", "design-system", "ui"],
   },
 ];
+
+export const documentationCategories = ["all", "process", "seo", "content"];
+export const articleCategories = ["all", "wordpress", "ia", "seo"];
+export const technologyCategories = ["all", "nextjs", "wordpress", "email", "tailwind"];
