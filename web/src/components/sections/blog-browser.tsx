@@ -78,7 +78,7 @@ export function BlogBrowser({ posts }: { posts: BlogItem[] }) {
               <span className="rounded-full bg-zinc-100 px-3 py-1 dark:bg-zinc-800">{post.publishedAt}</span>
             </div>
             <span className="mt-6 inline-flex items-center text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-              Lire l'article
+              Lire l&apos;article
               <span className="ml-2 transition group-hover:translate-x-1">→</span>
             </span>
           </a>
