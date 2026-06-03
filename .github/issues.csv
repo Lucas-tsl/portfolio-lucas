@@ -1,0 +1,20 @@
+title,body,labels,assignee,milestone,state
+"US 1.1 - Hero Section","En tant que visiteur, je veux voir immédiatement le nom et l'intitulé de poste afin de comprendre l'expertise proposée.",enhancement,,open
+"US 1.2 - CTA","Boutons 'Me contacter' et 'Voir le GitHub' dans le hero.",enhancement,,open
+"US 1.3 - Section À propos","Texte présentant la vision stratégique et technique, inclure hobbies et langues.",enhancement,,open
+"US 1.4 - Compétences","Afficher compétences par catégories: Dev, BDD, IA, Webmarketing.",enhancement,,open
+"US 2.1 - Grille de Projets","Créer une grille responsive affichant les projets phares.",enhancement,,open
+"US 2.2 - Détail d'un Projet","Page/drawer détaillant le projet, technos et rôle.",enhancement,,open
+"US 2.3 - Liens Externes","Ajouter liens GitHub/démo pour chaque projet.",enhancement,,open
+"US 2.4 - Filtrage","Implémenter filtrage par tags (Front-End, Back-End, UX).",enhancement,,open
+"US 3.1 - Formulaire de contact","Formulaire (name,email,message) côté client et API route côté serveur.",feature, ,open
+"US 3.2 - Validation du formulaire","Validation Zod côté serveur; messages d'erreur utilisateur.",bug,,open
+"US 3.3 - Liens Sociaux","Footer + header: LinkedIn, GitHub.",enhancement,,open
+"US 4.1 - Responsive Design","Valider rendu mobile/tablette/desktop via Tailwind.",chore,,open
+"US 4.2 - Mode Sombre/Clair","Ajouter `next-themes` et toggle thème.",enhancement,,open
+"US 4.3 - SEO & Core Web Vitals","Configurer metadata, OpenGraph et optimiser images.",chore,,open
+"US 4.4 - CI/CD Vercel","Connecter repo à Vercel et valider preview deploys.",devops,,open
+"Tâche: Créer src/data/portfolio-data.ts","Créer le fichier de données statiques avec bio, compétences et projets.",task,,open
+"Tâche: Configurer Resend","Ajouter route API contact utilisant Resend et variables d'env.",task,,open
+"Tâche: ESLint/Prettier/Husky","Configurer linting et hooks pre-commit.",chore,,open
+"Tâche: Initial commit & branches","Initial commit, créer branches `develop`, `preprod`, `feature/initial-setup`.",task,,open
