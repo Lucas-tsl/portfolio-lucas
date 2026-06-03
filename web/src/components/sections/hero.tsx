@@ -24,7 +24,7 @@ export function HeroSection() {
               <ArrowRight size={16} />
             </a>
             <a
-              href={profile.links.github}
+              href={profile.github}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center rounded-full border border-zinc-300 px-6 py-3 text-sm font-semibold text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-900"
@@ -39,9 +39,9 @@ export function HeroSection() {
           <ul className="mt-4 space-y-3 text-sm text-zinc-700 dark:text-zinc-300">
             <li>• Data + IA appliquees a des besoins metier concrets</li>
             <li>• Performance web et conversion (Core Web Vitals)</li>
-            <li>• Execution produit de l'idee a la mise en prod</li>
+            <li>• Execution produit de l&apos;idee a la mise en prod</li>
           </ul>
-          <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">Base: {profile.location}</p>
+          <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">Base: Bordeaux</p>
         </div>
       </div>
     </section>
