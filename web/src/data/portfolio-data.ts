@@ -14,6 +14,7 @@ export const portfolioData = {
       category: "Développement",
       name: "Développement Web",
       description: "Création d'applications web modernes et performantes.",
+      focus: "JavaScript, TypeScript, Next.js, Node.js",
       items: ["JavaScript", "TypeScript", "PHP", "HTML/CSS", "Node.js", "Next.js", "Tailwind CSS"],
     },
     {
@@ -21,6 +22,7 @@ export const portfolioData = {
       category: "Bases de données",
       name: "Gestion de la Donnée",
       description: "Modélisation et requêtage de bases de données relationnelles et NoSQL.",
+      focus: "MongoDB, MySQL, PostgreSQL",
       items: ["MongoDB", "MySQL", "PostgreSQL"],
     },
     {
@@ -28,6 +30,7 @@ export const portfolioData = {
       category: "CMS & Design",
       name: "Conception & E-commerce",
       description: "Création de maquettes et intégration sur des CMS populaires.",
+      focus: "WordPress, PrestaShop, Figma",
       items: ["WordPress", "PrestaShop", "Figma", "Canva"],
     },
     {
@@ -35,6 +38,7 @@ export const portfolioData = {
       category: "Webmarketing & IA",
       name: "Visibilité & Automatisation",
       description: "Optimisation SEO, analyse de trafic et intégration de l'Intelligence Artificielle.",
+      focus: "SEO technique, Core Web Vitals, ChatGPT",
       items: ["SEO technique", "Core Web Vitals", "Google Analytics", "ChatGPT", "Copilot"],
     },
   ],
@@ -71,3 +75,4 @@ export const portfolioData = {
 
 export const profile = portfolioData.profile;
 export const technologyItems = portfolioData.skills;
+export const projects = portfolioData.projects;
