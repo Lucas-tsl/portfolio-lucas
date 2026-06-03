@@ -5,7 +5,7 @@ import { readContentDirectory } from "@/lib/content";
 export const metadata = {
   title: "Blog | Lucas Troteseil",
   description:
-    "Espace blog pour partager retours d'experience, methodes de travail et bonnes pratiques web.",
+    "Espace blog pour partager retours d&apos;experience, methodes de travail et bonnes pratiques web.",
 };
 
 export default function BlogPage() {
@@ -26,11 +26,11 @@ export default function BlogPage() {
         Journal technique
       </p>
       <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-zinc-950 dark:text-zinc-50">
-        Articles et retours d'experience
+        Articles et retours d&apos;experience
       </h1>
       <p className="mt-4 max-w-3xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
         Un espace pour publier des articles de fond: plugin WordPress, SEO, IA,
-        productivité, et idées utiles pour l'équipe ou les visiteurs du portfolio.
+        productivité, et idées utiles pour l&apos;équipe ou les visiteurs du portfolio.
       </p>
 
       <BlogBrowser posts={posts} />

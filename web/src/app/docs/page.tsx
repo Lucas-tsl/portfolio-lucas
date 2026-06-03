@@ -29,7 +29,7 @@ export default function DocsPage() {
         Documentations partagées
       </h1>
       <p className="mt-4 max-w-3xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Cet espace est pensé pour les collaborateurs de l'entreprise : processus,
+        Cet espace est pensé pour les collaborateurs de l&apos;entreprise : processus,
         checklists, guides techniques et ressources utiles pour travailler plus vite
         et plus proprement.
       </p>
