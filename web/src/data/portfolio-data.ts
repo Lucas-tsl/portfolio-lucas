@@ -1,3 +1,12 @@
+export type TechnologyItem = {
+  id: string;
+  category: string;
+  name: string;
+  description: string;
+  focus: string;
+  items: string[];
+};
+
 export const portfolioData = {
   profile: {
     name: "Lucas Troteseil",

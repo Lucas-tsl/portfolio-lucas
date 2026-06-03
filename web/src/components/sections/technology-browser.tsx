@@ -14,14 +14,16 @@ export function TechnologyBrowser({ technologies }: { technologies: TechnologyIt
     return technologies.filter((tech) => {
       const matchesQuery =
         !normalizedQuery ||
-        [tech.name, tech.description, tech.focus, tech.category, ...(tech.tags || [])]
+        [tech.name, tech.description, tech.focus, tech.category, ...(tech.items || [])]
           .filter(Boolean)
           .join(" ")
           .toLowerCase()
           .includes(normalizedQuery);
 
       const matchesFilter =
-        activeFilter === "all" || tech.category?.toLowerCase().includes(activeFilter) || tech.tags?.includes(activeFilter);
+        activeFilter === "all" || 
+        tech.category?.toLowerCase().includes(activeFilter) || 
+        tech.items?.some((item) => item.toLowerCase().replace(/[^a-z0-9]/g, "").includes(activeFilter.replace(/[^a-z0-9]/g, "")));
 
       return matchesQuery && matchesFilter;
     });
