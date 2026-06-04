@@ -1,8 +1,8 @@
 ﻿import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
-import { ContactFormEmail } from "@/emails/ContactFormEmail";
-import { ContactConfirmationEmail } from "@/emails/ContactConfirmationEmail";
+import { ContactFormEmail } from "@/data/ContactFormEmail";
+import { ContactConfirmationEmail } from "@/data/ContactConfirmationEmail";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const contactEmail = process.env.CONTACT_EMAIL;
