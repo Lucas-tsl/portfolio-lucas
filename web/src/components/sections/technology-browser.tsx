@@ -1,11 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { TechnologyItem } from "@/data/portfolio-data";
+import type { SkillCategory } from "@/data/portfolio-data";
 
 const filters = ["all", "nextjs", "wordpress", "email", "tailwind"] as const;
 
-export function TechnologyBrowser({ technologies }: { technologies: TechnologyItem[] }) {
+export function TechnologyBrowser({ technologies }: { technologies: SkillCategory[] }) {
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>("all");
 

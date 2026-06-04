@@ -86,3 +86,4 @@ export const portfolioData = {
 export const profile = portfolioData.profile;
 export const skillGroups = portfolioData.skills;
 export const projects = portfolioData.projects;
+export const technologyItems = portfolioData.skills;
