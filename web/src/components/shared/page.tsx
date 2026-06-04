@@ -7,15 +7,15 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="mx-auto w-full max-w-4xl px-6 py-16">
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300">
+    <main className="mx-auto w-full max-w-3xl px-6 py-24">
+      <p className="mb-4 inline-block rounded-full border border-amber-200/50 bg-amber-100/50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-800 dark:border-amber-800/30 dark:bg-amber-900/20 dark:text-amber-400">
         Mon parcours
       </p>
-      <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-zinc-950 dark:text-zinc-50">
+      <h1 className="text-4xl font-extrabold tracking-tight text-zinc-950 sm:text-5xl dark:text-zinc-50">
         À propos de moi
       </h1>
       
-      <div className="mt-10 space-y-8 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+      <div className="mt-12 space-y-8 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
         <p>
           Je m&apos;appelle Lucas Troteseil et je suis <strong>{profile.title}</strong>, basé à Bordeaux.
         </p>
