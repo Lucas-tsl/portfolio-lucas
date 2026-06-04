@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+﻿﻿import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
 import { profile } from "@/data/portfolio-data";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
@@ -12,10 +12,16 @@ export function Navbar() {
         </Link>
         
         <nav className="hidden items-center gap-6 md:flex">
+          <Link href="/about" className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">
+            À propos
+          </Link>
+          <Link href="/#projects" className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">
+            Projets
+          </Link>
           <Link href="/technologies" className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">
             Technologies
           </Link>
-          <Link href="/contact" className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">
+          <Link href="/#contact" className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">
             Contact
           </Link>
         </nav>
