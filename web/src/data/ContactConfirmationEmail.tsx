@@ -1,10 +1,11 @@
 import {
+  Html,
   Body,
-  Container,
   Head,
   Heading,
-  Html,
+  Container,
   Preview,
+  Section,
   Text,
 } from "@react-email/components";
 import * as React from "react";
@@ -15,47 +16,48 @@ interface ContactConfirmationEmailProps {
 
 export const ContactConfirmationEmail = ({
   name,
-}: ContactConfirmationEmailProps) => (
-  <Html>
-    <Head />
-    <Preview>Confirmation de votre prise de contact</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Heading style={heading}>Merci pour votre message, {name} !</Heading>
-        <Text style={paragraph}>
-          J'ai bien reçu votre demande de contact. Je reviens vers vous dans les plus brefs délais.
-        </Text>
-        <Text style={paragraph}>
-          À très bientôt,
-          <br />
-          Lucas Troteseil
-        </Text>
-      </Container>
-    </Body>
-  </Html>
-);
+}: ContactConfirmationEmailProps) => {
+  return (
+    <Html>
+      <Head />
+      <Preview>Confirmation de réception de votre message</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Section style={section}>
+            <Heading style={heading}>Bonjour {name},</Heading>
+            <Text style={text}>
+              J'ai bien reçu votre message via mon portfolio et je vous en remercie.
+            </Text>
+            <Text style={text}>
+              Je prendrai le temps de le lire attentivement et je reviendrai vers vous dans les plus brefs délais.
+            </Text>
+            <Text style={text}>
+              Cordialement,
+              <br />
+              Lucas Troteseil
+            </Text>
+          </Section>
+        </Container>
+      </Body>
+    </Html>
+  );
+};
 
-export default ContactConfirmationEmail;
-
-// Styles
 const main = {
-  backgroundColor: "#ffffff",
+  backgroundColor: "#f6f9fc",
   fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
 };
 
 const container = {
+  backgroundColor: "#ffffff",
   margin: "0 auto",
   padding: "20px 0 48px",
+  marginBottom: "64px",
 };
 
-const heading = {
-  fontSize: "28px",
-  fontWeight: "bold",
-  marginTop: "48px",
-};
+const section = { padding: "0 48px" };
 
-const paragraph = {
-  fontSize: "16px",
-  lineHeight: "26px",
-};
+const heading = { fontSize: "24px", letterSpacing: "-0.5px", lineHeight: "1.3", fontWeight: "400", color: "#484848", padding: "17px 0 0" };
+
+const text = { margin: "0 0 10px 0", textAlign: "left" as const, color: "#333", fontSize: "16px", lineHeight: "24px" };
