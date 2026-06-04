@@ -1,4 +1,4 @@
-﻿export type TechnologyItem = {
+﻿export type SkillCategory = {
   id: string;
   category: string;
   name: string;
@@ -84,6 +84,5 @@ export const portfolioData = {
 };
 
 export const profile = portfolioData.profile;
-export const technologyItems = portfolioData.skills;
 export const skillGroups = portfolioData.skills;
 export const projects = portfolioData.projects;
