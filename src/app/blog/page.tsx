@@ -5,7 +5,7 @@ import { readContentDirectory } from "@/lib/content";
 export const metadata = {
   title: "Blog | Lucas Troteseil",
   description:
-    "Espace blog pour partager retours d&apos;experience, methodes de travail et bonnes pratiques web.",
+    "Espace blog pour partager retours d'expérience, méthodes de travail et bonnes pratiques web.",
 };
 
 export default function BlogPage() {

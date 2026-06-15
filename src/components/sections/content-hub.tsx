@@ -5,21 +5,21 @@ const spaces = [
     title: "Documentations",
     href: "/docs",
     description:
-      "Ressources internes, guides de fonctionnement et checklists pour l&apos;équipe et les collaborateurs.",
+      "Ressources internes, guides de fonctionnement et checklists pour l'équipe et les collaborateurs.",
     label: "Espace lecture",
   },
   {
     title: "Blog",
     href: "/blog",
     description:
-      "Articles de fond, retours d&apos;expérience et sujets utiles autour du web, du SEO et de l&apos;IA.",
+      "Articles de fond, retours d'expérience et sujets utiles autour du web, du SEO et de l'IA.",
     label: "Publication",
   },
   {
     title: "Technologies",
     href: "/technologies",
     description:
-      "La stack que j&apos;utilise pour construire vite, proprement et de manière maintenable.",
+      "La stack que j'utilise pour construire vite, proprement et de manière maintenable.",
     label: "Stack",
   },
 ];

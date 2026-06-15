@@ -38,7 +38,7 @@ export function ContactSection() {
 
       form.reset();
       setStatus("success");
-      setMessage("Message envoye avec succes.");
+      setMessage("Message envoyé avec succès !");
     } catch {
       setStatus("error");
       setMessage("Impossible de contacter le serveur actuellement.");

@@ -4,7 +4,7 @@ import { skillGroups } from "@/data/portfolio-data";
 export function SkillsSection() {
   return (
     <section className="mx-auto w-full max-w-6xl px-6 py-14">
-      <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-3xl">Competences</h2>
+      <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-3xl">Compétences</h2>
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         {skillGroups.map((group) => (
           <article key={group.id} className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">

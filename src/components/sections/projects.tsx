@@ -21,7 +21,7 @@ export function ProjectsSection() {
             <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">{project.title}</h3>
             <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">{project.description}</p>
             <p className="mt-3 text-sm text-zinc-700 dark:text-zinc-300">
-              <span className="font-semibold">Role:</span> {project.role}
+              <span className="font-semibold">Rôle :</span> {project.role}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {project.technologies.map((tech) => (

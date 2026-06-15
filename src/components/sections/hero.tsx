@@ -37,9 +37,9 @@ export function HeroSection() {
         <div className="rounded-3xl border border-zinc-200 bg-white/90 p-6 shadow-xl shadow-zinc-200/60 dark:border-zinc-800 dark:bg-zinc-900/70 dark:shadow-zinc-950/30">
           <p className="text-sm uppercase tracking-widest text-zinc-500">Focus</p>
           <ul className="mt-4 space-y-3 text-sm text-zinc-700 dark:text-zinc-300">
-            <li>• Data + IA appliquees a des besoins metier concrets</li>
+            <li>• Data + IA appliquées à des besoins métier concrets</li>
             <li>• Performance web et conversion (Core Web Vitals)</li>
-            <li>• Execution produit de l&apos;idee a la mise en prod</li>
+            <li>• Exécution produit de l&apos;idée à la mise en prod</li>
           </ul>
           <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">Base: Bordeaux</p>
         </div>
