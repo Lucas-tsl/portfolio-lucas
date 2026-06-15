@@ -20,7 +20,7 @@ export default function MentionsLegalesPage() {
             <strong className="text-zinc-800 dark:text-zinc-200">Lucas Troteseil</strong><br />
             Chef de projet Data / IA &amp; Développeur Web<br />
             Bordeaux, France<br />
-            Email : <a href="mailto:contact@lucastroteseil.com" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">contact@lucastroteseil.com</a>
+            Email : <a href="mailto:troteseil.lucas@gmail.com" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">troteseil.lucas@gmail.com</a>
           </p>
           <p className="mt-3 text-xs text-zinc-500">
             Ce site est un portfolio personnel. Lucas Troteseil n&apos;est pas assujetti à la TVA au titre de cette activité de présentation.

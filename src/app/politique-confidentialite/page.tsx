@@ -19,7 +19,7 @@ export default function PolitiqueConfidentialitePage() {
           <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">Responsable du traitement</h2>
           <p className="mt-3">
             <strong className="text-zinc-800 dark:text-zinc-200">Lucas Troteseil</strong><br />
-            Email : <a href="mailto:contact@lucastroteseil.com" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">contact@lucastroteseil.com</a>
+            Email : <a href="mailto:troteseil.lucas@gmail.com" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">troteseil.lucas@gmail.com</a>
           </p>
         </section>
 
@@ -75,8 +75,8 @@ export default function PolitiqueConfidentialitePage() {
           </ul>
           <p className="mt-3">
             Pour exercer ces droits, contactez :{" "}
-            <a href="mailto:contact@lucastroteseil.com" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">
-              contact@lucastroteseil.com
+            <a href="mailto:troteseil.lucas@gmail.com" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">
+              troteseil.lucas@gmail.com
             </a>
           </p>
           <p className="mt-3">
