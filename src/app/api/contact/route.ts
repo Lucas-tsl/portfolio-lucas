@@ -121,7 +121,7 @@ export async function POST(req: Request) {
 
     const ownerEmail = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
-      to: process.env.CONTACT_EMAIL || "contact@lucastroteseil.com",
+      to: process.env.CONTACT_EMAIL || "troteseil.lucas@gmail.com",
       subject: `[${subjectLabel}] Nouveau message de ${name} via le Portfolio`,
       html: ownerEmailHtml(name, email, subject, message),
     });

@@ -1,6 +1,9 @@
 /* tailwind v4 */
 @import "tailwindcss";
 
+/* Dark mode via class (.dark sur <html>) — nécessaire pour next-themes avec attribute="class" */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #09090b;

@@ -133,6 +133,24 @@ export const portfolioData = {
       ],
     },
     {
+      id: "kaizen-formations",
+      title: "Kaizen Formations",
+      description:
+        "Site vitrine développé de A à Z pour une psychologue proposant des formations en développement personnel. Conception de l'architecture, design, développement WordPress, rédaction structurée du contenu et mise en ligne.",
+      role: "Développeur Full-Stack & Intégrateur WordPress",
+      status: "Déployé",
+      year: "2024",
+      technologies: ["WordPress", "PHP", "Elementor", "ACF", "SEO technique", "CSS"],
+      githubUrl: "",
+      liveUrl: "https://www.kaizen-formations.fr/",
+      highlights: [
+        "Projet livré de zéro : brief client, maquette, développement et mise en production",
+        "Architecture de contenu pensée pour le référencement local et la conversion",
+        "Interface d'administration personnalisée pour une gestion autonome du contenu",
+        "Optimisation des performances et du SEO on-page dès la conception",
+      ],
+    },
+    {
       id: "portfolio",
       title: "Portfolio (ce site)",
       description:
