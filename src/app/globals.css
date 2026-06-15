@@ -131,6 +131,22 @@ body {
 .markdown-body th { background-color: #f4f4f5; font-weight: 600; }
 .dark .markdown-body th { background-color: #27272a; }
 
+/* Focus visible — ring cohérent sur tout le site */
+*:focus-visible {
+  outline: 2px solid #71717a;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip link — visible au focus clavier */
+.skip-link:focus {
+  clip: auto;
+  clip-path: none;
+  width: auto;
+  height: auto;
+  white-space: nowrap;
+}
+
 .hero-aura {
   position: absolute;
   inset: -120px auto auto -120px;

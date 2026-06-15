@@ -1,9 +1,14 @@
 import { profile, skillGroups } from "@/data/portfolio-data";
 
 export const metadata = {
-  title: "À propos | Lucas Troteseil",
+  title: "À propos",
   description:
     "Parcours professionnel, formation et activités de Lucas Troteseil — Chef de projet Data / IA & Développeur Web basé à Bordeaux.",
+  openGraph: {
+    title: "À propos — Lucas Troteseil",
+    description:
+      "Parcours professionnel, formation et activités actuelles — Chef de projet Data / IA & Développeur Web basé à Bordeaux.",
+  },
 };
 
 const experiences = [
