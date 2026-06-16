@@ -8,10 +8,10 @@
   --background: #ffffff;
   --foreground: #09090b;
 
-  /* Accent palette */
-  --accent-from: #6366f1;   /* indigo-500 */
-  --accent-to:   #8b5cf6;   /* violet-500 */
-  --accent-mid:  #7c3aed;   /* violet-600 */
+  /* Accent palette — sky / teal */
+  --accent-from: #0284c7;   /* sky-600   */
+  --accent-to:   #0d9488;   /* teal-600  */
+  --accent-mid:  #0891b2;   /* cyan-600  */
 }
 
 @theme inline {
@@ -43,10 +43,10 @@ body {
 
 /* ────────────────────────────── Section tint ───────────────────────────── */
 .section-tint {
-  background: linear-gradient(180deg, transparent 0%, rgba(99, 102, 241, 0.04) 50%, transparent 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(2, 132, 199, 0.04) 50%, transparent 100%);
 }
 .dark .section-tint {
-  background: linear-gradient(180deg, transparent 0%, rgba(99, 102, 241, 0.06) 50%, transparent 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(2, 132, 199, 0.06) 50%, transparent 100%);
 }
 
 /* ────────────────────────────── Hero aura ──────────────────────────────── */
@@ -59,8 +59,8 @@ body {
   border-radius: 999px;
   background: radial-gradient(
     circle at center,
-    rgba(99, 102, 241, 0.18) 0%,
-    rgba(139, 92, 246, 0.10) 40%,
+    rgba(2, 132, 199, 0.18) 0%,
+    rgba(13, 148, 136, 0.10) 40%,
     transparent 70%
   );
   pointer-events: none;
@@ -115,8 +115,8 @@ body {
 .markdown-body li { margin-bottom: 0.25em; }
 .markdown-body ul { list-style-type: disc; }
 .markdown-body ol { list-style-type: decimal; }
-.markdown-body a { color: #6366f1; text-decoration: underline; text-underline-offset: 3px; }
-.dark .markdown-body a { color: #818cf8; }
+.markdown-body a { color: #0284c7; text-decoration: underline; text-underline-offset: 3px; }
+.dark .markdown-body a { color: #38bdf8; }
 .markdown-body strong { font-weight: 700; color: #18181b; }
 .dark .markdown-body strong { color: #f4f4f5; }
 .markdown-body em { font-style: italic; }
@@ -139,13 +139,13 @@ body {
 }
 .markdown-body pre code { background: none; padding: 0; color: inherit; }
 .markdown-body blockquote {
-  border-left: 4px solid #6366f1;
+  border-left: 4px solid #0284c7;
   padding-left: 1em;
   color: #71717a;
   font-style: italic;
   margin: 1em 0;
 }
-.dark .markdown-body blockquote { border-color: #818cf8; color: #a1a1aa; }
+.dark .markdown-body blockquote { border-color: #38bdf8; color: #a1a1aa; }
 .markdown-body hr { border: none; border-top: 1px solid #e4e4e7; margin: 2em 0; }
 .dark .markdown-body hr { border-color: #3f3f46; }
 .markdown-body table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem; }
@@ -173,8 +173,8 @@ body {
 .notion-body ul.notion-list { list-style: disc; }
 .notion-body ol.notion-list { list-style: decimal; }
 
-.notion-quote { border-left: 4px solid #6366f1; padding-left: 1em; color: #71717a; font-style: italic; margin: 1.25em 0; }
-.dark .notion-quote { border-color: #818cf8; color: #a1a1aa; }
+.notion-quote { border-left: 4px solid #0284c7; padding-left: 1em; color: #71717a; font-style: italic; margin: 1.25em 0; }
+.dark .notion-quote { border-color: #38bdf8; color: #a1a1aa; }
 
 .notion-code { background: #18181b; color: #d4d4d8; border-radius: 10px; padding: 1.25em 1.5em; overflow-x: auto; margin-bottom: 1em; font-size: 0.875rem; font-family: var(--font-geist-mono), monospace; }
 .notion-code code { background: none; }
@@ -187,14 +187,14 @@ body {
 .notion-callout-icon { font-size: 1.125rem; shrink-0: 0; margin-top: 0.1em; }
 
 .notion-todo { display: flex; align-items: flex-start; gap: 0.5em; margin-bottom: 0.4em; }
-.notion-todo input { margin-top: 0.2em; accent-color: #6366f1; }
+.notion-todo input { margin-top: 0.2em; accent-color: #0284c7; }
 
 .notion-image { margin: 1.5em 0; }
 .notion-image img { max-width: 100%; border-radius: 8px; }
 .notion-image figcaption { text-align: center; font-size: 0.8rem; color: #71717a; margin-top: 0.5em; }
 
-.notion-body a { color: #6366f1; text-decoration: underline; text-underline-offset: 3px; }
-.dark .notion-body a { color: #818cf8; }
+.notion-body a { color: #0284c7; text-decoration: underline; text-underline-offset: 3px; }
+.dark .notion-body a { color: #38bdf8; }
 .notion-body strong { font-weight: 700; color: #18181b; }
 .dark .notion-body strong { color: #f4f4f5; }
 .notion-body code { font-family: var(--font-geist-mono), monospace; font-size: 0.85em; background: #f4f4f5; border-radius: 4px; padding: 0.15em 0.4em; }
@@ -202,7 +202,7 @@ body {
 
 /* ──────────────────────── Focus visible ring ───────────────────────────── */
 *:focus-visible {
-  outline: 2px solid #6366f1;
+  outline: 2px solid #0284c7;
   outline-offset: 2px;
   border-radius: 4px;
 }

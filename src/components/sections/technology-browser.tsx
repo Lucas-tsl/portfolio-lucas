@@ -51,7 +51,7 @@ export function TechnologyBrowser({ technologies }: { technologies: TechnologyIt
               onClick={() => setActiveFilter(filter)}
               className={`rounded-full px-4 py-2 text-sm font-medium transition ${
                 activeFilter === filter
-                  ? "bg-indigo-600 text-white shadow-sm shadow-indigo-500/20 dark:bg-indigo-500"
+                  ? "bg-sky-600 text-white shadow-sm shadow-sky-500/20 dark:bg-sky-600"
                   : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
               }`}
             >

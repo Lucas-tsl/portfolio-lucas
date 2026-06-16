@@ -8,15 +8,16 @@ import type { Project, ProjectStatus } from "@/types/portfolio.types";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
 const STATUS_COLORS: Record<ProjectStatus, string> = {
-  Actif: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
-  Disponible: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-  Déployé: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400",
-  "En production": "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+  Actif:          "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
+  Disponible:     "bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400",
+  Déployé:        "bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400",
+  "En production":"bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 };
 
 const ALL = "Tout";
 
-function FilterButton({
+/* ── Filter pill ─────────────────────────────────────────────────── */
+function Pill({
   label,
   active,
   onClick,
@@ -27,11 +28,12 @@ function FilterButton({
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
-      className={`rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all ${
+      className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-medium transition-all ${
         active
-          ? "border-indigo-600 bg-indigo-600 text-white shadow-sm shadow-indigo-500/20 dark:border-indigo-500 dark:bg-indigo-500"
-          : "border-zinc-200 text-zinc-600 hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-zinc-500 dark:hover:text-zinc-200"
+          ? "bg-sky-600 text-white shadow-sm shadow-sky-500/20 dark:bg-sky-600"
+          : "border border-zinc-200 text-zinc-600 hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-zinc-500 dark:hover:text-zinc-200"
       }`}
     >
       {label}
@@ -39,6 +41,38 @@ function FilterButton({
   );
 }
 
+/* ── Filter group ────────────────────────────────────────────────── */
+function FilterRow({
+  label,
+  options,
+  active,
+  onSelect,
+}: {
+  label: string;
+  options: string[];
+  active: string;
+  onSelect: (v: string) => void;
+}) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className="w-20 shrink-0 text-xs font-semibold text-zinc-400 dark:text-zinc-600">
+        {label}
+      </span>
+      <div className="flex flex-wrap gap-1.5" role="group" aria-label={`Filtrer par ${label}`}>
+        {options.map((opt) => (
+          <Pill
+            key={opt}
+            label={opt}
+            active={active === opt}
+            onClick={() => onSelect(opt)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── Project card ────────────────────────────────────────────────── */
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <motion.article
@@ -109,7 +143,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             href={project.githubUrl}
             target="_blank"
             rel="noreferrer"
-            aria-label={`Voir le code source de ${project.title} sur GitHub`}
+            aria-label={`Code source de ${project.title} sur GitHub`}
             className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-xs font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
           >
             <Github size={14} aria-hidden="true" />
@@ -122,7 +156,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             target="_blank"
             rel="noreferrer"
             aria-label={`Voir ${project.title} en ligne`}
-            className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-medium text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+            className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-sky-700 dark:bg-sky-600 dark:hover:bg-sky-500"
           >
             <ExternalLink size={14} aria-hidden="true" />
             Voir en ligne
@@ -133,6 +167,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
+/* ── Main browser ────────────────────────────────────────────────── */
 export function ProjectsBrowser() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string>(ALL);
@@ -140,13 +175,13 @@ export function ProjectsBrowser() {
   const [activeStatus, setActiveStatus] = useState<string>(ALL);
 
   const categories = useMemo(() => {
-    const unique = [...new Set(projects.map((p) => p.category))];
-    return [ALL, ...unique.sort()];
+    const unique = [...new Set(projects.map((p) => p.category))].sort();
+    return [ALL, ...unique];
   }, []);
 
   const years = useMemo(() => {
-    const unique = [...new Set(projects.map((p) => p.year))];
-    return [ALL, ...unique.sort((a, b) => Number(b) - Number(a))];
+    const unique = [...new Set(projects.map((p) => p.year))].sort((a, b) => Number(b) - Number(a));
+    return [ALL, ...unique];
   }, []);
 
   const statuses = useMemo(() => {
@@ -165,8 +200,7 @@ export function ProjectsBrowser() {
     });
   }, [search, activeCategory, activeYear, activeStatus]);
 
-  const hasActiveFilters =
-    search || activeCategory !== ALL || activeYear !== ALL || activeStatus !== ALL;
+  const hasActiveFilters = search || activeCategory !== ALL || activeYear !== ALL || activeStatus !== ALL;
 
   function resetAll() {
     setSearch("");
@@ -189,59 +223,36 @@ export function ProjectsBrowser() {
           placeholder="Rechercher un projet, une techno…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-xl border border-zinc-300 bg-white py-2.5 pl-10 pr-4 text-sm text-zinc-900 outline-none transition focus:border-zinc-500 focus:ring-2 focus:ring-zinc-200 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-zinc-800 placeholder:text-zinc-400"
+          className="w-full rounded-xl border border-zinc-300 bg-white py-2.5 pl-10 pr-4 text-sm text-zinc-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-600 dark:focus:ring-sky-950 placeholder:text-zinc-400"
           aria-label="Rechercher un projet"
         />
       </div>
 
-      {/* Filters */}
-      <div className="mt-5 space-y-3">
-        <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrer par catégorie">
-          <span className="self-center text-xs font-semibold text-zinc-400 dark:text-zinc-600 w-16 shrink-0">
-            Catégorie
-          </span>
-          {categories.map((cat) => (
-            <FilterButton
-              key={cat}
-              label={cat}
-              active={activeCategory === cat}
-              onClick={() => setActiveCategory(cat)}
-            />
-          ))}
-        </div>
-
-        <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrer par année">
-          <span className="self-center text-xs font-semibold text-zinc-400 dark:text-zinc-600 w-16 shrink-0">
-            Année
-          </span>
-          {years.map((year) => (
-            <FilterButton
-              key={year}
-              label={year}
-              active={activeYear === year}
-              onClick={() => setActiveYear(year)}
-            />
-          ))}
-        </div>
-
-        <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrer par statut">
-          <span className="self-center text-xs font-semibold text-zinc-400 dark:text-zinc-600 w-16 shrink-0">
-            Statut
-          </span>
-          {statuses.map((s) => (
-            <FilterButton
-              key={s}
-              label={s}
-              active={activeStatus === s}
-              onClick={() => setActiveStatus(s)}
-            />
-          ))}
-        </div>
+      {/* Filter rows */}
+      <div className="mt-5 space-y-3 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50">
+        <FilterRow
+          label="Catégorie"
+          options={categories}
+          active={activeCategory}
+          onSelect={setActiveCategory}
+        />
+        <FilterRow
+          label="Année"
+          options={years}
+          active={activeYear}
+          onSelect={setActiveYear}
+        />
+        <FilterRow
+          label="Statut"
+          options={statuses}
+          active={activeStatus}
+          onSelect={setActiveStatus}
+        />
       </div>
 
       {/* Results header */}
-      <div className="mt-6 flex items-center justify-between">
-        <p className="text-sm text-zinc-500 dark:text-zinc-500">
+      <div className="mt-5 flex items-center justify-between">
+        <p className="text-sm text-zinc-500">
           {filtered.length} projet{filtered.length > 1 ? "s" : ""}
           {hasActiveFilters ? " trouvé" + (filtered.length > 1 ? "s" : "") : ""}
         </p>

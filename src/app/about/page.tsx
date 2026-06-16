@@ -1,4 +1,5 @@
 import { profile, skillGroups } from "@/data/portfolio-data";
+import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
 export const metadata = {
   title: "À propos",
@@ -184,9 +185,12 @@ function TagList({ tags }: { tags: string[] }) {
       {tags.map((t) => (
         <span
           key={t}
-          className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
+          title={t}
+          aria-label={t}
+          className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
         >
-          {t}
+          {hasTechIcon(t) && <TechIcon name={t} size={11} />}
+          <span aria-hidden="true">{getTechAbbrev(t)}</span>
         </span>
       ))}
     </div>
@@ -402,9 +406,12 @@ export default function AboutPage() {
                 {group.items.map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:border-zinc-700 dark:text-zinc-300"
+                    title={item}
+                    aria-label={item}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:border-zinc-700 dark:text-zinc-300"
                   >
-                    {item}
+                    {hasTechIcon(item) && <TechIcon name={item} size={11} />}
+                    <span aria-hidden="true">{getTechAbbrev(item)}</span>
                   </span>
                 ))}
               </div>

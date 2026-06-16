@@ -18,7 +18,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease, delay: 0 }}
-            className="mb-4 inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-700 dark:border-indigo-800 dark:bg-indigo-950/40 dark:text-indigo-300"
+            className="mb-4 inline-flex rounded-full border border-sky-200 bg-sky-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-sky-700 dark:border-sky-800 dark:bg-sky-950/40 dark:text-sky-300"
           >
             Portfolio 2026
           </motion.p>
@@ -58,7 +58,7 @@ export function HeroSection() {
           >
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-indigo-500/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-500/25 transition hover:-translate-y-0.5 hover:bg-sky-700 hover:shadow-sky-500/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
             >
               Me contacter
               <ArrowRight size={16} aria-hidden="true" />
@@ -79,17 +79,17 @@ export function HeroSection() {
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease, delay: 0.2 }}
-          className="rounded-3xl border border-indigo-100 bg-white/90 p-6 shadow-xl shadow-indigo-500/10 dark:border-indigo-950 dark:bg-zinc-900/70"
+          className="rounded-3xl border border-sky-100 bg-white/90 p-6 shadow-xl shadow-sky-500/10 dark:border-sky-950 dark:bg-zinc-900/70"
           aria-label="Points d'expertise"
         >
-          <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 dark:text-indigo-400">Focus</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-sky-600 dark:text-sky-400">Focus</p>
           <ul className="mt-4 space-y-3 text-sm text-zinc-700 dark:text-zinc-300">
             <li className="flex items-start gap-2">
-              <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-500" aria-hidden="true" />
+              <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500" aria-hidden="true" />
               Data + IA appliquées à des besoins métier concrets
             </li>
             <li className="flex items-start gap-2">
-              <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500" aria-hidden="true" />
+              <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-500" aria-hidden="true" />
               Performance web et conversion (Core Web Vitals)
             </li>
             <li className="flex items-start gap-2">
