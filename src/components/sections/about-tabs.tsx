@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Briefcase, GraduationCap } from "lucide-react";
 import { profile, skillGroups } from "@/data/portfolio-data";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
@@ -178,7 +178,6 @@ function TagList({ tags }: { tags: string[] }) {
       {tags.map((t) => (
         <span
           key={t}
-          title={t}
           aria-label={t}
           className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
         >
@@ -190,252 +189,137 @@ function TagList({ tags }: { tags: string[] }) {
   );
 }
 
-/* ─── Onglet Professionnel ────────────────────────────────── */
+/* ─── Contenu des onglets ─────────────────────────────────── */
 
-function ProfessionalTab() {
+function ExperiencePanel() {
   return (
     <>
-      {/* Activités actuelles */}
-      <section className="mt-14" aria-labelledby="activities-heading">
-        <h2 id="activities-heading" className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-          En ce moment
-        </h2>
-        <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-500">Ce sur quoi je travaille actuellement</p>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {currentActivities.map((activity) => (
-            <div
-              key={activity.title}
-              className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900"
-            >
-              <div className="flex items-start gap-3">
-                <span className="text-2xl" aria-hidden="true">{activity.icon}</span>
-                <div>
-                  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{activity.title}</h3>
-                  <p className="mt-1.5 text-xs leading-5 text-zinc-600 dark:text-zinc-400">{activity.description}</p>
-                </div>
-              </div>
+      {/* NOVI */}
+      <div className="mt-6 rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="border-b border-zinc-100 px-6 py-4 dark:border-zinc-800">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-base font-bold text-zinc-900 dark:text-zinc-100">Groupe NOVI</p>
+              <p className="text-sm text-zinc-500">
+                Contrat en alternance · Bordeaux, Nouvelle-Aquitaine · Hybride
+              </p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Expérience professionnelle */}
-      <section className="mt-14" aria-labelledby="exp-heading">
-        <h2 id="exp-heading" className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-          Expérience professionnelle
-        </h2>
-
-        {/* NOVI */}
-        <div className="mt-6 rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
-          <div className="border-b border-zinc-100 px-6 py-4 dark:border-zinc-800">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <p className="text-base font-bold text-zinc-900 dark:text-zinc-100">Groupe NOVI</p>
-                <p className="text-sm text-zinc-500 dark:text-zinc-500">
-                  Contrat en alternance · Bordeaux, Nouvelle-Aquitaine · Hybride
-                </p>
-              </div>
-              <span className="shrink-0 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-                1 an 10 mois
-              </span>
-            </div>
-          </div>
-          <div className="divide-y divide-zinc-100 dark:divide-zinc-800">
-            {noviRoles.map((role) => (
-              <div key={role.role} className="px-6 py-5">
-                <div className="flex flex-wrap items-start justify-between gap-2">
-                  <div>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{role.role}</h3>
-                      {role.current && (
-                        <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-                          Poste actuel
-                        </span>
-                      )}
-                    </div>
-                    <p className="mt-0.5 text-xs text-zinc-500 dark:text-zinc-500">
-                      {role.type} · {role.duration}
-                    </p>
-                  </div>
-                  <span className="text-xs text-zinc-400 dark:text-zinc-600">{role.period}</span>
-                </div>
-                <p className="mt-2.5 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{role.description}</p>
-                <ul className="mt-2 space-y-1">
-                  {role.missions.map((m) => (
-                    <li key={m} className="flex items-start gap-2 text-xs text-zinc-500 dark:text-zinc-500">
-                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-zinc-400" aria-hidden="true" />
-                      {m}
-                    </li>
-                  ))}
-                </ul>
-                <TagList tags={role.tags} />
-              </div>
-            ))}
+            <span className="shrink-0 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+              1 an 10 mois
+            </span>
           </div>
         </div>
-
-        {/* Autres expériences */}
-        <div className="mt-6 space-y-6">
-          {otherExperiences.map((exp) => (
-            <div key={`${exp.company}-${exp.role}`} className="relative border-l-2 border-zinc-200 pl-6 dark:border-zinc-800">
-              <TimelineDot color="zinc" />
+        <div className="divide-y divide-zinc-100 dark:divide-zinc-800">
+          {noviRoles.map((role) => (
+            <div key={role.role} className="px-6 py-5">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
-                  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{exp.role}</h3>
-                  <p className="text-xs font-medium text-zinc-600 dark:text-zinc-400">
-                    {exp.company} · {exp.location}
-                  </p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{role.role}</h3>
+                    {role.current && (
+                      <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
+                        Poste actuel
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-0.5 text-xs text-zinc-500">{role.type} · {role.duration}</p>
                 </div>
-                <div className="flex flex-col items-end gap-1">
-                  <span className="text-xs text-zinc-400 dark:text-zinc-600">{exp.period}</span>
-                  <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-500">
-                    {exp.type} · {exp.duration}
-                  </span>
-                </div>
+                <span className="text-xs text-zinc-400 dark:text-zinc-600">{role.period}</span>
               </div>
-              <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{exp.description}</p>
-              <TagList tags={exp.tags} />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Certifications */}
-      <section className="mt-14" aria-labelledby="certs-heading">
-        <h2 id="certs-heading" className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-          Certifications & veille
-        </h2>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-          {certifications.map((cert) => (
-            <div
-              key={cert.label}
-              className="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
-            >
-              <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{cert.label}</p>
-              <div className="mt-1 flex items-center justify-between">
-                <p className="text-xs text-zinc-500 dark:text-zinc-500">{cert.issuer}</p>
-                <p className="text-xs text-zinc-400 dark:text-zinc-600">{cert.year}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Compétences */}
-      <section className="mt-14" aria-labelledby="skills-heading">
-        <h2 id="skills-heading" className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-          Compétences clés
-        </h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {skillGroups.map((group) => (
-            <div
-              key={group.id}
-              className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900"
-            >
-              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                {group.category}
-              </p>
-              <p className="mt-1 text-sm font-semibold text-zinc-900 dark:text-zinc-100">{group.name}</p>
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {group.items.map((item) => (
-                  <span
-                    key={item}
-                    title={item}
-                    aria-label={item}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:border-zinc-700 dark:text-zinc-300"
-                  >
-                    {hasTechIcon(item) && <TechIcon name={item} size={11} />}
-                    <span aria-hidden="true">{getTechAbbrev(item)}</span>
-                  </span>
+              <p className="mt-2.5 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{role.description}</p>
+              <ul className="mt-2 space-y-1">
+                {role.missions.map((m) => (
+                  <li key={m} className="flex items-start gap-2 text-xs text-zinc-500">
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-zinc-400" aria-hidden="true" />
+                    {m}
+                  </li>
                 ))}
-              </div>
+              </ul>
+              <TagList tags={role.tags} />
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* Perso */}
-      <section className="mt-14" aria-labelledby="personal-heading">
-        <h2 id="personal-heading" className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-          En dehors du travail
-        </h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
-            <p className="text-2xl" aria-hidden="true">🏄</p>
-            <p className="mt-3 text-sm font-semibold text-zinc-900 dark:text-zinc-100">Surf</p>
-            <p className="mt-1 text-xs leading-5 text-zinc-600 dark:text-zinc-400">
-              Dans l&apos;océan dès que possible. La côte atlantique est juste là.
-            </p>
+      {/* Autres expériences */}
+      <div className="mt-6 space-y-6">
+        {otherExperiences.map((exp) => (
+          <div key={`${exp.company}-${exp.role}`} className="relative border-l-2 border-zinc-200 pl-6 dark:border-zinc-800">
+            <TimelineDot color="zinc" />
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <div>
+                <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{exp.role}</h3>
+                <p className="text-xs font-medium text-zinc-600 dark:text-zinc-400">
+                  {exp.company} · {exp.location}
+                </p>
+              </div>
+              <div className="flex flex-col items-end gap-1">
+                <span className="text-xs text-zinc-400 dark:text-zinc-600">{exp.period}</span>
+                <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-500">
+                  {exp.type} · {exp.duration}
+                </span>
+              </div>
+            </div>
+            <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{exp.description}</p>
+            <TagList tags={exp.tags} />
           </div>
-          <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
-            <p className="text-2xl" aria-hidden="true">🧗</p>
-            <p className="mt-3 text-sm font-semibold text-zinc-900 dark:text-zinc-100">Escalade</p>
-            <p className="mt-1 text-xs leading-5 text-zinc-600 dark:text-zinc-400">
-              Bloc en salle et en extérieur. Un bon exutoire après une semaine chargée.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
-            <p className="text-2xl" aria-hidden="true">🗾</p>
-            <p className="mt-3 text-sm font-semibold text-zinc-900 dark:text-zinc-100">Japonais</p>
-            <p className="mt-1 text-xs leading-5 text-zinc-600 dark:text-zinc-400">
-              Apprentissage autodidacte en cours. Hiragana, katakana et premiers kanji.
-            </p>
-          </div>
-        </div>
-      </section>
+        ))}
+      </div>
     </>
   );
 }
 
-/* ─── Onglet Formation ────────────────────────────────────── */
-
-function FormationTab() {
+function FormationPanel() {
   return (
-    <section className="mt-14" aria-labelledby="edu-heading">
-      <h2 id="edu-heading" className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-        Formation
-      </h2>
-      <div className="mt-6 space-y-6">
-        {education.map((edu) => (
-          <div key={edu.degree} className="relative border-l-2 border-zinc-200 pl-6 dark:border-zinc-800">
-            <TimelineDot color={edu.current ? "amber" : "zinc"} />
-            <div className="flex flex-wrap items-start justify-between gap-2">
-              <div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{edu.degree}</h3>
-                  {edu.current && (
-                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-                      En cours
-                    </span>
-                  )}
-                </div>
-                <p className="text-xs text-zinc-500 dark:text-zinc-500">{edu.school}</p>
+    <div className="mt-6 space-y-6">
+      {education.map((edu) => (
+        <div key={edu.degree} className="relative border-l-2 border-zinc-200 pl-6 dark:border-zinc-800">
+          <TimelineDot color={edu.current ? "amber" : "zinc"} />
+          <div className="flex flex-wrap items-start justify-between gap-2">
+            <div>
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{edu.degree}</h3>
+                {edu.current && (
+                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
+                    En cours
+                  </span>
+                )}
               </div>
-              <span className="text-xs text-zinc-400 dark:text-zinc-600">{edu.period}</span>
+              <p className="text-xs text-zinc-500 dark:text-zinc-500">{edu.school}</p>
             </div>
-            <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{edu.description}</p>
-            <TagList tags={edu.tags} />
+            <span className="text-xs text-zinc-400 dark:text-zinc-600">{edu.period}</span>
           </div>
-        ))}
-      </div>
-    </section>
+          <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{edu.description}</p>
+          <TagList tags={edu.tags} />
+        </div>
+      ))}
+    </div>
   );
 }
 
-/* ─── Composant principal ─────────────────────────────────── */
+/* ─── Page principale ─────────────────────────────────────── */
 
-type Tab = "pro" | "formation";
-
-const TABS: { id: Tab; label: string; icon: React.ElementType }[] = [
-  { id: "pro", label: "Professionnel", icon: Briefcase },
-  { id: "formation", label: "Formation", icon: GraduationCap },
-];
+type Tab = "experience" | "formation";
 
 export function AboutContent() {
-  const [activeTab, setActiveTab] = useState<Tab>("pro");
+  const [activeTab, setActiveTab] = useState<Tab>("experience");
+  const [showNav, setShowNav] = useState(false);
+  const tabSectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const check = () => {
+      if (!tabSectionRef.current) return;
+      const top = tabSectionRef.current.getBoundingClientRect().top;
+      setShowNav(top < window.innerHeight * 0.85);
+    };
+    window.addEventListener("scroll", check, { passive: true });
+    check();
+    return () => window.removeEventListener("scroll", check);
+  }, []);
 
   return (
-    <main className="mx-auto w-full max-w-4xl px-6 py-16 pb-32">
+    <main className="mx-auto w-full max-w-4xl px-6 py-16 pb-28">
+
       {/* En-tête */}
       <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300">
         Mon parcours
@@ -465,44 +349,149 @@ export function AboutContent() {
         </p>
       </div>
 
-      {/* Contenu de l'onglet actif */}
-      {activeTab === "pro" ? <ProfessionalTab /> : <FormationTab />}
-
-      {/* ── Bottom navigation bar ─────────────────────────── */}
-      <nav
-        aria-label="Sections du parcours"
-        className="fixed bottom-0 left-0 right-0 z-40 border-t border-zinc-200/80 bg-white/90 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/90"
-      >
-        <div className="mx-auto flex max-w-xs items-center justify-around py-2 px-4">
-          {TABS.map(({ id, label, icon: Icon }) => {
-            const active = activeTab === id;
-            return (
-              <button
-                key={id}
-                onClick={() => { setActiveTab(id); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                aria-current={active ? "page" : undefined}
-                className={`flex flex-col items-center gap-1 rounded-2xl px-6 py-2 transition-colors ${
-                  active
-                    ? "text-emerald-600 dark:text-emerald-400"
-                    : "text-zinc-400 hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-300"
-                }`}
-              >
-                <Icon
-                  size={22}
-                  aria-hidden="true"
-                  strokeWidth={active ? 2.2 : 1.6}
-                />
-                <span className={`text-[11px] font-semibold tracking-wide ${active ? "" : "font-medium"}`}>
-                  {label}
-                </span>
-                {active && (
-                  <span className="h-1 w-5 rounded-full bg-emerald-500 dark:bg-emerald-400" aria-hidden="true" />
-                )}
-              </button>
-            );
-          })}
+      {/* Activités actuelles */}
+      <section className="mt-14" aria-labelledby="activities-heading">
+        <h2 id="activities-heading" className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+          En ce moment
+        </h2>
+        <p className="mt-2 text-sm text-zinc-500">Ce sur quoi je travaille actuellement</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {currentActivities.map((activity) => (
+            <div
+              key={activity.title}
+              className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900"
+            >
+              <div className="flex items-start gap-3">
+                <span className="text-2xl" aria-hidden="true">{activity.icon}</span>
+                <div>
+                  <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{activity.title}</h3>
+                  <p className="mt-1.5 text-xs leading-5 text-zinc-600 dark:text-zinc-400">{activity.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </nav>
+      </section>
+
+      {/* ── Section à onglets ─────────────────────────────── */}
+      <section ref={tabSectionRef} className="mt-14" aria-labelledby="tab-section-heading">
+        <h2 id="tab-section-heading" className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+          {activeTab === "experience" ? "Expérience professionnelle" : "Formation"}
+        </h2>
+
+        {activeTab === "experience" ? <ExperiencePanel /> : <FormationPanel />}
+      </section>
+
+      {/* Certifications */}
+      <section className="mt-14" aria-labelledby="certs-heading">
+        <h2 id="certs-heading" className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+          Certifications & veille
+        </h2>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+          {certifications.map((cert) => (
+            <div
+              key={cert.label}
+              className="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
+            >
+              <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{cert.label}</p>
+              <div className="mt-1 flex items-center justify-between">
+                <p className="text-xs text-zinc-500">{cert.issuer}</p>
+                <p className="text-xs text-zinc-400 dark:text-zinc-600">{cert.year}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Compétences */}
+      <section className="mt-14" aria-labelledby="skills-heading">
+        <h2 id="skills-heading" className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+          Compétences clés
+        </h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {skillGroups.map((group) => (
+            <div
+              key={group.id}
+              className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                {group.category}
+              </p>
+              <p className="mt-1 text-sm font-semibold text-zinc-900 dark:text-zinc-100">{group.name}</p>
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {group.items.map((item) => (
+                  <span
+                    key={item}
+                    aria-label={item}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-700 dark:border-zinc-700 dark:text-zinc-300"
+                  >
+                    {hasTechIcon(item) && <TechIcon name={item} size={11} />}
+                    <span aria-hidden="true">{getTechAbbrev(item)}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Perso */}
+      <section className="mt-14" aria-labelledby="personal-heading">
+        <h2 id="personal-heading" className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+          En dehors du travail
+        </h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {[
+            { icon: "🏄", title: "Surf", desc: "Dans l'océan dès que possible. La côte atlantique est juste là." },
+            { icon: "🧗", title: "Escalade", desc: "Bloc en salle et en extérieur. Un bon exutoire après une semaine chargée." },
+            { icon: "🗾", title: "Japonais", desc: "Apprentissage autodidacte en cours. Hiragana, katakana et premiers kanji." },
+          ].map(({ icon, title, desc }) => (
+            <div key={title} className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+              <p className="text-2xl" aria-hidden="true">{icon}</p>
+              <p className="mt-3 text-sm font-semibold text-zinc-900 dark:text-zinc-100">{title}</p>
+              <p className="mt-1 text-xs leading-5 text-zinc-600 dark:text-zinc-400">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Floating bottom nav ──────────────────────────── */}
+      <div
+        aria-hidden={!showNav}
+        className={`pointer-events-none fixed bottom-6 left-0 right-0 z-40 flex justify-center transition-all duration-300 ${
+          showNav ? "translate-y-0 opacity-100 pointer-events-auto" : "translate-y-3 opacity-0"
+        }`}
+      >
+        <nav
+          aria-label="Switcher parcours"
+          className="flex items-center gap-1 rounded-2xl border border-zinc-200/80 bg-white/90 p-1.5 shadow-xl shadow-zinc-200/60 backdrop-blur-md dark:border-zinc-700/60 dark:bg-zinc-900/90 dark:shadow-zinc-950/60"
+        >
+          <button
+            onClick={() => { setActiveTab("experience"); tabSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
+            aria-pressed={activeTab === "experience"}
+            className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-medium transition-colors ${
+              activeTab === "experience"
+                ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
+                : "text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
+            }`}
+          >
+            <Briefcase size={15} aria-hidden="true" strokeWidth={activeTab === "experience" ? 2.2 : 1.7} />
+            Expérience
+          </button>
+          <button
+            onClick={() => { setActiveTab("formation"); tabSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
+            aria-pressed={activeTab === "formation"}
+            className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-medium transition-colors ${
+              activeTab === "formation"
+                ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
+                : "text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
+            }`}
+          >
+            <GraduationCap size={15} aria-hidden="true" strokeWidth={activeTab === "formation" ? 2.2 : 1.7} />
+            Formation
+          </button>
+        </nav>
+      </div>
     </main>
   );
 }
