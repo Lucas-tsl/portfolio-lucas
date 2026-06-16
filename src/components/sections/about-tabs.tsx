@@ -161,6 +161,28 @@ const currentActivities = [
   },
 ];
 
+/* URLs des marques — à vérifier/compléter */
+const BRAND_URLS: Record<string, string> = {
+  "Les Senteurs Gourmandes": "https://www.lessenteursgourmandes.com",
+  "Jozz Beauty":             "https://www.jozzbeauty.fr",
+  "Physiomins":              "https://www.physiomins.fr",
+  "Pure Eden":               "https://www.pure-eden.fr",
+};
+
+function BrandLink({ name }: { name: string }) {
+  const href = BRAND_URLS[name] ?? "#";
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer noopener"
+      className="underline decoration-dotted decoration-zinc-300 underline-offset-2 transition-colors hover:decoration-zinc-500 dark:decoration-zinc-600 dark:hover:decoration-zinc-400"
+    >
+      {name}
+    </a>
+  );
+}
+
 /* ─── Composants partagés ─────────────────────────────────── */
 
 function TimelineDot({ color }: { color: "amber" | "zinc" | "emerald" }) {
@@ -226,7 +248,20 @@ function ExperiencePanel() {
                 </div>
                 <span className="text-xs text-zinc-400 dark:text-zinc-600">{role.period}</span>
               </div>
-              <p className="mt-2.5 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{role.description}</p>
+              <p className="mt-2.5 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                {role.current ? (
+                  <>
+                    Je soutiens des marques comme{" "}
+                    <BrandLink name="Les Senteurs Gourmandes" />,{" "}
+                    <BrandLink name="Jozz Beauty" />,{" "}
+                    <BrandLink name="Physiomins" /> et{" "}
+                    <BrandLink name="Pure Eden" />{" "}
+                    dans le développement, l&apos;optimisation et le positionnement stratégique de leurs plateformes digitales.
+                  </>
+                ) : (
+                  role.description
+                )}
+              </p>
               <ul className="mt-2 space-y-1">
                 {role.missions.map((m) => (
                   <li key={m} className="flex items-start gap-2 text-xs text-zinc-500">
@@ -338,9 +373,14 @@ export function AboutContent() {
         </p>
         <p>
           Je soutiens des marques comme{" "}
-          <em className="text-zinc-700 dark:text-zinc-300">Les Senteurs Gourmandes, Jozz Beauty, Physiomins</em> et{" "}
-          <em className="text-zinc-700 dark:text-zinc-300">Pure Eden</em> dans le développement et le positionnement
-          stratégique de leurs plateformes digitales — SEO technique, Core Web Vitals, écosystème Google et intégration IA.
+          <em className="text-zinc-700 dark:text-zinc-300">
+            <BrandLink name="Les Senteurs Gourmandes" />, <BrandLink name="Jozz Beauty" />, <BrandLink name="Physiomins" />
+          </em>{" "}
+          et{" "}
+          <em className="text-zinc-700 dark:text-zinc-300">
+            <BrandLink name="Pure Eden" />
+          </em>{" "}
+          dans le développement et le positionnement stratégique de leurs plateformes digitales — SEO technique, Core Web Vitals, écosystème Google et intégration IA.
         </p>
         <p>
           En parallèle, je poursuis un{" "}
