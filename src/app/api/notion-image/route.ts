@@ -6,6 +6,7 @@ const ALLOWED_HOSTS = [
   "secure.notion-static.com",
   "notion.so",
   "www.notion.so",
+  "img.notionusercontent.com",
   "images.unsplash.com",
 ];
 

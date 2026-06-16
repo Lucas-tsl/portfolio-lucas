@@ -137,7 +137,7 @@ export function renderNotionBlocks(
         const caption = renderRichText(props.caption);
         if (rawSrc) {
           // Proxy Notion S3 URLs to avoid signed URL expiry issues
-          const isNotionS3 = rawSrc.includes("amazonaws.com") || rawSrc.includes("notion-static.com") || rawSrc.includes("notion.so");
+          const isNotionS3 = rawSrc.includes("amazonaws.com") || rawSrc.includes("notion-static.com") || rawSrc.includes("notion.so") || rawSrc.includes("notionusercontent.com");
           const src = isNotionS3 ? `/api/notion-image?url=${encodeURIComponent(rawSrc)}` : rawSrc;
           lines.push(
             `<figure class="notion-image"><img src="${escapeHtml(src)}" alt="${escapeHtml(caption || title)}" loading="lazy" />${caption ? `<figcaption>${caption}</figcaption>` : ""}</figure>`

@@ -33,6 +33,8 @@ import {
   siLighthouse,
   siNotion,
   siYoutube,
+  siGooglesheets,
+  siAirtable,
 } from "simple-icons";
 
 type SI = { svg: string; hex: string; title: string };
@@ -85,6 +87,8 @@ const ICON_MAP: Record<string, SI> = {
   "vercel analytics":    siVercel,
   resend:                siResend,
   notion:                siNotion,
+  "google sheets":       siGooglesheets,
+  airtable:              siAirtable,
 
   // Video / Media
   "api youtube":         siYoutube,
@@ -220,6 +224,13 @@ const ABBREV_MAP: Record<string, string> = {
   "google places api":     "Places API",
   "core web vitals":       "CWV",
   "css mobile-first":      "CSS",
+  // Pas d'icône dans simple-icons — abréviation seule
+  "microsoft excel":       "Excel",
+  excel:                   "Excel",
+  bdd:                     "BDD",
+  "base de données":       "BDD",
+  "google sheets":         "Sheets",
+  airtable:                "Airtable",
 };
 
 export function getTechAbbrev(name: string): string {

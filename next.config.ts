@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "prod-files-secure.s3.us-west-2.amazonaws.com" },
       { protocol: "https", hostname: "secure.notion-static.com" },
       { protocol: "https", hostname: "*.notion.so" },
+      { protocol: "https", hostname: "img.notionusercontent.com" },
       { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
