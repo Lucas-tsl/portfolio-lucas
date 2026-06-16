@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { profile } from "@/data/portfolio-data";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
-import { Menu, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Accueil" },
@@ -63,7 +63,15 @@ export function Navbar() {
           })}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true, bubbles: true }))}
+            aria-label="Ouvrir la recherche (⌘K)"
+            className="hidden md:inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-xs text-zinc-500 transition hover:border-zinc-300 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-600"
+          >
+            <Search size={13} aria-hidden="true" />
+            <kbd className="font-mono text-[10px]">⌘K</kbd>
+          </button>
           <ThemeToggle />
           <button
             className="md:hidden text-zinc-700 dark:text-zinc-300 rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500"
