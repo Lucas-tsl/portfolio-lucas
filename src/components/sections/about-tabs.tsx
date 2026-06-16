@@ -458,8 +458,8 @@ export function AboutContent() {
       {/* ── Floating bottom nav ──────────────────────────── */}
       <div
         aria-hidden={!showNav}
-        className={`pointer-events-none fixed bottom-6 left-0 right-0 z-40 flex justify-center transition-all duration-300 ${
-          showNav ? "translate-y-0 opacity-100 pointer-events-auto" : "translate-y-3 opacity-0"
+        className={`fixed bottom-6 left-0 right-0 z-40 flex justify-center transition-all duration-300 ${
+          showNav ? "translate-y-0 opacity-100 pointer-events-auto" : "translate-y-3 opacity-0 pointer-events-none"
         }`}
       >
         <nav
