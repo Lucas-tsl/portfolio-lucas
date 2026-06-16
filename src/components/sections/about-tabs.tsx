@@ -344,8 +344,9 @@ export function AboutContent() {
   useEffect(() => {
     const check = () => {
       if (!tabSectionRef.current) return;
-      const top = tabSectionRef.current.getBoundingClientRect().top;
-      setShowNav(top < window.innerHeight * 0.85);
+      const rect = tabSectionRef.current.getBoundingClientRect();
+      // Show while section is between entering view and scrolling fully above
+      setShowNav(rect.top < window.innerHeight * 0.85 && rect.bottom > 120);
     };
     window.addEventListener("scroll", check, { passive: true });
     check();

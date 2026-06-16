@@ -21,7 +21,29 @@ export function AboutSection() {
             À propos
           </h2>
           <p className="mt-5 max-w-3xl text-base leading-relaxed text-zinc-700 dark:text-zinc-300">
-            {profile.about}
+            Chef de projet Data&nbsp;/&nbsp;IA en alternance chez Groupe NOVI à Bordeaux, où je travaille pour des marques comme{" "}
+            {(["Les Senteurs Gourmandes", "Jozz Beauty", "Physiomins", "Pure Eden"] as const).map((name, i, arr) => {
+              const urls: Record<string, string> = {
+                "Les Senteurs Gourmandes": "https://www.lessenteursgourmandes.com",
+                "Jozz Beauty":             "https://www.jozzbeauty.fr",
+                "Physiomins":              "https://www.physiomins.fr",
+                "Pure Eden":               "https://www.pure-eden.fr",
+              };
+              return (
+                <span key={name}>
+                  <a
+                    href={urls[name]}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="underline decoration-dotted decoration-zinc-300 underline-offset-2 transition-colors hover:decoration-zinc-500 dark:decoration-zinc-600 dark:hover:decoration-zinc-400"
+                  >
+                    {name}
+                  </a>
+                  {i < arr.length - 2 ? ", " : i === arr.length - 2 ? " et " : ""}
+                </span>
+              );
+            })}.{" "}
+            SEO technique, Core Web Vitals, écosystème Google et intégration de LLMs dans les processus métier. En parallèle, je poursuis un Master Data&nbsp;&amp;&nbsp;IA à Nexa Digital School. Dehors&nbsp;: surf sur l&apos;Atlantique, escalade, et japonais en autodidacte.
           </p>
           <div className="mt-6 flex flex-wrap gap-3 text-sm text-zinc-600 dark:text-zinc-400">
             <Link
