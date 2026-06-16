@@ -58,23 +58,20 @@ export function DocsBrowser({ docs }: { docs: DocItem[] }) {
   return (
     <div className="mt-10 space-y-6">
       {/* Search + filters */}
-      <div className="flex flex-col gap-4 rounded-3xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900 lg:flex-row lg:items-start lg:justify-between">
-        <label className="flex-1 grid gap-2 text-sm">
-          <span className="font-medium text-zinc-700 dark:text-zinc-300">Recherche</span>
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Chercher une documentation"
-            className="rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100"
-          />
-        </label>
-
-        <div className="relative">
+      <div className="flex items-center gap-3 rounded-3xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Chercher une documentation…"
+          aria-label="Rechercher une documentation"
+          className="min-w-0 flex-1 rounded-2xl border border-zinc-300 bg-white px-4 py-2.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-600"
+        />
+        <div className="relative shrink-0">
           <select
             aria-label="Filtrer les documentations"
             value={activeFilter}
             onChange={(e) => setActiveFilter(e.target.value)}
-            className="appearance-none cursor-pointer rounded-xl border border-zinc-300 bg-white py-2.5 pl-4 pr-10 text-sm font-medium text-zinc-700 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:focus:border-sky-600 dark:focus:ring-sky-950"
+            className="appearance-none cursor-pointer rounded-xl border border-zinc-300 bg-white py-2.5 pl-4 pr-9 text-sm font-medium text-zinc-700 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:focus:border-sky-600"
           >
             <option value="all">Toutes les docs</option>
             {hasNotion && <option value="notion">Groupe NOVI</option>}
@@ -82,11 +79,7 @@ export function DocsBrowser({ docs }: { docs: DocItem[] }) {
               <option key={cat} value={cat.toLowerCase()}>{cat}</option>
             ))}
           </select>
-          <ChevronDown
-            size={15}
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400"
-            aria-hidden="true"
-          />
+          <ChevronDown size={14} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400" aria-hidden="true" />
         </div>
       </div>
 

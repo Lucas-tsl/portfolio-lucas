@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 type BlogItem = {
   slug: string;
@@ -12,11 +13,18 @@ type BlogItem = {
   publishedAt?: string;
 };
 
-const filters = ["all", "wordpress", "ia", "seo"] as const;
+const FILTER_OPTIONS = [
+  { value: "all",       label: "Tous les articles" },
+  { value: "wordpress", label: "WordPress" },
+  { value: "ia",        label: "IA" },
+  { value: "seo",       label: "SEO" },
+] as const;
+
+type FilterValue = (typeof FILTER_OPTIONS)[number]["value"];
 
 export function BlogBrowser({ posts }: { posts: BlogItem[] }) {
   const [query, setQuery] = useState("");
-  const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>("all");
+  const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
 
   const filteredPosts = useMemo(() => {
     const normalizedQuery = query.toLowerCase();
@@ -34,32 +42,26 @@ export function BlogBrowser({ posts }: { posts: BlogItem[] }) {
 
   return (
     <div className="mt-10 space-y-6">
-      <div className="flex flex-col gap-4 rounded-3xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900 lg:flex-row lg:items-center lg:justify-between">
-        <label className="flex-1 grid gap-2 text-sm">
-          <span className="font-medium text-zinc-700 dark:text-zinc-300">Recherche</span>
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Chercher un article"
-            className="rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100"
-          />
-        </label>
-
-        <div className="flex flex-wrap gap-2">
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              type="button"
-              onClick={() => setActiveFilter(filter)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                activeFilter === filter
-                  ? "bg-zinc-950 text-white dark:bg-zinc-100 dark:text-zinc-900"
-                  : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
-              }`}
-            >
-              {filter}
-            </button>
-          ))}
+      <div className="flex items-center gap-3 rounded-3xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+        <input
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Chercher un article…"
+          aria-label="Rechercher un article"
+          className="min-w-0 flex-1 rounded-2xl border border-zinc-300 bg-white px-4 py-2.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-600"
+        />
+        <div className="relative shrink-0">
+          <select
+            aria-label="Filtrer par catégorie"
+            value={activeFilter}
+            onChange={(e) => setActiveFilter(e.target.value as FilterValue)}
+            className="appearance-none cursor-pointer rounded-xl border border-zinc-300 bg-white py-2.5 pl-4 pr-9 text-sm font-medium text-zinc-700 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:focus:border-sky-600"
+          >
+            {FILTER_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+          <ChevronDown size={14} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400" aria-hidden="true" />
         </div>
       </div>
 

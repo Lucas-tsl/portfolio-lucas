@@ -210,8 +210,8 @@ export function ProjectsBrowser() {
         />
       </div>
 
-      {/* Filter rows */}
-      <div className="mt-5 space-y-3 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50">
+      {/* Filter row */}
+      <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50">
         <SelectFilter
           label="Catégorie"
           options={categories}
