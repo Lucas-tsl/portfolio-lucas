@@ -1,8 +1,17 @@
+/* tailwind v4 */
 @import "tailwindcss";
 
+/* Dark mode via class (.dark sur <html>) — nécessaire pour next-themes avec attribute="class" */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #fffdf8;
-  --foreground: #131313;
+  --background: #ffffff;
+  --foreground: #09090b;
+
+  /* Accent palette — emerald / teal */
+  --accent-from: #059669;   /* emerald-600 */
+  --accent-to:   #0d9488;   /* teal-600    */
+  --accent-mid:  #10b981;   /* emerald-500 */
 }
 
 @theme inline {
@@ -21,17 +30,66 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Markdown rendered content */
+/* ───────────────────────────── Gradient text ───────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ────────────────────────────── Section tint ───────────────────────────── */
+.section-tint {
+  background: linear-gradient(180deg, transparent 0%, rgba(5, 150, 105, 0.04) 50%, transparent 100%);
+}
+.dark .section-tint {
+  background: linear-gradient(180deg, transparent 0%, rgba(5, 150, 105, 0.06) 50%, transparent 100%);
+}
+
+/* ────────────────────────────── Hero aura ──────────────────────────────── */
+.hero-aura {
+  position: absolute;
+  top: -80px;
+  left: -80px;
+  width: 480px;
+  height: 480px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle at center,
+    rgba(5, 150, 105, 0.18) 0%,
+    rgba(13, 148, 136, 0.10) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  filter: blur(40px);
+}
+.hero-aura-right {
+  position: absolute;
+  top: 0;
+  right: -60px;
+  width: 320px;
+  height: 320px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle at center,
+    rgba(251, 191, 36, 0.14) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  filter: blur(32px);
+}
+
+/* ──────────────────────────── Markdown content ─────────────────────────── */
 .markdown-body {
   font-size: 0.9375rem;
   line-height: 1.75;
   color: #3f3f46;
 }
-.dark .markdown-body {
-  color: #d4d4d8;
-}
+.dark .markdown-body { color: #d4d4d8; }
+
 .markdown-body h1,
 .markdown-body h2,
 .markdown-body h3,
@@ -45,28 +103,20 @@ body {
 .dark .markdown-body h1,
 .dark .markdown-body h2,
 .dark .markdown-body h3,
-.dark .markdown-body h4 {
-  color: #f4f4f5;
-}
+.dark .markdown-body h4 { color: #f4f4f5; }
+
 .markdown-body h1 { font-size: 1.5rem; }
 .markdown-body h2 { font-size: 1.25rem; border-bottom: 1px solid #e4e4e7; padding-bottom: 0.3em; }
 .dark .markdown-body h2 { border-color: #3f3f46; }
 .markdown-body h3 { font-size: 1.1rem; }
 .markdown-body p { margin-bottom: 1em; }
 .markdown-body ul,
-.markdown-body ol {
-  padding-left: 1.5em;
-  margin-bottom: 1em;
-}
+.markdown-body ol { padding-left: 1.5em; margin-bottom: 1em; }
 .markdown-body li { margin-bottom: 0.25em; }
 .markdown-body ul { list-style-type: disc; }
 .markdown-body ol { list-style-type: decimal; }
-.markdown-body a {
-  color: #18181b;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.dark .markdown-body a { color: #f4f4f5; }
+.markdown-body a { color: #059669; text-decoration: underline; text-underline-offset: 3px; }
+.dark .markdown-body a { color: #6ee7b7; }
 .markdown-body strong { font-weight: 700; color: #18181b; }
 .dark .markdown-body strong { color: #f4f4f5; }
 .markdown-body em { font-style: italic; }
@@ -77,10 +127,7 @@ body {
   border-radius: 4px;
   padding: 0.15em 0.4em;
 }
-.dark .markdown-body code {
-  background-color: #27272a;
-  color: #d4d4d8;
-}
+.dark .markdown-body code { background-color: #27272a; color: #d4d4d8; }
 .markdown-body pre {
   background-color: #18181b;
   color: #d4d4d8;
@@ -90,51 +137,81 @@ body {
   margin-bottom: 1em;
   font-size: 0.875rem;
 }
-.markdown-body pre code {
-  background: none;
-  padding: 0;
-  color: inherit;
-}
+.markdown-body pre code { background: none; padding: 0; color: inherit; }
 .markdown-body blockquote {
-  border-left: 4px solid #e4e4e7;
+  border-left: 4px solid #059669;
   padding-left: 1em;
   color: #71717a;
   font-style: italic;
   margin: 1em 0;
 }
-.dark .markdown-body blockquote {
-  border-color: #3f3f46;
-  color: #a1a1aa;
-}
-.markdown-body hr {
-  border: none;
-  border-top: 1px solid #e4e4e7;
-  margin: 2em 0;
-}
+.dark .markdown-body blockquote { border-color: #6ee7b7; color: #a1a1aa; }
+.markdown-body hr { border: none; border-top: 1px solid #e4e4e7; margin: 2em 0; }
 .dark .markdown-body hr { border-color: #3f3f46; }
-.markdown-body table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1em;
-  font-size: 0.875rem;
-}
+.markdown-body table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem; }
 .markdown-body th,
-.markdown-body td {
-  border: 1px solid #e4e4e7;
-  padding: 0.5em 0.75em;
-  text-align: left;
-}
+.markdown-body td { border: 1px solid #e4e4e7; padding: 0.5em 0.75em; text-align: left; }
 .dark .markdown-body th,
 .dark .markdown-body td { border-color: #3f3f46; }
 .markdown-body th { background-color: #f4f4f5; font-weight: 600; }
 .dark .markdown-body th { background-color: #27272a; }
 
-.hero-aura {
-  position: absolute;
-  inset: -120px auto auto -120px;
-  width: 360px;
-  height: 360px;
-  border-radius: 999px;
-  background: radial-gradient(circle at center, rgba(251, 191, 36, 0.28), rgba(251, 191, 36, 0));
-  pointer-events: none;
+/* ────────────────────────── Notion blocks ──────────────────────────────── */
+.notion-body { font-size: 0.9375rem; line-height: 1.75; color: #3f3f46; }
+.dark .notion-body { color: #d4d4d8; }
+
+.notion-h2 { font-size: 1.375rem; font-weight: 700; color: #18181b; margin: 1.75em 0 0.5em; border-bottom: 1px solid #e4e4e7; padding-bottom: 0.3em; }
+.notion-h3 { font-size: 1.15rem; font-weight: 700; color: #18181b; margin: 1.5em 0 0.4em; }
+.notion-h4 { font-size: 1rem; font-weight: 600; color: #18181b; margin: 1.25em 0 0.3em; }
+.dark .notion-h2, .dark .notion-h3, .dark .notion-h4 { color: #f4f4f5; border-color: #3f3f46; }
+
+.notion-p { margin-bottom: 0.875em; }
+.notion-spacer { height: 0.5em; }
+
+.notion-list { padding-left: 1.5em; margin-bottom: 1em; }
+.notion-list li { margin-bottom: 0.25em; }
+.notion-body ul.notion-list { list-style: disc; }
+.notion-body ol.notion-list { list-style: decimal; }
+
+.notion-quote { border-left: 4px solid #059669; padding-left: 1em; color: #71717a; font-style: italic; margin: 1.25em 0; }
+.dark .notion-quote { border-color: #6ee7b7; color: #a1a1aa; }
+
+.notion-code { background: #18181b; color: #d4d4d8; border-radius: 10px; padding: 1.25em 1.5em; overflow-x: auto; margin-bottom: 1em; font-size: 0.875rem; font-family: var(--font-geist-mono), monospace; }
+.notion-code code { background: none; }
+
+.notion-hr { border: none; border-top: 1px solid #e4e4e7; margin: 2em 0; }
+.dark .notion-hr { border-color: #3f3f46; }
+
+.notion-callout { display: flex; align-items: flex-start; gap: 0.75em; background: #f4f4f5; border-radius: 8px; padding: 1em 1.25em; margin-bottom: 1em; }
+.dark .notion-callout { background: #27272a; }
+.notion-callout-icon { font-size: 1.125rem; shrink-0: 0; margin-top: 0.1em; }
+
+.notion-todo { display: flex; align-items: flex-start; gap: 0.5em; margin-bottom: 0.4em; }
+.notion-todo input { margin-top: 0.2em; accent-color: #059669; }
+
+.notion-image { margin: 1.5em 0; }
+.notion-image img { max-width: 100%; border-radius: 8px; }
+.notion-image figcaption { text-align: center; font-size: 0.8rem; color: #71717a; margin-top: 0.5em; }
+
+.notion-body a { color: #059669; text-decoration: underline; text-underline-offset: 3px; }
+.dark .notion-body a { color: #6ee7b7; }
+.notion-body strong { font-weight: 700; color: #18181b; }
+.dark .notion-body strong { color: #f4f4f5; }
+.notion-body code { font-family: var(--font-geist-mono), monospace; font-size: 0.85em; background: #f4f4f5; border-radius: 4px; padding: 0.15em 0.4em; }
+.dark .notion-body code { background: #27272a; color: #d4d4d8; }
+
+/* ──────────────────────── Focus visible ring ───────────────────────────── */
+*:focus-visible {
+  outline: 2px solid #059669;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ────────────────────────── Skip link ──────────────────────────────────── */
+.skip-link:focus {
+  clip: auto;
+  clip-path: none;
+  width: auto;
+  height: auto;
+  white-space: nowrap;
 }

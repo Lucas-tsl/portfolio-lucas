@@ -1,6 +1,7 @@
 import path from "node:path";
 import { DocsBrowser } from "@/components/sections/docs-browser";
 import { readContentDirectory } from "@/lib/content";
+import { fetchNotionDocs } from "@/lib/notion";
 
 export const metadata = {
   title: "Documentations | Lucas Troteseil",
@@ -8,9 +9,10 @@ export const metadata = {
     "Espace de documentation pour les collaborateurs, avec guides, processus et ressources internes.",
 };
 
-export default function DocsPage() {
+export default async function DocsPage() {
   const docsDirectory = path.join(process.cwd(), "content/docs");
-  const docs = readContentDirectory(docsDirectory).map((doc) => ({
+
+  const localDocs = readContentDirectory(docsDirectory).map((doc) => ({
     slug: doc.slug,
     title: String(doc.frontmatter.title || doc.slug),
     summary: String(doc.frontmatter.summary || ""),
@@ -18,7 +20,12 @@ export default function DocsPage() {
     status: String(doc.frontmatter.status || ""),
     category: String(doc.frontmatter.category || ""),
     tags: Array.isArray(doc.frontmatter.tags) ? doc.frontmatter.tags : [],
+    source: "local" as const,
   }));
+
+  const notionDocs = await fetchNotionDocs();
+
+  const docs = [...localDocs, ...notionDocs];
 
   return (
     <main className="mx-auto w-full max-w-6xl px-6 py-16">
@@ -29,9 +36,8 @@ export default function DocsPage() {
         Documentations partagées
       </h1>
       <p className="mt-4 max-w-3xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-        Cet espace est pensé pour les collaborateurs de l&apos;entreprise : processus,
-        checklists, guides techniques et ressources utiles pour travailler plus vite
-        et plus proprement.
+        Cet espace regroupe les documentations locales et les ressources Notion du Groupe NOVI —
+        processus, guides techniques et références internes.
       </p>
 
       <DocsBrowser docs={docs} />

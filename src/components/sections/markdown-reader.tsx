@@ -1,6 +1,29 @@
 import { marked } from "marked";
+import sanitizeHtml from "sanitize-html";
 
 marked.setOptions({ gfm: true, breaks: true });
+
+const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
+  allowedTags: [
+    ...sanitizeHtml.defaults.allowedTags,
+    "img", "h1", "h2", "h3", "h4", "h5", "h6",
+    "details", "summary", "mark", "del", "ins",
+  ],
+  allowedAttributes: {
+    ...sanitizeHtml.defaults.allowedAttributes,
+    a: ["href", "name", "target", "rel"],
+    img: ["src", "alt", "title", "width", "height", "loading"],
+    code: ["class"],
+    pre: ["class"],
+    "*": ["id", "class"],
+  },
+  allowedSchemes: ["https", "http", "mailto"],
+};
+
+function renderMarkdown(body: string): string {
+  const raw = marked.parse(body) as string;
+  return sanitizeHtml(raw, SANITIZE_OPTIONS);
+}
 
 export function MarkdownReader({
   title,
@@ -13,7 +36,7 @@ export function MarkdownReader({
   body: string;
   metadata: Array<[string, string | string[] | undefined]>;
 }) {
-  const htmlBody = marked.parse(body) as string;
+  const htmlBody = renderMarkdown(body);
 
   return (
     <article className="mt-10 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">

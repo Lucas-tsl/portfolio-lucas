@@ -1,13 +1,23 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { ChevronDown } from "lucide-react";
 import type { TechnologyItem } from "@/data/portfolio-data";
+import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
-const filters = ["all", "nextjs", "wordpress", "email", "tailwind"] as const;
+const FILTER_OPTIONS = [
+  { value: "all",       label: "Toutes les stacks" },
+  { value: "nextjs",    label: "Next.js" },
+  { value: "wordpress", label: "WordPress" },
+  { value: "email",     label: "Email" },
+  { value: "tailwind",  label: "Tailwind CSS" },
+] as const;
+
+type FilterValue = (typeof FILTER_OPTIONS)[number]["value"];
 
 export function TechnologyBrowser({ technologies }: { technologies: TechnologyItem[] }) {
   const [query, setQuery] = useState("");
-  const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>("all");
+  const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
 
   const filteredTechnologies = useMemo(() => {
     const normalizedQuery = query.toLowerCase();
@@ -31,32 +41,26 @@ export function TechnologyBrowser({ technologies }: { technologies: TechnologyIt
 
   return (
     <div className="mt-10 space-y-6">
-      <div className="flex flex-col gap-4 rounded-3xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900 lg:flex-row lg:items-center lg:justify-between">
-        <label className="flex-1 grid gap-2 text-sm">
-          <span className="font-medium text-zinc-700 dark:text-zinc-300">Recherche</span>
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Chercher une technologie"
-            className="rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100"
-          />
-        </label>
-
-        <div className="flex flex-wrap gap-2">
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              type="button"
-              onClick={() => setActiveFilter(filter)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                activeFilter === filter
-                  ? "bg-zinc-950 text-white dark:bg-zinc-100 dark:text-zinc-900"
-                  : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
-              }`}
-            >
-              {filter}
-            </button>
-          ))}
+      <div className="flex items-center gap-3 rounded-3xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+        <input
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Chercher une technologie…"
+          aria-label="Rechercher une technologie"
+          className="min-w-0 flex-1 rounded-2xl border border-zinc-300 bg-white px-4 py-2.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-emerald-600"
+        />
+        <div className="relative shrink-0">
+          <select
+            aria-label="Filtrer par stack"
+            value={activeFilter}
+            onChange={(e) => setActiveFilter(e.target.value as FilterValue)}
+            className="appearance-none cursor-pointer rounded-xl border border-zinc-300 bg-white py-2.5 pl-4 pr-9 text-sm font-medium text-zinc-700 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:focus:border-emerald-600"
+          >
+            {FILTER_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+          <ChevronDown size={14} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400" aria-hidden="true" />
         </div>
       </div>
 
@@ -66,9 +70,24 @@ export function TechnologyBrowser({ technologies }: { technologies: TechnologyIt
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">{tech.category}</p>
             <h2 className="mt-3 text-xl font-bold text-zinc-950 dark:text-zinc-50">{tech.name}</h2>
             <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{tech.description}</p>
-            <div className="mt-5 rounded-2xl bg-zinc-100 p-4 text-sm text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-              <span className="font-semibold">Focus: </span>
-              {tech.focus}
+            <div className="mt-4 rounded-2xl bg-zinc-100 p-4 dark:bg-zinc-800">
+              <p className="mb-2 text-xs font-semibold text-zinc-500">Focus</p>
+              <div className="flex flex-wrap gap-2">
+                {tech.focus.split(",").map((f) => {
+                  const name = f.trim();
+                  return (
+                    <span
+                      key={name}
+                      title={name}
+                      aria-label={name}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-xs font-medium text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
+                    >
+                      {hasTechIcon(name) && <TechIcon name={name} size={12} />}
+                      <span aria-hidden="true">{getTechAbbrev(name)}</span>
+                    </span>
+                  );
+                })}
+              </div>
             </div>
           </article>
         ))}

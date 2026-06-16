@@ -3,9 +3,14 @@ import { BlogBrowser } from "@/components/sections/blog-browser";
 import { readContentDirectory } from "@/lib/content";
 
 export const metadata = {
-  title: "Blog | Lucas Troteseil",
+  title: "Blog",
   description:
-    "Espace blog pour partager retours d'expérience, méthodes de travail et bonnes pratiques web.",
+    "Articles sur le développement web, WordPress, le SEO technique, l'IA appliquée et la gestion de projet.",
+  openGraph: {
+    title: "Blog — Lucas Troteseil",
+    description:
+      "Articles sur le développement web, WordPress, le SEO technique, l'IA appliquée et la gestion de projet.",
+  },
 };
 
 export default function BlogPage() {

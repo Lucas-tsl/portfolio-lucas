@@ -2,9 +2,14 @@ import { technologyItems, profile } from "@/data/portfolio-data";
 import { TechnologyBrowser } from "@/components/sections/technology-browser";
 
 export const metadata = {
-  title: "Technologies | Lucas Troteseil",
+  title: "Technologies",
   description:
-    "Présentation des technologies utilisées sur le portfolio et dans les projets WordPress, SEO et fullstack.",
+    "Stack technique de Lucas Troteseil : Next.js, TypeScript, WordPress, outils SEO et solutions IA appliquées.",
+  openGraph: {
+    title: "Technologies — Lucas Troteseil",
+    description:
+      "Stack technique : Next.js, TypeScript, WordPress, outils SEO et solutions IA appliquées.",
+  },
 };
 
 export default function TechnologiesPage() {
