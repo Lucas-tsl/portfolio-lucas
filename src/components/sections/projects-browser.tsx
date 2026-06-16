@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, ExternalLink, Github, Search, X } from "lucide-react";
 import { projects } from "@/data/portfolio-data";
 import type { Project, ProjectStatus } from "@/types/portfolio.types";
+import { TechIcon, hasTechIcon } from "@/components/ui/tech-icon";
 
 const STATUS_COLORS: Record<ProjectStatus, string> = {
   Actif: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
@@ -29,7 +30,7 @@ function FilterButton({
       onClick={onClick}
       className={`rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all ${
         active
-          ? "border-zinc-900 bg-zinc-950 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
+          ? "border-indigo-600 bg-indigo-600 text-white shadow-sm shadow-indigo-500/20 dark:border-indigo-500 dark:bg-indigo-500"
           : "border-zinc-200 text-zinc-600 hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-zinc-500 dark:hover:text-zinc-200"
       }`}
     >
@@ -92,9 +93,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {project.technologies.map((tech) => (
           <span
             key={tech}
-            className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
+            title={tech}
+            className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-2.5 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
           >
-            {tech}
+            {hasTechIcon(tech) && <TechIcon name={tech} size={12} />}
+            <span>{tech}</span>
           </span>
         ))}
       </div>

@@ -69,10 +69,9 @@ export function Navbar() {
           <button
             onClick={togglePalette}
             aria-label="Ouvrir la recherche (⌘K)"
-            className="hidden md:inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-xs text-zinc-500 transition hover:border-zinc-300 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-600"
+            className="rounded-lg p-1.5 text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
           >
-            <Search size={13} aria-hidden="true" />
-            <kbd className="font-mono text-[10px]">⌘K</kbd>
+            <Search size={18} aria-hidden="true" />
           </button>
           <ThemeToggle />
           <button

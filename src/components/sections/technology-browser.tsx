@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { TechnologyItem } from "@/data/portfolio-data";
+import { TechIcon, hasTechIcon } from "@/components/ui/tech-icon";
 
 const filters = ["all", "nextjs", "wordpress", "email", "tailwind"] as const;
 
@@ -50,7 +51,7 @@ export function TechnologyBrowser({ technologies }: { technologies: TechnologyIt
               onClick={() => setActiveFilter(filter)}
               className={`rounded-full px-4 py-2 text-sm font-medium transition ${
                 activeFilter === filter
-                  ? "bg-zinc-950 text-white dark:bg-zinc-100 dark:text-zinc-900"
+                  ? "bg-indigo-600 text-white shadow-sm shadow-indigo-500/20 dark:bg-indigo-500"
                   : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
               }`}
             >
@@ -66,9 +67,22 @@ export function TechnologyBrowser({ technologies }: { technologies: TechnologyIt
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">{tech.category}</p>
             <h2 className="mt-3 text-xl font-bold text-zinc-950 dark:text-zinc-50">{tech.name}</h2>
             <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{tech.description}</p>
-            <div className="mt-5 rounded-2xl bg-zinc-100 p-4 text-sm text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-              <span className="font-semibold">Focus: </span>
-              {tech.focus}
+            <div className="mt-4 rounded-2xl bg-zinc-100 p-4 dark:bg-zinc-800">
+              <p className="mb-2 text-xs font-semibold text-zinc-500">Focus</p>
+              <div className="flex flex-wrap gap-2">
+                {tech.focus.split(",").map((f) => {
+                  const name = f.trim();
+                  return (
+                    <span
+                      key={name}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-xs font-medium text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
+                    >
+                      {hasTechIcon(name) && <TechIcon name={name} size={12} />}
+                      {name}
+                    </span>
+                  );
+                })}
+              </div>
             </div>
           </article>
         ))}
