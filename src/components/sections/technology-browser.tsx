@@ -1,14 +1,23 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { ChevronDown } from "lucide-react";
 import type { TechnologyItem } from "@/data/portfolio-data";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
-const filters = ["all", "nextjs", "wordpress", "email", "tailwind"] as const;
+const FILTER_OPTIONS = [
+  { value: "all",       label: "Toutes les stacks" },
+  { value: "nextjs",    label: "Next.js" },
+  { value: "wordpress", label: "WordPress" },
+  { value: "email",     label: "Email" },
+  { value: "tailwind",  label: "Tailwind CSS" },
+] as const;
+
+type FilterValue = (typeof FILTER_OPTIONS)[number]["value"];
 
 export function TechnologyBrowser({ technologies }: { technologies: TechnologyItem[] }) {
   const [query, setQuery] = useState("");
-  const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>("all");
+  const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
 
   const filteredTechnologies = useMemo(() => {
     const normalizedQuery = query.toLowerCase();
@@ -43,21 +52,22 @@ export function TechnologyBrowser({ technologies }: { technologies: TechnologyIt
           />
         </label>
 
-        <div className="flex flex-wrap gap-2">
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              type="button"
-              onClick={() => setActiveFilter(filter)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                activeFilter === filter
-                  ? "bg-sky-600 text-white shadow-sm shadow-sky-500/20 dark:bg-sky-600"
-                  : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
-              }`}
-            >
-              {filter}
-            </button>
-          ))}
+        <div className="relative">
+          <select
+            aria-label="Filtrer par stack"
+            value={activeFilter}
+            onChange={(e) => setActiveFilter(e.target.value as FilterValue)}
+            className="appearance-none cursor-pointer rounded-xl border border-zinc-300 bg-white py-2.5 pl-4 pr-10 text-sm font-medium text-zinc-700 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:focus:border-sky-600 dark:focus:ring-sky-950"
+          >
+            {FILTER_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+          <ChevronDown
+            size={15}
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400"
+            aria-hidden="true"
+          />
         </div>
       </div>
 

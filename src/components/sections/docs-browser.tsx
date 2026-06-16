@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ExternalLink } from "lucide-react";
+import { ChevronDown, ExternalLink } from "lucide-react";
 
 type DocSource = "local" | "notion";
 
@@ -65,53 +65,28 @@ export function DocsBrowser({ docs }: { docs: DocItem[] }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Chercher une documentation"
-            className="rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100"
+            className="rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100"
           />
         </label>
 
-        <div className="flex flex-col gap-3">
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => setActiveFilter("all")}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                activeFilter === "all"
-                  ? "bg-indigo-600 text-white shadow-sm shadow-indigo-500/20"
-                  : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
-              }`}
-            >
-              Tout
-            </button>
-
-            {hasNotion && (
-              <button
-                type="button"
-                onClick={() => setActiveFilter("notion")}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                  activeFilter === "notion"
-                    ? "bg-amber-500 text-white shadow-sm shadow-amber-500/20"
-                    : "bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-950/30 dark:text-amber-300 dark:hover:bg-amber-900/40"
-                }`}
-              >
-                Groupe NOVI
-              </button>
-            )}
-
+        <div className="relative">
+          <select
+            aria-label="Filtrer les documentations"
+            value={activeFilter}
+            onChange={(e) => setActiveFilter(e.target.value)}
+            className="appearance-none cursor-pointer rounded-xl border border-zinc-300 bg-white py-2.5 pl-4 pr-10 text-sm font-medium text-zinc-700 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:focus:border-sky-600 dark:focus:ring-sky-950"
+          >
+            <option value="all">Toutes les docs</option>
+            {hasNotion && <option value="notion">Groupe NOVI</option>}
             {categories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setActiveFilter(cat.toLowerCase())}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                  activeFilter === cat.toLowerCase()
-                    ? "bg-indigo-600 text-white shadow-sm shadow-indigo-500/20"
-                    : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
-                }`}
-              >
-                {cat}
-              </button>
+              <option key={cat} value={cat.toLowerCase()}>{cat}</option>
             ))}
-          </div>
+          </select>
+          <ChevronDown
+            size={15}
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400"
+            aria-hidden="true"
+          />
         </div>
       </div>
 

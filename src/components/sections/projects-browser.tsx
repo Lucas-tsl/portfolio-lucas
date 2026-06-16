@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, ExternalLink, Github, Search, X } from "lucide-react";
+import { CheckCircle2, ChevronDown, ExternalLink, Github, Search, X } from "lucide-react";
 import { projects } from "@/data/portfolio-data";
 import type { Project, ProjectStatus } from "@/types/portfolio.types";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
@@ -16,57 +16,39 @@ const STATUS_COLORS: Record<ProjectStatus, string> = {
 
 const ALL = "Tout";
 
-/* ── Filter pill ─────────────────────────────────────────────────── */
-function Pill({
-  label,
-  active,
-  onClick,
-}: {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-medium transition-all ${
-        active
-          ? "bg-sky-600 text-white shadow-sm shadow-sky-500/20 dark:bg-sky-600"
-          : "border border-zinc-200 text-zinc-600 hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-zinc-500 dark:hover:text-zinc-200"
-      }`}
-    >
-      {label}
-    </button>
-  );
-}
-
-/* ── Filter group ────────────────────────────────────────────────── */
-function FilterRow({
+/* ── Select filter ───────────────────────────────────────────────── */
+function SelectFilter({
   label,
   options,
-  active,
-  onSelect,
+  value,
+  onChange,
 }: {
   label: string;
   options: string[];
-  active: string;
-  onSelect: (v: string) => void;
+  value: string;
+  onChange: (v: string) => void;
 }) {
   return (
     <div className="flex items-center gap-3">
       <span className="w-20 shrink-0 text-xs font-semibold text-zinc-400 dark:text-zinc-600">
         {label}
       </span>
-      <div className="flex flex-wrap gap-1.5" role="group" aria-label={`Filtrer par ${label}`}>
-        {options.map((opt) => (
-          <Pill
-            key={opt}
-            label={opt}
-            active={active === opt}
-            onClick={() => onSelect(opt)}
-          />
-        ))}
+      <div className="relative">
+        <select
+          aria-label={`Filtrer par ${label}`}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="appearance-none cursor-pointer rounded-xl border border-zinc-200 bg-white py-1.5 pl-3 pr-8 text-xs font-medium text-zinc-700 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:focus:border-sky-600 dark:focus:ring-sky-950"
+        >
+          {options.map((opt) => (
+            <option key={opt} value={opt}>{opt}</option>
+          ))}
+        </select>
+        <ChevronDown
+          size={13}
+          className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400"
+          aria-hidden="true"
+        />
       </div>
     </div>
   );
@@ -230,23 +212,23 @@ export function ProjectsBrowser() {
 
       {/* Filter rows */}
       <div className="mt-5 space-y-3 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50">
-        <FilterRow
+        <SelectFilter
           label="Catégorie"
           options={categories}
-          active={activeCategory}
-          onSelect={setActiveCategory}
+          value={activeCategory}
+          onChange={setActiveCategory}
         />
-        <FilterRow
+        <SelectFilter
           label="Année"
           options={years}
-          active={activeYear}
-          onSelect={setActiveYear}
+          value={activeYear}
+          onChange={setActiveYear}
         />
-        <FilterRow
+        <SelectFilter
           label="Statut"
           options={statuses}
-          active={activeStatus}
-          onSelect={setActiveStatus}
+          value={activeStatus}
+          onChange={setActiveStatus}
         />
       </div>
 

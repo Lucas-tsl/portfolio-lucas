@@ -3,12 +3,13 @@
 import { motion } from "framer-motion";
 import { CheckCircle2, ExternalLink, Github } from "lucide-react";
 import { projects } from "@/data/portfolio-data";
+import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
 const statusColors: Record<string, string> = {
-  Actif: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
-  Disponible: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-  Déployé: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400",
-  "En production": "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+  Actif:          "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
+  Disponible:     "bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400",
+  Déployé:        "bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400",
+  "En production":"bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 };
 
 export function ProjectsSection() {
@@ -87,9 +88,12 @@ export function ProjectsSection() {
               {project.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
+                  title={tech}
+                  aria-label={tech}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-2.5 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
                 >
-                  {tech}
+                  {hasTechIcon(tech) && <TechIcon name={tech} size={12} />}
+                  <span aria-hidden="true">{getTechAbbrev(tech)}</span>
                 </span>
               ))}
             </div>
@@ -114,7 +118,7 @@ export function ProjectsSection() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={`Voir ${project.title} en ligne`}
-                  className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-medium text-white transition hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+                  className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-sky-700"
                 >
                   <ExternalLink size={14} aria-hidden="true" />
                   Démo

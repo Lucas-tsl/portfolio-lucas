@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Loader2, Send } from "lucide-react";
+import { Check, ChevronDown, Loader2, Send } from "lucide-react";
 import { contactSubjects } from "@/data/portfolio-data";
 import { useContactForm } from "@/hooks/use-contact-form";
+import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
 const inputClass =
   "rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-zinc-500 focus:ring-2 focus:ring-zinc-200 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-zinc-800 placeholder:text-zinc-400";
@@ -42,37 +43,32 @@ export function ContactSection() {
           noValidate
         >
           {/* Sujet */}
-          <fieldset>
-            <legend className="mb-3 text-sm font-medium text-zinc-700 dark:text-zinc-300">
+          <div className="grid gap-1.5 text-sm">
+            <label htmlFor="subject-select" className="font-medium text-zinc-700 dark:text-zinc-300">
               Sujet de la demande <span aria-hidden="true" className="text-red-500">*</span>
-            </legend>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
-              {contactSubjects.map((subject) => (
-                <label
-                  key={subject.value}
-                  className={`flex cursor-pointer items-center justify-center rounded-xl border px-3 py-2.5 text-xs font-medium transition ${
-                    selectedSubject === subject.value
-                      ? "border-zinc-900 bg-zinc-950 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
-                      : "border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-300 hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:border-zinc-600"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="subject"
-                    value={subject.value}
-                    required
-                    className="sr-only"
-                    onChange={() => setSelectedSubject(subject.value)}
-                    checked={selectedSubject === subject.value}
-                  />
-                  {subject.label}
-                </label>
-              ))}
+            </label>
+            <div className="relative">
+              <select
+                id="subject-select"
+                name="subject"
+                required
+                value={selectedSubject}
+                onChange={(e) => setSelectedSubject(e.target.value)}
+                className="w-full appearance-none cursor-pointer rounded-xl border border-zinc-300 bg-white py-3 pl-4 pr-10 text-sm text-zinc-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-600 dark:focus:ring-sky-950"
+              >
+                <option value="" disabled>— Choisissez un sujet —</option>
+                {contactSubjects.map((subject) => (
+                  <option key={subject.value} value={subject.value}>
+                    {subject.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown size={16} className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400" aria-hidden="true" />
             </div>
             {activeSubject && (
-              <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-500">{activeSubject.description}</p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-500">{activeSubject.description}</p>
             )}
-          </fieldset>
+          </div>
 
           {/* Nom + Email côte à côte */}
           <div className="grid gap-4 sm:grid-cols-2">
@@ -129,7 +125,7 @@ export function ContactSection() {
               className={`relative inline-flex min-w-[180px] items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed ${
                 status === "success"
                   ? "bg-emerald-600 text-white dark:bg-emerald-500"
-                  : "bg-zinc-950 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+                  : "bg-sky-600 text-white hover:bg-sky-700 focus-visible:outline-sky-600"
               }`}
               aria-live="polite"
               aria-label={
@@ -240,9 +236,12 @@ export function ContactSection() {
                 {activeSubject.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
+                    title={skill}
+                    aria-label={skill}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
                   >
-                    {skill}
+                    {hasTechIcon(skill) && <TechIcon name={skill} size={11} />}
+                    <span aria-hidden="true">{getTechAbbrev(skill)}</span>
                   </span>
                 ))}
               </div>
