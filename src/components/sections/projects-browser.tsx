@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, ExternalLink, Github, Search, X } from "lucide-react";
 import { projects } from "@/data/portfolio-data";
 import type { Project, ProjectStatus } from "@/types/portfolio.types";
-import { TechIcon, hasTechIcon } from "@/components/ui/tech-icon";
+import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
 const STATUS_COLORS: Record<ProjectStatus, string> = {
   Actif: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
@@ -94,10 +94,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <span
             key={tech}
             title={tech}
+            aria-label={tech}
             className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-2.5 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
           >
             {hasTechIcon(tech) && <TechIcon name={tech} size={12} />}
-            <span>{tech}</span>
+            <span aria-hidden="true">{getTechAbbrev(tech)}</span>
           </span>
         ))}
       </div>

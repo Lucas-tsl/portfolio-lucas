@@ -156,6 +156,50 @@ body {
 .markdown-body th { background-color: #f4f4f5; font-weight: 600; }
 .dark .markdown-body th { background-color: #27272a; }
 
+/* ────────────────────────── Notion blocks ──────────────────────────────── */
+.notion-body { font-size: 0.9375rem; line-height: 1.75; color: #3f3f46; }
+.dark .notion-body { color: #d4d4d8; }
+
+.notion-h2 { font-size: 1.375rem; font-weight: 700; color: #18181b; margin: 1.75em 0 0.5em; border-bottom: 1px solid #e4e4e7; padding-bottom: 0.3em; }
+.notion-h3 { font-size: 1.15rem; font-weight: 700; color: #18181b; margin: 1.5em 0 0.4em; }
+.notion-h4 { font-size: 1rem; font-weight: 600; color: #18181b; margin: 1.25em 0 0.3em; }
+.dark .notion-h2, .dark .notion-h3, .dark .notion-h4 { color: #f4f4f5; border-color: #3f3f46; }
+
+.notion-p { margin-bottom: 0.875em; }
+.notion-spacer { height: 0.5em; }
+
+.notion-list { padding-left: 1.5em; margin-bottom: 1em; }
+.notion-list li { margin-bottom: 0.25em; }
+.notion-body ul.notion-list { list-style: disc; }
+.notion-body ol.notion-list { list-style: decimal; }
+
+.notion-quote { border-left: 4px solid #6366f1; padding-left: 1em; color: #71717a; font-style: italic; margin: 1.25em 0; }
+.dark .notion-quote { border-color: #818cf8; color: #a1a1aa; }
+
+.notion-code { background: #18181b; color: #d4d4d8; border-radius: 10px; padding: 1.25em 1.5em; overflow-x: auto; margin-bottom: 1em; font-size: 0.875rem; font-family: var(--font-geist-mono), monospace; }
+.notion-code code { background: none; }
+
+.notion-hr { border: none; border-top: 1px solid #e4e4e7; margin: 2em 0; }
+.dark .notion-hr { border-color: #3f3f46; }
+
+.notion-callout { display: flex; align-items: flex-start; gap: 0.75em; background: #f4f4f5; border-radius: 8px; padding: 1em 1.25em; margin-bottom: 1em; }
+.dark .notion-callout { background: #27272a; }
+.notion-callout-icon { font-size: 1.125rem; shrink-0: 0; margin-top: 0.1em; }
+
+.notion-todo { display: flex; align-items: flex-start; gap: 0.5em; margin-bottom: 0.4em; }
+.notion-todo input { margin-top: 0.2em; accent-color: #6366f1; }
+
+.notion-image { margin: 1.5em 0; }
+.notion-image img { max-width: 100%; border-radius: 8px; }
+.notion-image figcaption { text-align: center; font-size: 0.8rem; color: #71717a; margin-top: 0.5em; }
+
+.notion-body a { color: #6366f1; text-decoration: underline; text-underline-offset: 3px; }
+.dark .notion-body a { color: #818cf8; }
+.notion-body strong { font-weight: 700; color: #18181b; }
+.dark .notion-body strong { color: #f4f4f5; }
+.notion-body code { font-family: var(--font-geist-mono), monospace; font-size: 0.85em; background: #f4f4f5; border-radius: 4px; padding: 0.15em 0.4em; }
+.dark .notion-body code { background: #27272a; color: #d4d4d8; }
+
 /* ──────────────────────── Focus visible ring ───────────────────────────── */
 *:focus-visible {
   outline: 2px solid #6366f1;

@@ -114,18 +114,21 @@ export function TechIcon({ name, size = 16, showLabel = false, color, className 
   }
 
   const fill = color ?? `#${icon.hex}`;
-  // Extract inner SVG path from the full SVG string
-  const innerSvg = icon.svg.replace(/<svg[^>]*>/, "").replace("</svg>", "");
+  // Strip outer <svg> tag and <title> element (title contributes to textContent)
+  const innerSvg = icon.svg
+    .replace(/<svg[^>]*>/, "")
+    .replace("</svg>", "")
+    .replace(/<title>[^<]*<\/title>/, "");
 
   const svgEl = (
     <svg
-      role="img"
+      aria-hidden="true"
+      focusable="false"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       fill={fill}
-      aria-label={icon.title}
       className="shrink-0"
       dangerouslySetInnerHTML={{ __html: innerSvg }}
     />
@@ -139,6 +142,56 @@ export function TechIcon({ name, size = 16, showLabel = false, color, className 
       <span className="text-xs">{name}</span>
     </span>
   );
+}
+
+const ABBREV_MAP: Record<string, string> = {
+  javascript:              "JS",
+  js:                      "JS",
+  typescript:              "TS",
+  ts:                      "TS",
+  react:                   "React",
+  "next.js":               "Next",
+  "next.js 15":            "Next 15",
+  "next.js 16":            "Next 16",
+  html5:                   "HTML",
+  css3:                    "CSS",
+  "tailwind css":          "TW",
+  "tailwind css v4":       "TW v4",
+  "framer motion":         "Framer",
+  "node.js":               "Node",
+  php:                     "PHP",
+  express:                 "Express",
+  prisma:                  "Prisma",
+  sql:                     "SQL",
+  wordpress:               "WP",
+  woocommerce:             "WC",
+  prestashop:              "PS",
+  elementor:               "Elementor",
+  mysql:                   "MySQL",
+  postgresql:              "PSQL",
+  mongodb:                 "Mongo",
+  github:                  "GitHub",
+  figma:                   "Figma",
+  canva:                   "Canva",
+  vercel:                  "Vercel",
+  resend:                  "Resend",
+  "google analytics 4":    "GA4",
+  "google analytics":      "GA",
+  "google tag manager":    "GTM",
+  "google data studio":    "GDS",
+  "google merchant center":"GMC",
+  "google search console": "GSC",
+  "pagespeed insights":    "PSI",
+  lighthouse:              "LH",
+  claude:                  "Claude",
+  "chatgpt / gpt-4":       "GPT-4",
+  chatgpt:                 "GPT",
+  "github copilot":        "Copilot",
+  python:                  "Python",
+};
+
+export function getTechAbbrev(name: string): string {
+  return ABBREV_MAP[name.toLowerCase()] ?? name;
 }
 
 export function hasTechIcon(name: string): boolean {

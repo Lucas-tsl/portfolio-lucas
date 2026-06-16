@@ -15,6 +15,7 @@ type DocItem = {
   tags?: string[];
   source: DocSource;
   notionUrl?: string;
+  notionId?: string;
 };
 
 type ActiveFilter = "all" | "notion" | string;
@@ -125,26 +126,21 @@ export function DocsBrowser({ docs }: { docs: DocItem[] }) {
         {filteredDocs.map((doc) => {
           const isNotion = doc.source === "notion";
 
-          if (isNotion && doc.notionUrl) {
+          if (isNotion && doc.notionId) {
             return (
               <a
-                key={doc.notionUrl}
-                href={doc.notionUrl}
-                target="_blank"
-                rel="noreferrer"
+                key={doc.notionId}
+                href={`/docs/notion/${doc.notionId}`}
                 className="group flex flex-col rounded-3xl border border-amber-200 bg-amber-50/50 p-6 transition hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-100 dark:border-amber-900/40 dark:bg-amber-950/10"
               >
-                <div className="flex items-start justify-between gap-2">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
-                    {SOURCE_LABELS.notion}
-                  </p>
-                  <ExternalLink size={14} className="shrink-0 text-amber-500 dark:text-amber-400" aria-hidden="true" />
-                </div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400">
+                  {SOURCE_LABELS.notion}
+                </p>
                 <h2 className="mt-3 text-lg font-bold text-zinc-950 dark:text-zinc-50 group-hover:text-amber-700 dark:group-hover:text-amber-300 transition-colors">
                   {doc.title}
                 </h2>
                 <span className="mt-auto pt-5 inline-flex items-center text-sm font-semibold text-amber-700 dark:text-amber-400">
-                  Ouvrir dans Notion
+                  Lire la documentation
                   <span className="ml-2 transition group-hover:translate-x-1">→</span>
                 </span>
               </a>

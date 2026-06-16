@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { skillGroups } from "@/data/portfolio-data";
 import { SkillsRadarChart } from "@/components/sections/skills-radar";
-import { TechIcon, hasTechIcon } from "@/components/ui/tech-icon";
+import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
 const CATEGORY_BORDER: Record<string, string> = {
   "Développement Web":              "border-l-indigo-500",
@@ -77,12 +77,13 @@ export function SkillsSection() {
                     key={item}
                     role="listitem"
                     title={item}
+                    aria-label={item}
                     className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-2.5 py-1 text-xs font-medium text-zinc-700 dark:border-zinc-700 dark:text-zinc-300"
                   >
                     {hasTechIcon(item) ? (
                       <TechIcon name={item} size={12} />
                     ) : null}
-                    <span>{item}</span>
+                    <span aria-hidden="true">{getTechAbbrev(item)}</span>
                   </span>
                 ))}
                 {group.items.length > 6 && (

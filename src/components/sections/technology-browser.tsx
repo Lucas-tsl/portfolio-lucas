@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { TechnologyItem } from "@/data/portfolio-data";
-import { TechIcon, hasTechIcon } from "@/components/ui/tech-icon";
+import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
 const filters = ["all", "nextjs", "wordpress", "email", "tailwind"] as const;
 
@@ -75,10 +75,12 @@ export function TechnologyBrowser({ technologies }: { technologies: TechnologyIt
                   return (
                     <span
                       key={name}
+                      title={name}
+                      aria-label={name}
                       className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-xs font-medium text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
                     >
                       {hasTechIcon(name) && <TechIcon name={name} size={12} />}
-                      {name}
+                      <span aria-hidden="true">{getTechAbbrev(name)}</span>
                     </span>
                   );
                 })}

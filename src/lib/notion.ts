@@ -2,6 +2,7 @@ export interface NotionDoc {
   id: string;
   title: string;
   notionUrl: string;
+  notionId: string;
   source: "notion";
 }
 
@@ -50,6 +51,7 @@ export async function fetchNotionDocs(): Promise<NotionDoc[]> {
         id: hyphenId,
         title,
         notionUrl: `${NOTION_BASE_URL}/${hyphenId.replace(/-/g, "")}`,
+        notionId: hyphenId,
         source: "notion",
       });
     }
