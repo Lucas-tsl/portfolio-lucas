@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ErrorBoundary } from "@/components/providers/error-boundary";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import { CommandPalette } from "@/components/shared/command-palette";
@@ -88,9 +89,11 @@ export default function RootLayout({
           <div className="flex min-h-screen flex-col bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50">
             <Navbar />
             <CommandPalette />
-            <div id="main-content" className="flex-1 w-full" tabIndex={-1}>
-              {children}
-            </div>
+            <ErrorBoundary>
+              <div id="main-content" className="flex-1 w-full" tabIndex={-1}>
+                {children}
+              </div>
+            </ErrorBoundary>
             <Footer />
           </div>
         </ThemeProvider>
