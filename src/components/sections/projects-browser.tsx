@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, ExternalLink, Github, Search, X } from "lucide-react";
 import { projects } from "@/data/portfolio-data";
-import type { Project, ProjectCategory, ProjectStatus } from "@/types/portfolio.types";
+import type { Project, ProjectStatus } from "@/types/portfolio.types";
 
 const STATUS_COLORS: Record<ProjectStatus, string> = {
   Actif: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { profile } from "@/data/portfolio-data";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { useCommandPalette } from "@/context/command-palette";
 import { Menu, Search, X } from "lucide-react";
 
 const navLinks = [
@@ -26,6 +27,7 @@ function isActive(href: string, pathname: string) {
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { togglePalette } = useCommandPalette();
 
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-200/80 bg-white/70 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/70">
@@ -65,7 +67,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-3">
           <button
-            onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true, bubbles: true }))}
+            onClick={togglePalette}
             aria-label="Ouvrir la recherche (⌘K)"
             className="hidden md:inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-xs text-zinc-500 transition hover:border-zinc-300 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-600"
           >
