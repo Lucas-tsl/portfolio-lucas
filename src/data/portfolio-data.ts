@@ -31,6 +31,7 @@ export const portfolioData = {
       name: "Front-end & Back-end",
       description: "Conception d'applications web modernes, performantes et maintenables avec une stack orientée TypeScript.",
       focus: "Next.js, TypeScript, Node.js, React",
+      level: 85,
       items: ["JavaScript", "TypeScript", "React", "Next.js", "Node.js", "PHP", "HTML5", "CSS3", "Tailwind CSS", "Framer Motion"],
     },
     {
@@ -39,6 +40,7 @@ export const portfolioData = {
       name: "Gestion de la Donnée",
       description: "Modélisation, requêtage et optimisation de bases de données relationnelles et NoSQL.",
       focus: "MySQL, PostgreSQL, MongoDB",
+      level: 70,
       items: ["MySQL", "PostgreSQL", "MongoDB", "SQL", "Prisma"],
     },
     {
@@ -47,6 +49,7 @@ export const portfolioData = {
       name: "WordPress & E-commerce",
       description: "Développement de plugins sur mesure, thèmes performants et intégrations WooCommerce avancées.",
       focus: "WordPress, WooCommerce, PrestaShop",
+      level: 92,
       items: ["WordPress", "WooCommerce", "PrestaShop", "PHP", "ACF", "Elementor", "Figma", "Canva"],
     },
     {
@@ -55,6 +58,7 @@ export const portfolioData = {
       name: "SEO Technique & Core Web Vitals",
       description: "Audit, optimisation et suivi de la performance web, du référencement naturel et de l'expérience utilisateur.",
       focus: "Core Web Vitals, SEO technique, écosystème Google",
+      level: 90,
       items: [
         "SEO technique",
         "Core Web Vitals",
@@ -73,6 +77,7 @@ export const portfolioData = {
       name: "Data & IA Appliquée",
       description: "Intégration de LLMs, automatisation de workflows et valorisation des données au service des besoins métier.",
       focus: "LLMs, automatisation, Data Science (M1 en cours)",
+      level: 68,
       items: [
         "ChatGPT / GPT-4",
         "Claude",
@@ -90,6 +95,7 @@ export const portfolioData = {
       name: "Pilotage & Coordination",
       description: "Gestion de projets transverses, coordination entre équipes techniques et métier, suivi des livrables.",
       focus: "Agile, coordination, product management",
+      level: 78,
       items: ["Gestion de projet Agile", "GitHub Projects", "Notion", "Figma (wireframing)", "Rédaction de specs", "Reporting"],
     },
   ],

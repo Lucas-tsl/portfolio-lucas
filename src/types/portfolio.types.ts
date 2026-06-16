@@ -22,6 +22,8 @@ export interface SkillGroup {
   description: string;
   focus: string;
   items: string[];
+  /** Niveau de maîtrise 0-100, affiché dans le radar chart */
+  level: number;
 }
 
 export interface Project {
