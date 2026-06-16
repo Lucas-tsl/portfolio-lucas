@@ -256,3 +256,10 @@ export const technologyItems = portfolioData.skills;
 export const skillGroups = portfolioData.skills;
 export const projects = portfolioData.projects;
 export const contactSubjects = portfolioData.contactSubjects;
+
+export const metrics = [
+  { value: "5",      label: "Projets déployés",      sublabel: "open-source & client" },
+  { value: "4",      label: "Marques e-commerce",    sublabel: "Groupe NOVI" },
+  { value: "+40 %",  label: "Trafic organique",       sublabel: "audit SEO technique" },
+  { value: "98/100", label: "Score Lighthouse",       sublabel: "portfolio & projets" },
+] as const;

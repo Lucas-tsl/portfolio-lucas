@@ -57,6 +57,7 @@ export const metadata: Metadata = {
     title: "Lucas Troteseil | Portfolio",
     description:
       "Chef de projet Data / IA et Développeur Web basé à Bordeaux. Expertise Next.js, WordPress, SEO technique et IA appliquée.",
+    creator: "@lucastsl",
   },
   robots: {
     index: true,

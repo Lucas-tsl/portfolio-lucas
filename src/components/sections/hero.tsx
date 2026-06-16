@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { profile } from "@/data/portfolio-data";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -71,6 +71,15 @@ export function HeroSection() {
               className="inline-flex items-center rounded-full border border-zinc-300 px-6 py-3 text-sm font-semibold text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500"
             >
               Voir mon GitHub
+            </a>
+            <a
+              href="/cv.pdf"
+              download="CV_Lucas_Troteseil.pdf"
+              aria-label="Télécharger mon CV (PDF)"
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-6 py-3 text-sm font-semibold text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500"
+            >
+              <Download size={15} aria-hidden="true" />
+              Mon CV
             </a>
           </motion.div>
         </div>
