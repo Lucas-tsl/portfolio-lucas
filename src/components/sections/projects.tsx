@@ -7,7 +7,7 @@ import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon"
 
 const statusColors: Record<string, string> = {
   Actif:          "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
-  Disponible:     "bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400",
+  Disponible:     "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
   Déployé:        "bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400",
   "En production":"bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 };
@@ -118,7 +118,7 @@ export function ProjectsSection() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={`Voir ${project.title} en ligne`}
-                  className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-sky-700"
+                  className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-emerald-700"
                 >
                   <ExternalLink size={14} aria-hidden="true" />
                   Démo

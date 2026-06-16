@@ -6,10 +6,10 @@ import { SkillsRadarChart } from "@/components/sections/skills-radar";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
 const CATEGORY_BORDER: Record<string, string> = {
-  "Développement Web":              "border-l-sky-500",
+  "Développement Web":              "border-l-emerald-500",
   "Bases de données":               "border-l-teal-500",
   "Data & Intelligence Artificielle": "border-l-amber-500",
-  "SEO & Performance":              "border-l-emerald-500",
+  "SEO & Performance":              "border-l-lime-500",
   "CMS & E-commerce":               "border-l-orange-500",
   "Gestion de projet":              "border-l-slate-400",
 };
@@ -61,7 +61,7 @@ export function SkillsSection() {
               {/* Level bar */}
               <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800" aria-hidden="true">
                 <motion.div
-                  className="h-full rounded-full bg-sky-600 dark:bg-sky-400"
+                  className="h-full rounded-full bg-emerald-600 dark:bg-emerald-400"
                   initial={{ width: 0 }}
                   whileInView={{ width: `${group.level}%` }}
                   viewport={{ once: true }}

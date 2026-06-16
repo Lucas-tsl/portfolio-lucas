@@ -31,6 +31,8 @@ import {
   siGooglesearchconsole,
   siPrestashop,
   siLighthouse,
+  siNotion,
+  siYoutube,
 } from "simple-icons";
 
 type SI = { svg: string; hex: string; title: string };
@@ -73,12 +75,21 @@ const ICON_MAP: Record<string, SI> = {
   postgresql:       siPostgresql,
   mongodb:          siMongodb,
 
-  // Tools / Design
-  github:           siGithub,
-  figma:            siFigma,
-  canva:            siCanvas,
-  vercel:           siVercel,
-  resend:           siResend,
+  // Tools / Design / Collab
+  github:                siGithub,
+  "github projects":     siGithub,
+  figma:                 siFigma,
+  "figma (wireframing)": siFigma,
+  canva:                 siCanvas,
+  vercel:                siVercel,
+  "vercel analytics":    siVercel,
+  resend:                siResend,
+  notion:                siNotion,
+
+  // Video / Media
+  "api youtube":         siYoutube,
+  "youtube api":         siYoutube,
+  youtube:               siYoutube,
 
   // Analytics / SEO
   "google analytics 4":     siGoogleanalytics,
@@ -87,15 +98,21 @@ const ICON_MAP: Record<string, SI> = {
   "google data studio":      siGooglecloud,
   "google merchant center":  siGooglecloud,
   "google search console":   siGooglesearchconsole,
+  "google places api":       siGooglecloud,
   "pagespeed insights":      siLighthouse,
   lighthouse:                siLighthouse,
+  "core web vitals":         siLighthouse,
 
-  // AI
+  // AI / Dev tools
   claude:              siAnthropic,
-  "chatgpt / gpt-4":  siAnthropic,  // OpenAI icon n'est pas dans simple-icons — on fallback
+  "chatgpt / gpt-4":  siAnthropic,
   "chatgpt":           siAnthropic,
   "github copilot":    siGithubcopilot,
   python:              siPython,
+  "python (en formation)": siPython,
+
+  // Extra aliases
+  "css mobile-first":  siCss,
 };
 
 interface TechIconProps {
@@ -192,6 +209,17 @@ const ABBREV_MAP: Record<string, string> = {
   chatgpt:                 "GPT",
   "github copilot":        "Copilot",
   python:                  "Python",
+  "python (en formation)": "Python",
+  notion:                  "Notion",
+  "api youtube":           "YouTube",
+  "youtube api":           "YouTube",
+  youtube:                 "YouTube",
+  "github projects":       "GH Projects",
+  "figma (wireframing)":   "Figma",
+  "vercel analytics":      "Vercel",
+  "google places api":     "Places API",
+  "core web vitals":       "CWV",
+  "css mobile-first":      "CSS",
 };
 
 export function getTechAbbrev(name: string): string {

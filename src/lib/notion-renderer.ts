@@ -133,9 +133,12 @@ export function renderNotionBlocks(
         break;
       }
       case "image": {
-        const src = block.format?.display_source ?? props.source?.[0]?.[0] ?? "";
+        const rawSrc = block.format?.display_source ?? props.source?.[0]?.[0] ?? "";
         const caption = renderRichText(props.caption);
-        if (src) {
+        if (rawSrc) {
+          // Proxy Notion S3 URLs to avoid signed URL expiry issues
+          const isNotionS3 = rawSrc.includes("amazonaws.com") || rawSrc.includes("notion-static.com") || rawSrc.includes("notion.so");
+          const src = isNotionS3 ? `/api/notion-image?url=${encodeURIComponent(rawSrc)}` : rawSrc;
           lines.push(
             `<figure class="notion-image"><img src="${escapeHtml(src)}" alt="${escapeHtml(caption || title)}" loading="lazy" />${caption ? `<figcaption>${caption}</figcaption>` : ""}</figure>`
           );

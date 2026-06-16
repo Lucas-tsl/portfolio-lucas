@@ -54,7 +54,7 @@ export function ContactSection() {
                 required
                 value={selectedSubject}
                 onChange={(e) => setSelectedSubject(e.target.value)}
-                className="w-full appearance-none cursor-pointer rounded-xl border border-zinc-300 bg-white py-3 pl-4 pr-10 text-sm text-zinc-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-600 dark:focus:ring-sky-950"
+                className="w-full appearance-none cursor-pointer rounded-xl border border-zinc-300 bg-white py-3 pl-4 pr-10 text-sm text-zinc-900 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-emerald-600 dark:focus:ring-emerald-950"
               >
                 <option value="" disabled>— Choisissez un sujet —</option>
                 {contactSubjects.map((subject) => (
@@ -125,7 +125,7 @@ export function ContactSection() {
               className={`relative inline-flex min-w-[180px] items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed ${
                 status === "success"
                   ? "bg-emerald-600 text-white dark:bg-emerald-500"
-                  : "bg-sky-600 text-white hover:bg-sky-700 focus-visible:outline-sky-600"
+                  : "bg-emerald-600 text-white hover:bg-emerald-700 focus-visible:outline-emerald-600"
               }`}
               aria-live="polite"
               aria-label={

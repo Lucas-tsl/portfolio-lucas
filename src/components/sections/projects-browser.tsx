@@ -9,7 +9,7 @@ import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon"
 
 const STATUS_COLORS: Record<ProjectStatus, string> = {
   Actif:          "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
-  Disponible:     "bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400",
+  Disponible:     "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
   Déployé:        "bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400",
   "En production":"bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 };
@@ -38,7 +38,7 @@ function SelectFilter({
           aria-label={`Filtrer par ${label}`}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="appearance-none cursor-pointer rounded-xl border border-zinc-200 bg-white py-1.5 pl-3 pr-8 text-xs font-medium text-zinc-700 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:focus:border-sky-600 dark:focus:ring-sky-950"
+          className="appearance-none cursor-pointer rounded-xl border border-zinc-200 bg-white py-1.5 pl-3 pr-8 text-xs font-medium text-zinc-700 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:focus:border-emerald-600 dark:focus:ring-emerald-950"
         >
           {options.map((opt) => (
             <option key={opt} value={opt}>{opt}</option>
@@ -138,7 +138,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             target="_blank"
             rel="noreferrer"
             aria-label={`Voir ${project.title} en ligne`}
-            className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-sky-700 dark:bg-sky-600 dark:hover:bg-sky-500"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500"
           >
             <ExternalLink size={14} aria-hidden="true" />
             Voir en ligne
@@ -205,7 +205,7 @@ export function ProjectsBrowser() {
           placeholder="Rechercher un projet, une techno…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-xl border border-zinc-300 bg-white py-2.5 pl-10 pr-4 text-sm text-zinc-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-sky-600 dark:focus:ring-sky-950 placeholder:text-zinc-400"
+          className="w-full rounded-xl border border-zinc-300 bg-white py-2.5 pl-10 pr-4 text-sm text-zinc-900 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-emerald-600 dark:focus:ring-emerald-950 placeholder:text-zinc-400"
           aria-label="Rechercher un projet"
         />
       </div>

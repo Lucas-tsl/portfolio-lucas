@@ -18,7 +18,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease, delay: 0 }}
-            className="mb-4 inline-flex rounded-full border border-sky-200 bg-sky-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-sky-700 dark:border-sky-800 dark:bg-sky-950/40 dark:text-sky-300"
+            className="mb-4 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"
           >
             Portfolio 2026
           </motion.p>
@@ -58,7 +58,7 @@ export function HeroSection() {
           >
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-500/25 transition hover:-translate-y-0.5 hover:bg-sky-700 hover:shadow-sky-500/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/25 transition hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-emerald-500/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
             >
               Me contacter
               <ArrowRight size={16} aria-hidden="true" />
@@ -79,13 +79,13 @@ export function HeroSection() {
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease, delay: 0.2 }}
-          className="rounded-3xl border border-sky-100 bg-white/90 p-6 shadow-xl shadow-sky-500/10 dark:border-sky-950 dark:bg-zinc-900/70"
+          className="rounded-3xl border border-emerald-100 bg-white/90 p-6 shadow-xl shadow-emerald-500/10 dark:border-emerald-950 dark:bg-zinc-900/70"
           aria-label="Points d'expertise"
         >
-          <p className="text-xs font-semibold uppercase tracking-widest text-sky-600 dark:text-sky-400">Focus</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Focus</p>
           <ul className="mt-4 space-y-3 text-sm text-zinc-700 dark:text-zinc-300">
             <li className="flex items-start gap-2">
-              <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500" aria-hidden="true" />
+              <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" aria-hidden="true" />
               Data + IA appliquées à des besoins métier concrets
             </li>
             <li className="flex items-start gap-2">
