@@ -1,64 +1,15 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Loader2, Send } from "lucide-react";
 import { contactSubjects } from "@/data/portfolio-data";
-
-type FormStatus = "idle" | "loading" | "success" | "error";
+import { useContactForm } from "@/hooks/use-contact-form";
 
 const inputClass =
   "rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-zinc-500 focus:ring-2 focus:ring-zinc-200 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-zinc-800 placeholder:text-zinc-400";
 
 export function ContactSection() {
-  const [status, setStatus] = useState<FormStatus>("idle");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [selectedSubject, setSelectedSubject] = useState("");
-
-  // Reset automatique du bouton success après 5 s
-  useEffect(() => {
-    if (status !== "success") return;
-    const t = setTimeout(() => setStatus("idle"), 5000);
-    return () => clearTimeout(t);
-  }, [status]);
-
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-
-    const payload = {
-      name: String(data.get("name") || ""),
-      email: String(data.get("email") || ""),
-      subject: String(data.get("subject") || ""),
-      message: String(data.get("message") || ""),
-    };
-
-    setStatus("loading");
-    setErrorMessage("");
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const result = (await response.json()) as { error?: string; success?: boolean };
-      if (!response.ok) {
-        setStatus("error");
-        setErrorMessage(typeof result.error === "string" ? result.error : "Une erreur est survenue.");
-        return;
-      }
-
-      form.reset();
-      setSelectedSubject("");
-      setStatus("success");
-    } catch {
-      setStatus("error");
-      setErrorMessage("Impossible de contacter le serveur. Réessayez dans quelques instants.");
-    }
-  }
+  const { status, errorMessage, selectedSubject, setSelectedSubject, onSubmit } = useContactForm();
 
   const activeSubject = contactSubjects.find((s) => s.value === selectedSubject);
 

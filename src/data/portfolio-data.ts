@@ -1,18 +1,13 @@
-export type TechnologyItem = {
-  id: string;
-  category: string;
-  name: string;
-  description: string;
-  focus: string;
-  items: string[];
-};
+import type {
+  Profile,
+  SkillGroup,
+  Project,
+  ContactSubject,
+  ProjectStatus,
+  ProjectCategory,
+} from "@/types/portfolio.types";
 
-export type ContactSubject = {
-  value: string;
-  label: string;
-  description: string;
-  skills: string[];
-};
+export type { Profile, SkillGroup as TechnologyItem, Project, ContactSubject, ProjectStatus, ProjectCategory };
 
 export const portfolioData = {
   profile: {
@@ -102,12 +97,14 @@ export const portfolioData = {
   projects: [
     {
       id: "woocommerce-stories",
+
       title: "Plugin WooCommerce Stories",
       description:
         "Expérience vidéo immersive type TikTok / Instagram Stories intégrée à WooCommerce. Permet aux e-commerçants de mettre en avant leurs produits via des vidéos plein écran sur mobile, avec lecture YouTube optimisée et navigation swipe.",
       role: "Développeur Full-Stack",
       status: "Actif",
       year: "2024",
+      category: "WordPress",
       technologies: ["JavaScript", "PHP", "WooCommerce", "API YouTube", "CSS mobile-first"],
       githubUrl: "https://github.com/Lucas-tsl/woocommerce-stories",
       liveUrl: "",
@@ -125,6 +122,7 @@ export const portfolioData = {
       role: "Développeur Back-End",
       status: "Disponible",
       year: "2023",
+      category: "Node.js",
       technologies: ["Node.js", "Express", "Sharp", "TypeScript"],
       githubUrl: "https://github.com/Lucas-tsl/image-processing",
       liveUrl: "",
@@ -142,6 +140,7 @@ export const portfolioData = {
       role: "Développeur Full-Stack",
       status: "Déployé",
       year: "2023",
+      category: "WordPress",
       technologies: ["PHP", "JavaScript", "MySQL", "WordPress", "Schema.org"],
       githubUrl: "https://github.com/Lucas-tsl/client-review",
       liveUrl: "",
@@ -159,6 +158,7 @@ export const portfolioData = {
       role: "Développeur Full-Stack",
       status: "En production",
       year: "2025",
+      category: "Next.js",
       technologies: [
         "Next.js 16",
         "TypeScript",
@@ -186,7 +186,8 @@ export const portfolioData = {
         "Portfolio personnel conçu et développé from scratch avec Next.js 15 et Tailwind CSS v4. Déploiement continu via Vercel, contenu markdown dynamique, formulaire de contact avec Resend et thème sombre/clair.",
       role: "Développeur Full-Stack",
       status: "En production",
-      year: "2025–2026",
+      year: "2025",
+      category: "Portfolio",
       technologies: ["Next.js 15", "TypeScript", "Tailwind CSS v4", "Resend", "Framer Motion"],
       githubUrl: "https://github.com/Lucas-tsl/portfolio-lucas",
       liveUrl: "https://lucastroteseil.com",
@@ -196,7 +197,7 @@ export const portfolioData = {
         "Formulaire de contact avec confirmation email via Resend",
       ],
     },
-  ],
+  ] satisfies Project[],
 
   contactSubjects: [
     {

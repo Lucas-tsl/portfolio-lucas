@@ -1,13 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
+import type { ContentDocument, ContentFrontmatter } from "@/types/content.types";
 
-export type ContentFrontmatter = Record<string, string | string[]>;
-
-export type ContentDocument = {
-  slug: string;
-  frontmatter: ContentFrontmatter;
-  body: string;
-};
+export type { ContentDocument, ContentFrontmatter };
 
 function parseArrayValue(value: string): string[] {
   const trimmed = value.trim();
@@ -21,12 +16,10 @@ function parseArrayValue(value: string): string[] {
 
 function parseFrontmatter(raw: string): { frontmatter: ContentFrontmatter; body: string } {
   const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
-  if (!match) {
-    return { frontmatter: {}, body: raw.trim() };
-  }
+  if (!match) return { frontmatter: { title: "" }, body: raw.trim() };
 
   const [, frontmatterBlock, body] = match;
-  const frontmatter: ContentFrontmatter = {};
+  const frontmatter: ContentFrontmatter = { title: "" };
 
   frontmatterBlock
     .split("\n")
@@ -49,7 +42,9 @@ function parseFrontmatter(raw: string): { frontmatter: ContentFrontmatter; body:
   return { frontmatter, body: body.trim() };
 }
 
-export function readContentDirectory(directoryPath: string): ContentDocument[] {
+export function readContentDirectory<T extends ContentFrontmatter = ContentFrontmatter>(
+  directoryPath: string
+): ContentDocument<T>[] {
   if (!fs.existsSync(directoryPath)) return [];
 
   return fs
@@ -61,21 +56,20 @@ export function readContentDirectory(directoryPath: string): ContentDocument[] {
       const { frontmatter, body } = parseFrontmatter(raw);
       return {
         slug: fileName.replace(/\.md$/, ""),
-        frontmatter,
+        frontmatter: frontmatter as T,
         body,
       };
     });
 }
 
-export function readContentDocument(directoryPath: string, slug: string): ContentDocument | null {
+export function readContentDocument<T extends ContentFrontmatter = ContentFrontmatter>(
+  directoryPath: string,
+  slug: string
+): ContentDocument<T> | null {
   const filePath = path.join(directoryPath, `${slug}.md`);
   if (!fs.existsSync(filePath)) return null;
 
   const raw = fs.readFileSync(filePath, "utf8");
   const { frontmatter, body } = parseFrontmatter(raw);
-  return {
-    slug,
-    frontmatter,
-    body,
-  };
+  return { slug, frontmatter: frontmatter as T, body };
 }
