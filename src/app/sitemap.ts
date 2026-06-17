@@ -8,14 +8,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: BASE_URL, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
-    { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/docs`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/technologies`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE_URL}/mentions-legales`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
-    { url: `${BASE_URL}/politique-confidentialite`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
-    { url: `${BASE_URL}/accessibilite`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
+    { url: BASE_URL,                                lastModified: now, changeFrequency: "weekly",  priority: 1.0 },
+    { url: `${BASE_URL}/about`,                     lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/projects`,                  lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/blog`,                      lastModified: now, changeFrequency: "weekly",  priority: 0.8 },
+    { url: `${BASE_URL}/docs`,                      lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/accessibilite`,             lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
+    { url: `${BASE_URL}/mentions-legales`,          lastModified: now, changeFrequency: "yearly",  priority: 0.2 },
+    { url: `${BASE_URL}/politique-confidentialite`, lastModified: now, changeFrequency: "yearly",  priority: 0.2 },
   ];
 
   const blogDir = path.join(process.cwd(), "content/blog");
