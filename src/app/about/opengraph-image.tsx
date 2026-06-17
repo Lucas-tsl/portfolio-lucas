@@ -1,6 +1,5 @@
 import { createOGPage, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og-image";
 
-export const runtime = "edge";
 export const alt = "À propos — Lucas Troteseil";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
