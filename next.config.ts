@@ -18,15 +18,17 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Next.js inline scripts + JSON-LD
-      "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com",
+      // Next.js inline scripts + JSON-LD + Vercel preview toolbar
+      "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://vercel.live",
       // Tailwind inline styles + Framer Motion
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "font-src 'self' https://fonts.gstatic.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://vercel.live",
+      "font-src 'self' https://fonts.gstatic.com https://vercel.live",
       // Notion images + Unsplash
-      "img-src 'self' data: blob: https://s3.us-west-2.amazonaws.com https://prod-files-secure.s3.us-west-2.amazonaws.com https://secure.notion-static.com https://img.notionusercontent.com https://images.unsplash.com",
-      // Resend email API + Vercel analytics
-      "connect-src 'self' https://api.resend.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+      "img-src 'self' data: blob: https://s3.us-west-2.amazonaws.com https://prod-files-secure.s3.us-west-2.amazonaws.com https://secure.notion-static.com https://img.notionusercontent.com https://images.unsplash.com https://vercel.live",
+      // Resend email API + Vercel analytics + Vercel preview toolbar
+      "connect-src 'self' https://api.resend.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://vercel.live wss://vercel.live",
+      // Vercel preview toolbar iframe
+      "frame-src https://vercel.live",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
