@@ -155,6 +155,7 @@ export function ProjectsBrowser() {
   const [activeCategory, setActiveCategory] = useState<string>(ALL);
   const [activeYear, setActiveYear] = useState<string>(ALL);
   const [activeStatus, setActiveStatus] = useState<string>(ALL);
+  const [activeTech, setActiveTech] = useState<string>(ALL);
 
   const categories = useMemo(() => {
     const unique = [...new Set(projects.map((p) => p.category))].sort();
@@ -171,6 +172,13 @@ export function ProjectsBrowser() {
     return [ALL, ...unique];
   }, []);
 
+  // Technologies sorted by frequency (most used first)
+  const techs = useMemo(() => {
+    const freq = new Map<string, number>();
+    projects.forEach((p) => p.technologies.forEach((t) => freq.set(t, (freq.get(t) ?? 0) + 1)));
+    return [...freq.entries()].sort((a, b) => b[1] - a[1]).map(([t]) => t);
+  }, []);
+
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
     return projects.filter((p) => {
@@ -178,17 +186,19 @@ export function ProjectsBrowser() {
       if (activeCategory !== ALL && p.category !== activeCategory) return false;
       if (activeYear !== ALL && p.year !== activeYear) return false;
       if (activeStatus !== ALL && p.status !== activeStatus) return false;
+      if (activeTech !== ALL && !p.technologies.includes(activeTech)) return false;
       return true;
     });
-  }, [search, activeCategory, activeYear, activeStatus]);
+  }, [search, activeCategory, activeYear, activeStatus, activeTech]);
 
-  const hasActiveFilters = search || activeCategory !== ALL || activeYear !== ALL || activeStatus !== ALL;
+  const hasActiveFilters = search || activeCategory !== ALL || activeYear !== ALL || activeStatus !== ALL || activeTech !== ALL;
 
   function resetAll() {
     setSearch("");
     setActiveCategory(ALL);
     setActiveYear(ALL);
     setActiveStatus(ALL);
+    setActiveTech(ALL);
   }
 
   return (
@@ -210,8 +220,47 @@ export function ProjectsBrowser() {
         />
       </div>
 
+      {/* Tech filter chips */}
+      <div
+        role="group"
+        aria-label="Filtrer par technologie"
+        className="mt-4 flex items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        <button
+          onClick={() => setActiveTech(ALL)}
+          aria-pressed={activeTech === ALL}
+          className={`shrink-0 rounded-full border px-3 py-1 text-xs font-medium transition ${
+            activeTech === ALL
+              ? "border-emerald-500 bg-emerald-50 text-emerald-700 dark:border-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400"
+              : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-600 dark:hover:text-zinc-200"
+          }`}
+        >
+          Tout
+        </button>
+        {techs.map((tech) => {
+          const active = activeTech === tech;
+          return (
+            <button
+              key={tech}
+              onClick={() => setActiveTech(active ? ALL : tech)}
+              aria-pressed={active}
+              aria-label={`Filtrer par ${tech}`}
+              title={tech}
+              className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition ${
+                active
+                  ? "border-emerald-500 bg-emerald-50 text-emerald-700 dark:border-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400"
+                  : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-600 dark:hover:text-zinc-200"
+              }`}
+            >
+              {hasTechIcon(tech) && <TechIcon name={tech} size={12} />}
+              {getTechAbbrev(tech)}
+            </button>
+          );
+        })}
+      </div>
+
       {/* Filter row */}
-      <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50">
+      <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900/50">
         <SelectFilter
           label="Catégorie"
           options={categories}
