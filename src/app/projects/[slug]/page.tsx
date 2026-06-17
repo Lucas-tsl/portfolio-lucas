@@ -261,7 +261,7 @@ export default async function ProjectDetailPage({
 
       {/* Floating action bar — desktop only */}
       {(project.githubUrl || project.liveUrl) && (
-        <div className="fixed bottom-6 right-6 z-40 hidden md:flex flex-col gap-2">
+        <div className="fixed bottom-6 right-6 z-40 hidden md:flex flex-row gap-2">
           {project.liveUrl && (
             <a
               href={project.liveUrl}
