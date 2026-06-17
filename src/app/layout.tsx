@@ -9,6 +9,7 @@ import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import { CommandPalette } from "@/components/shared/command-palette";
 import { AccessibilityToggle } from "@/components/shared/accessibility-toggle";
+import { BackToTop } from "@/components/shared/back-to-top";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -104,6 +105,7 @@ export default function RootLayout({
                 <Footer />
               </div>
               <AccessibilityToggle />
+              <BackToTop />
             </CommandPaletteProvider>
           </MotionConfig>
         </ThemeProvider>
