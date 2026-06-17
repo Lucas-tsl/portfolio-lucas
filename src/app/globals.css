@@ -215,3 +215,20 @@ body {
   height: auto;
   white-space: nowrap;
 }
+
+/* ──────────────────────── Accessibility mode ────────────────────────────── */
+[data-a11y="on"] *:focus-visible {
+  outline: 3px solid #059669 !important;
+  outline-offset: 3px !important;
+}
+[data-a11y="on"] body {
+  line-height: 1.85 !important;
+  letter-spacing: 0.02em !important;
+}
+[data-a11y="on"] *,
+[data-a11y="on"] *::before,
+[data-a11y="on"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}

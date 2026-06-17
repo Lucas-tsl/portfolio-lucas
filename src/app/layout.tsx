@@ -8,6 +8,7 @@ import { CommandPaletteProvider } from "@/context/command-palette";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import { CommandPalette } from "@/components/shared/command-palette";
+import { AccessibilityToggle } from "@/components/shared/accessibility-toggle";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -100,6 +101,7 @@ export default function RootLayout({
                   </div>
                 </ErrorBoundary>
                 <Footer />
+                <AccessibilityToggle />
               </div>
             </CommandPaletteProvider>
           </MotionConfig>
