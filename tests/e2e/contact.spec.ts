@@ -2,27 +2,27 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Contact form", () => {
   test.beforeEach(async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/#contact");
   });
 
   test("contact form fields are present", async ({ page }) => {
-    await expect(page.getByLabel(/nom/i)).toBeVisible();
-    await expect(page.getByLabel(/email/i)).toBeVisible();
-    await expect(page.getByLabel(/message/i)).toBeVisible();
+    await expect(page.getByLabel("Nom", { exact: false })).toBeVisible();
+    await expect(page.getByLabel("Email", { exact: false })).toBeVisible();
+    await expect(page.locator("#field-message")).toBeVisible();
   });
 
   test("submit with empty fields shows validation errors", async ({ page }) => {
-    await page.getByRole("button", { name: /envoyer/i }).click();
-    // HTML5 native validation or custom error message
-    const nameField = page.getByLabel(/nom/i);
-    await expect(nameField).toBeFocused();
+    await page.getByRole("button", { name: /envoyer le message/i }).click();
+    // noValidate + custom validation: errors appear as alert text
+    await expect(page.getByText("Veuillez choisir un sujet.")).toBeVisible();
   });
 
   test("form rejects short name (< 2 chars)", async ({ page }) => {
-    await page.getByLabel(/nom/i).fill("A");
-    await page.getByLabel(/email/i).fill("test@example.com");
-    await page.getByLabel(/message/i).fill("Message de test pour la validation du formulaire.");
-    await page.getByRole("button", { name: /envoyer/i }).click();
-    await expect(page.getByText(/trop court/i)).toBeVisible();
+    await page.getByLabel("Nom", { exact: false }).fill("A");
+    await page.getByLabel("Email", { exact: false }).fill("test@example.com");
+    await page.locator("#field-message").fill("Message de test pour la validation du formulaire.");
+    await page.getByRole("button", { name: /envoyer le message/i }).click();
+    await expect(page.getByText("Le nom est requis (2 caractères minimum).")).toBeVisible();
   });
 });

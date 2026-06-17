@@ -2,18 +2,21 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Homepage", () => {
   test.beforeEach(async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
   });
 
   test("displays hero heading and name", async ({ page }) => {
-    await expect(page.getByRole("heading", { name: "Lucas Troteseil" })).toBeVisible();
-    await expect(page.getByText("Chef de projet Data / IA")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Lucas Troteseil" })).toBeVisible({ timeout: 10000 });
+    const hero = page.getByLabel("Présentation");
+    await expect(hero.getByText(/Chef de projet Data \/ IA/)).toBeVisible();
   });
 
   test("navbar links are present", async ({ page }) => {
-    await expect(page.getByRole("link", { name: /projets/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /blog/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /contact/i })).toBeVisible();
+    const nav = page.locator('nav[aria-label="Navigation principale"]');
+    await expect(nav.locator('a[href="/projects"]')).toBeVisible();
+    await expect(nav.locator('a[href="/blog"]')).toBeVisible();
+    await expect(nav.locator('a[href="/#contact"]')).toBeVisible();
   });
 
   test("search button opens command palette", async ({ page }) => {

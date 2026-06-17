@@ -19,7 +19,7 @@ test.describe("Projects", () => {
     await page.goto("/projects/woocommerce-stories");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     // Stack section
-    await expect(page.getByText(/stack/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: /stack technique/i })).toBeVisible();
   });
 
   test("unknown project slug returns 404", async ({ page }) => {
