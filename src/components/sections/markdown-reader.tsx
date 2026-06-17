@@ -1,5 +1,22 @@
-import { marked } from "marked";
+import { marked, Renderer } from "marked";
 import sanitizeHtml from "sanitize-html";
+
+// Inject id attributes on h2/h3 so the TOC can link to them
+const renderer = new Renderer();
+renderer.heading = function ({ text, depth }) {
+  if (depth === 2 || depth === 3) {
+    const id = text
+      .replace(/<[^>]+>/g, "")
+      .replace(/[*_`~]/g, "")
+      .trim()
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
+    return `<h${depth} id="${id}">${text}</h${depth}>\n`;
+  }
+  return `<h${depth}>${text}</h${depth}>\n`;
+};
 
 marked.setOptions({ gfm: true, breaks: true });
 
@@ -21,7 +38,7 @@ const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
 };
 
 function renderMarkdown(body: string): string {
-  const raw = marked.parse(body) as string;
+  const raw = marked.parse(body, { renderer }) as string;
   return sanitizeHtml(raw, SANITIZE_OPTIONS);
 }
 
@@ -52,7 +69,7 @@ export function MarkdownReader({
           )}
         </div>
       ) : null}
-      <h2 className="mt-4 text-2xl font-bold text-zinc-950 dark:text-zinc-50">{title}</h2>
+      {title ? <h2 className="mt-4 text-2xl font-bold text-zinc-950 dark:text-zinc-50">{title}</h2> : null}
       {summary ? <p className="mt-3 text-lg leading-7 text-zinc-600 dark:text-zinc-400">{summary}</p> : null}
       <div
         className="markdown-body mt-6"
