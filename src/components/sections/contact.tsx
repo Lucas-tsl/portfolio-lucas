@@ -6,11 +6,43 @@ import { contactSubjects } from "@/data/portfolio-data";
 import { useContactForm } from "@/hooks/use-contact-form";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
-const inputClass =
-  "rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-zinc-500 focus:ring-2 focus:ring-zinc-200 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-zinc-500 dark:focus:ring-zinc-800 placeholder:text-zinc-400";
+function fieldClass(hasError: boolean) {
+  return `rounded-xl border px-4 py-3 text-sm text-zinc-900 outline-none transition focus:ring-2 dark:text-zinc-100 placeholder:text-zinc-400 ${
+    hasError
+      ? "border-red-400 bg-red-50 focus:border-red-500 focus:ring-red-100 dark:border-red-700 dark:bg-red-950/20 dark:focus:ring-red-900"
+      : "border-zinc-300 bg-white focus:border-zinc-500 focus:ring-zinc-200 dark:border-zinc-700 dark:bg-zinc-950 dark:focus:border-zinc-500 dark:focus:ring-zinc-800"
+  }`;
+}
+
+function FieldError({ message }: { message?: string }) {
+  return (
+    <AnimatePresence>
+      {message && (
+        <motion.p
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -4 }}
+          transition={{ duration: 0.18 }}
+          role="alert"
+          className="text-xs text-red-600 dark:text-red-400"
+        >
+          {message}
+        </motion.p>
+      )}
+    </AnimatePresence>
+  );
+}
 
 export function ContactSection() {
-  const { status, errorMessage, selectedSubject, setSelectedSubject, onSubmit } = useContactForm();
+  const {
+    status,
+    errorMessage,
+    fieldErrors,
+    selectedSubject,
+    setSelectedSubject,
+    clearFieldError,
+    onSubmit,
+  } = useContactForm();
 
   const activeSubject = contactSubjects.find((s) => s.value === selectedSubject);
 
@@ -53,8 +85,11 @@ export function ContactSection() {
                 name="subject"
                 required
                 value={selectedSubject}
-                onChange={(e) => setSelectedSubject(e.target.value)}
-                className="w-full appearance-none cursor-pointer rounded-xl border border-zinc-300 bg-white py-3 pl-4 pr-10 text-sm text-zinc-900 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:border-emerald-600 dark:focus:ring-emerald-950"
+                onChange={(e) => {
+                  setSelectedSubject(e.target.value);
+                  clearFieldError("subject");
+                }}
+                className={`w-full appearance-none cursor-pointer py-3 pl-4 pr-10 ${fieldClass(!!fieldErrors.subject)}`}
               >
                 <option value="" disabled>— Choisissez un sujet —</option>
                 {contactSubjects.map((subject) => (
@@ -65,56 +100,69 @@ export function ContactSection() {
               </select>
               <ChevronDown size={16} className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400" aria-hidden="true" />
             </div>
-            {activeSubject && (
+            <FieldError message={fieldErrors.subject} />
+            {activeSubject && !fieldErrors.subject && (
               <p className="text-xs text-zinc-500 dark:text-zinc-500">{activeSubject.description}</p>
             )}
           </div>
 
           {/* Nom + Email côte à côte */}
           <div className="grid gap-4 sm:grid-cols-2">
-            <label className="grid gap-1.5 text-sm">
-              <span className="font-medium text-zinc-700 dark:text-zinc-300">
+            <div className="grid gap-1.5 text-sm">
+              <label htmlFor="field-name" className="font-medium text-zinc-700 dark:text-zinc-300">
                 Nom <span aria-hidden="true" className="text-red-500">*</span>
-              </span>
+              </label>
               <input
+                id="field-name"
                 name="name"
                 required
                 minLength={2}
                 aria-required="true"
-                className={inputClass}
+                aria-invalid={!!fieldErrors.name}
+                className={fieldClass(!!fieldErrors.name)}
                 placeholder="Votre nom"
+                onChange={() => clearFieldError("name")}
               />
-            </label>
-            <label className="grid gap-1.5 text-sm">
-              <span className="font-medium text-zinc-700 dark:text-zinc-300">
+              <FieldError message={fieldErrors.name} />
+            </div>
+            <div className="grid gap-1.5 text-sm">
+              <label htmlFor="field-email" className="font-medium text-zinc-700 dark:text-zinc-300">
                 Email <span aria-hidden="true" className="text-red-500">*</span>
-              </span>
+              </label>
               <input
+                id="field-email"
                 name="email"
                 type="email"
                 required
                 aria-required="true"
-                className={inputClass}
+                aria-invalid={!!fieldErrors.email}
+                className={fieldClass(!!fieldErrors.email)}
                 placeholder="votre@email.com"
+                onChange={() => clearFieldError("email")}
               />
-            </label>
+              <FieldError message={fieldErrors.email} />
+            </div>
           </div>
 
           {/* Message */}
-          <label className="grid gap-1.5 text-sm">
-            <span className="font-medium text-zinc-700 dark:text-zinc-300">
+          <div className="grid gap-1.5 text-sm">
+            <label htmlFor="field-message" className="font-medium text-zinc-700 dark:text-zinc-300">
               Message <span aria-hidden="true" className="text-red-500">*</span>
-            </span>
+            </label>
             <textarea
+              id="field-message"
               name="message"
               required
               minLength={10}
               aria-required="true"
+              aria-invalid={!!fieldErrors.message}
               rows={5}
-              className={inputClass}
+              className={fieldClass(!!fieldErrors.message)}
               placeholder="Décrivez votre besoin, projet ou question..."
+              onChange={() => clearFieldError("message")}
             />
-          </label>
+            <FieldError message={fieldErrors.message} />
+          </div>
 
           {/* Submit */}
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -179,7 +227,7 @@ export function ContactSection() {
               </AnimatePresence>
             </motion.button>
 
-            {/* Message d'erreur uniquement */}
+            {/* Erreur serveur */}
             <AnimatePresence>
               {status === "error" && errorMessage && (
                 <motion.p
@@ -195,7 +243,7 @@ export function ContactSection() {
             </AnimatePresence>
           </div>
 
-          {/* Confirmation success inline sous le form */}
+          {/* Confirmation success */}
           <AnimatePresence>
             {status === "success" && (
               <motion.div

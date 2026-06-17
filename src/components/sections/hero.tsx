@@ -98,11 +98,11 @@ export function HeroSection() {
             </li>
           </ul>
           <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">
-            <span aria-label="Localisation">Base : Bordeaux</span>
+            <span aria-label="Localisation : Bordeaux, disponible à distance">Bordeaux · Remote</span>
             {profile.available && (
               <span className="ml-3 inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" aria-hidden="true" />
-                Disponible
+                Disponible · À distance
               </span>
             )}
           </p>
