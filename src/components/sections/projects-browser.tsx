@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, ChevronDown, ExternalLink, Github, Search, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronDown, ExternalLink, Github, Search, X } from "lucide-react";
 import { projects } from "@/data/portfolio-data";
 import type { Project, ProjectStatus } from "@/types/portfolio.types";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
@@ -71,7 +72,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           id={`project-${project.id}`}
           className="text-base font-semibold text-zinc-900 dark:text-zinc-100"
         >
-          {project.title}
+          <Link
+            href={`/projects/${project.id}`}
+            className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+          >
+            {project.title}
+          </Link>
         </h2>
         <div className="flex shrink-0 items-center gap-2">
           <span
@@ -119,7 +125,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         ))}
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-3">
+      <div className="mt-4 flex flex-wrap items-center gap-3">
         {project.githubUrl && (
           <a
             href={project.githubUrl}
@@ -144,6 +150,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             Voir en ligne
           </a>
         )}
+        <Link
+          href={`/projects/${project.id}`}
+          aria-label={`Voir les détails de ${project.title}`}
+          className="ml-auto inline-flex items-center gap-1 text-xs font-medium text-zinc-400 transition hover:text-emerald-600 dark:hover:text-emerald-400"
+        >
+          Détails
+          <ArrowRight size={13} aria-hidden="true" />
+        </Link>
       </div>
     </motion.article>
   );
