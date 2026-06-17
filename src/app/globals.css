@@ -218,8 +218,8 @@ body {
 
 /* ──────────────────────── Accessibility mode ────────────────────────────── */
 
-/* High contrast */
-[data-a11y-contrast="on"] body {
+/* High contrast — applied to #a11y-main (not body) so fixed-position elements stay anchored to viewport */
+[data-a11y-contrast="on"] #a11y-main {
   filter: contrast(1.45) brightness(1.04);
 }
 
