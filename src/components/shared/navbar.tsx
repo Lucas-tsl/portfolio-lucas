@@ -42,26 +42,26 @@ export function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden items-center gap-5 text-sm text-zinc-700 dark:text-zinc-300 md:flex" role="list">
+        <ul className="hidden items-center gap-5 text-sm text-zinc-700 dark:text-zinc-300 md:flex list-none m-0 p-0">
           {navLinks.map((link) => {
             const active = isActive(link.href, pathname);
             return (
-              <Link
-                key={link.href}
-                href={link.href}
-                role="listitem"
-                aria-current={active ? "page" : undefined}
-                className={`rounded px-1 py-0.5 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 ${
-                  active
-                    ? "font-semibold text-zinc-950 dark:text-white"
-                    : "hover:text-zinc-950 dark:hover:text-white"
-                }`}
-              >
-                {link.label}
-              </Link>
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`rounded px-1 py-0.5 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 ${
+                    active
+                      ? "font-semibold text-zinc-950 dark:text-white"
+                      : "hover:text-zinc-950 dark:hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ul>
 
         <div className="flex items-center gap-3">
           <button

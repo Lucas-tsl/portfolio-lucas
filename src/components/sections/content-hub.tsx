@@ -16,8 +16,8 @@ const spaces = [
     label: "Publication",
   },
   {
-    title: "Technologies",
-    href: "/technologies",
+    title: "Projets",
+    href: "/projects",
     description:
       "La stack que j'utilise pour construire vite, proprement et de manière maintenable.",
     label: "Stack",
