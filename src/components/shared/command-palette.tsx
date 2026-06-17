@@ -30,14 +30,41 @@ const PROJECT_COMMANDS: CommandItem[] = projects.map((p) => ({
   id: `project-${p.id}`,
   label: p.title,
   description: p.role,
-  href: p.liveUrl || p.githubUrl,
+  href: `/projects/${p.id}`,
   icon: <FolderOpen size={15} />,
   group: "Projets",
 }));
 
-// Projects first, then navigation — in both default and search views
-const ALL_COMMANDS = [...PROJECT_COMMANDS, ...NAV_COMMANDS];
-const DEFAULT_COMMANDS = [...PROJECT_COMMANDS, ...NAV_COMMANDS];
+const BLOG_COMMANDS: CommandItem[] = [
+  {
+    id: "blog-ai-productivity-web",
+    label: "ChatGPT et GitHub Copilot dans mon workflow",
+    description: "IA / Productivité",
+    href: "/blog/ai-productivity-web",
+    icon: <Newspaper size={15} />,
+    group: "Blog",
+  },
+  {
+    id: "blog-core-web-vitals-guide",
+    label: "Core Web Vitals e-commerce : 250 fiches produits",
+    description: "SEO / Performance",
+    href: "/blog/core-web-vitals-guide",
+    icon: <Newspaper size={15} />,
+    group: "Blog",
+  },
+  {
+    id: "blog-product-video-story-bubble",
+    label: "Plugin WooCommerce Stories — genèse et apprentissages",
+    description: "WordPress / WooCommerce",
+    href: "/blog/product-video-story-bubble",
+    icon: <Newspaper size={15} />,
+    group: "Blog",
+  },
+];
+
+// Projects + Blog first, then navigation
+const ALL_COMMANDS = [...PROJECT_COMMANDS, ...BLOG_COMMANDS, ...NAV_COMMANDS];
+const DEFAULT_COMMANDS = [...PROJECT_COMMANDS, ...BLOG_COMMANDS, ...NAV_COMMANDS];
 
 function highlight(text: string, query: string): React.ReactNode {
   if (!query) return text;
