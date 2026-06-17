@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { profile } from "@/data/portfolio-data";
-import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { useCommandPalette } from "@/context/command-palette";
 import { Menu, Search, X } from "lucide-react";
 
@@ -72,7 +71,6 @@ export function Navbar() {
           >
             <Search size={18} aria-hidden="true" />
           </button>
-          <ThemeToggle />
           <button
             className="md:hidden text-zinc-700 dark:text-zinc-300 rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500"
             onClick={() => setIsOpen(!isOpen)}

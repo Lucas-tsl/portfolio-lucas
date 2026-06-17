@@ -200,12 +200,7 @@ body {
 .notion-body code { font-family: var(--font-geist-mono), monospace; font-size: 0.85em; background: #f4f4f5; border-radius: 4px; padding: 0.15em 0.4em; }
 .dark .notion-body code { background: #27272a; color: #d4d4d8; }
 
-/* ──────────────────────── Focus visible ring ───────────────────────────── */
-*:focus-visible {
-  outline: 2px solid #059669;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
+/* Focus visible — géré par Tailwind focus-visible:* sur chaque composant */
 
 /* ────────────────────────── Skip link ──────────────────────────────────── */
 .skip-link:focus {
