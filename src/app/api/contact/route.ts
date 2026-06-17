@@ -1,13 +1,41 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
 import { contactSubjects } from "@/data/portfolio-data";
 
+// Escape HTML to prevent XSS in email templates
+function esc(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
+
+// In-memory rate limiter: max 3 requests per IP per 10 minutes
+// Note: resets on cold start (Vercel serverless), acts as a soft limit
+const rateLimitMap = new Map<string, { count: number; reset: number }>();
+const RATE_LIMIT = 3;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.reset) {
+    rateLimitMap.set(ip, { count: 1, reset: now + RATE_WINDOW_MS });
+    return false;
+  }
+  if (entry.count >= RATE_LIMIT) return true;
+  entry.count++;
+  return false;
+}
+
 const contactSchema = z.object({
-  name: z.string().min(2, "Le nom est trop court"),
-  email: z.string().email("L'adresse email n'est pas valide"),
-  subject: z.string().min(1, "Veuillez sélectionner un sujet"),
-  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
+  name: z.string().min(2, "Le nom est trop court").max(100),
+  email: z.string().email("L'adresse email n'est pas valide").max(254),
+  subject: z.string().min(1, "Veuillez sélectionner un sujet").max(100),
+  message: z.string().min(10, "Le message doit contenir au moins 10 caractères").max(5000),
 });
 
 function ownerEmailHtml(name: string, email: string, subject: string, message: string): string {
@@ -20,7 +48,7 @@ function ownerEmailHtml(name: string, email: string, subject: string, message: s
       ? subjectData.skills
           .map(
             (s) =>
-              `<span style="display:inline-block;background:#f4f4f5;border-radius:999px;padding:2px 10px;font-size:12px;color:#52525b;margin:2px;">${s}</span>`
+              `<span style="display:inline-block;background:#f4f4f5;border-radius:999px;padding:2px 10px;font-size:12px;color:#52525b;margin:2px;">${esc(s)}</span>`
           )
           .join(" ")
       : "";
@@ -50,16 +78,16 @@ function ownerEmailHtml(name: string, email: string, subject: string, message: s
     <div class="header"><h1>Nouveau message via Portfolio</h1></div>
     <div class="content">
       <div class="meta">
-        <p><strong>Nom :</strong> ${name}</p>
-        <p><strong>Email :</strong> <a href="mailto:${email}">${email}</a></p>
+        <p><strong>Nom :</strong> ${esc(name)}</p>
+        <p><strong>Email :</strong> <a href="mailto:${esc(email)}">${esc(email)}</a></p>
       </div>
       <div class="subject-box">
         <p class="label">Sujet de la demande</p>
-        <p class="value">${subjectLabel}</p>
-        ${subjectDescription ? `<p class="desc">${subjectDescription}</p>` : ""}
+        <p class="value">${esc(subjectLabel)}</p>
+        ${subjectDescription ? `<p class="desc">${esc(subjectDescription)}</p>` : ""}
         ${skillsBadges ? `<div style="margin-top:10px;">${skillsBadges}</div>` : ""}
       </div>
-      <div class="message-box">${message}</div>
+      <div class="message-box">${esc(message)}</div>
     </div>
     <div class="footer"><p>&copy; ${year} Lucas Troteseil &mdash; Portfolio Contact</p></div>
   </div>
@@ -92,10 +120,10 @@ function confirmationEmailHtml(name: string, subject: string, message: string): 
   <div class="container">
     <div class="header"><h1>Lucas Troteseil</h1></div>
     <div class="content">
-      <h2>Bonjour ${name},</h2>
+      <h2>Bonjour ${esc(name)},</h2>
       <p>Je vous confirme avoir bien reçu votre message depuis mon portfolio. Je vous remercie de l'intérêt que vous portez à mon profil.</p>
-      <p class="subject-badge">${subjectLabel}</p>
-      <div class="message-box">${message}</div>
+      <p class="subject-badge">${esc(subjectLabel)}</p>
+      <div class="message-box">${esc(message)}</div>
       <p>Je prendrai le temps de lire votre demande attentivement et je reviendrai vers vous dans les plus brefs délais.</p>
       <p>Très cordialement,</p>
       <p><strong>Lucas Troteseil</strong><br>Chef de projet Data / IA &amp; Développeur Web</p>
@@ -109,7 +137,15 @@ function confirmationEmailHtml(name: string, subject: string, message: string): 
 </html>`;
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { success: false, error: "Trop de tentatives. Réessayez dans quelques minutes." },
+      { status: 429 }
+    );
+  }
+
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const body = await req.json();
@@ -122,7 +158,7 @@ export async function POST(req: Request) {
     const ownerEmail = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: process.env.CONTACT_EMAIL || "troteseil.lucas@gmail.com",
-      subject: `[${subjectLabel}] Nouveau message de ${name} via le Portfolio`,
+      subject: `[${subjectLabel}] Nouveau message de ${esc(name)} via le Portfolio`,
       html: ownerEmailHtml(name, email, subject, message),
     });
 
