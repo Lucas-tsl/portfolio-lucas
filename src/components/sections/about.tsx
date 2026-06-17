@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { profile } from "@/data/portfolio-data";
+
 import { WordpressProfile } from "./wordpress-profile";
 
 const ease = [0.22, 1, 0.36, 1] as const;
