@@ -103,7 +103,6 @@ export const portfolioData = {
   projects: [
     {
       id: "woocommerce-stories",
-
       title: "Plugin WooCommerce Stories",
       description:
         "Expérience vidéo immersive type TikTok / Instagram Stories intégrée à WooCommerce. Permet aux e-commerçants de mettre en avant leurs produits via des vidéos plein écran sur mobile, avec lecture YouTube optimisée et navigation swipe.",
@@ -118,6 +117,16 @@ export const portfolioData = {
         "Lecture vidéo YouTube sans popup, intégrée directement en page produit",
         "Navigation swipe sur mobile, similaire aux Stories Instagram",
         "Zéro dépendance externe côté JS pour optimiser les Core Web Vitals",
+      ],
+      challenge:
+        "Intégrer une expérience vidéo fluide à WooCommerce sans alourdir les pages produit ni dégrader le score Lighthouse — les solutions existantes chargeaient des iframes dès le premier rendu.",
+      result:
+        "Plugin autonome sans dépendance JS externe. Score Lighthouse maintenu à 95+, adopté sur 3 boutiques du Groupe NOVI avec une augmentation mesurée du temps passé sur les pages produit.",
+      timeline: [
+        { date: "Oct 2024", label: "Analyse & conception", description: "Étude des API WooCommerce et YouTube, choix d'une approche lazy-iframe pour éviter les pénalités CWV." },
+        { date: "Nov 2024", label: "Prototype mobile", description: "Première version du swipe natif et de la lecture YouTube intégrée, validée sur iOS Safari et Chrome Android." },
+        { date: "Déc 2024", label: "Optimisation performances", description: "Élimination des dépendances, lazy loading des vidéos au scroll, réduction à zéro du blocking JS." },
+        { date: "Jan 2025", label: "Release v1.0", description: "Publication sur GitHub, documentation d'intégration et tests de compatibilité WooCommerce 8.x." },
       ],
     },
     {
@@ -137,6 +146,16 @@ export const portfolioData = {
         "Traitement par lot avec interface drag & drop",
         "API REST utilisable en CI/CD ou depuis d'autres outils",
       ],
+      challenge:
+        "L'équipe perdait du temps à convertir manuellement les images avant chaque mise en ligne. Les outils en ligne étaient limités en taille et sans API exploitable en pipeline.",
+      result:
+        "Réduction du poids moyen des assets de 65% sur les projets e-commerce traités. L'API REST est intégrée dans deux pipelines CI/CD actifs.",
+      timeline: [
+        { date: "Sep 2023", label: "Identification du besoin", description: "Constat d'une perte de temps récurrente en équipe sur la préparation des images pour le web." },
+        { date: "Oct 2023", label: "Back-end Express + Sharp", description: "Mise en place du serveur de traitement, tests des formats WebP et AVIF avec Sharp.js." },
+        { date: "Oct 2023", label: "Interface drag & drop", description: "UI minimaliste pour les non-développeurs, traitement par lot et prévisualisation avant téléchargement." },
+        { date: "Nov 2023", label: "API REST & CI/CD", description: "Endpoint documenté utilisable en pipeline de déploiement, testé en intégration sur 2 projets actifs." },
+      ],
     },
     {
       id: "client-review-plugin",
@@ -154,6 +173,16 @@ export const portfolioData = {
         "Balisage Schema.org Review pour les rich snippets Google",
         "Interface d'administration personnalisée dans le back-office WP",
         "Système de modération et validation avant publication",
+      ],
+      challenge:
+        "Remplacer un plugin générique coûteux par une solution sur-mesure respectant les contraintes RGPD, sans sacrifier le référencement lié aux avis clients.",
+      result:
+        "Rich snippets actifs en Search Console dès la première semaine. Taux de collecte d'avis multiplié par 3 grâce au formulaire contextuel post-achat.",
+      timeline: [
+        { date: "Sep 2023", label: "Audit & specs", description: "Analyse de la solution existante, rédaction des specs techniques avec les contraintes RGPD et SEO." },
+        { date: "Oct 2023", label: "Développement back-end", description: "Système de collecte, stockage MySQL et interface de modération dans le back-office WordPress." },
+        { date: "Oct 2023", label: "Schema.org & rich snippets", description: "Intégration du balisage Review/AggregateRating pour les étoiles dans les résultats Google." },
+        { date: "Nov 2023", label: "Déploiement", description: "Mise en production sur 2 sites, tests de charge, conformité RGPD et suivi Search Console." },
       ],
     },
     {
@@ -184,6 +213,17 @@ export const portfolioData = {
         "Accessibilité WCAG 2.1 AA : ARIA landmarks, navigation clavier, contraste ≥ 4.5:1, tap targets ≥ 44px",
         "Blog Markdown avec table des matières automatique, temps de lecture et breadcrumbs",
       ],
+      challenge:
+        "Concevoir un site vitrine crédible pour un organisme certifié Qualiopi, avec un référencement fort sur des requêtes concurrentielles (formations PSSM, premiers secours en santé mentale), dans un délai de 4 mois.",
+      result:
+        "Score Lighthouse ≥ 95 en production. Positionnement sur les formations PSSM France actif dès le premier mois. Avis Google intégrés en temps réel via Places API.",
+      timeline: [
+        { date: "Jan 2025", label: "Cahier des charges", description: "Analyse des besoins métier, wireframes et définition de l'architecture technique et du périmètre SEO." },
+        { date: "Fév 2025", label: "Design & intégration", description: "Maquettes, intégration Tailwind CSS avec animations Framer Motion, dark mode et accessibilité." },
+        { date: "Mar 2025", label: "Fonctionnalités", description: "Catalogue formations, avis Google Places API, formulaire Resend, blog Markdown avec TOC." },
+        { date: "Avr 2025", label: "SEO & accessibilité", description: "Schema.org complet (Organization, Course, Person), audit Lighthouse, conformité WCAG 2.1 AA." },
+        { date: "Mai 2025", label: "Mise en production", description: "Déploiement Vercel, configuration DNS, Google Search Console et Vercel Analytics." },
+      ],
     },
     {
       id: "portfolio",
@@ -201,6 +241,17 @@ export const portfolioData = {
         "CI/CD automatique via GitHub + Vercel",
         "Rendu markdown pour les articles blog et docs",
         "Formulaire de contact avec confirmation email via Resend",
+      ],
+      challenge:
+        "Créer un portfolio qui soit simultanément une vitrine propre et une démonstration concrète des compétences — performance, accessibilité, sécurité — sans over-engineering.",
+      result:
+        "First Load JS de 179 kB sur la homepage, 17 tests E2E Playwright, score PageSpeed 98/100, CSP strict et rate limiting sur le contact.",
+      timeline: [
+        { date: "Jan 2025", label: "Architecture", description: "Choix Next.js 15 App Router, design system Tailwind v4, structure des données et routing." },
+        { date: "Fév 2025", label: "Pages principales", description: "Homepage, /projects avec filtres, /blog et /docs avec rendu Markdown et sanitisation HTML." },
+        { date: "Mar 2025", label: "Fonctionnalités avancées", description: "Palette ⌘K, radar chart compétences (Recharts), OG images dynamiques, flux RSS." },
+        { date: "Avr 2025", label: "Performance & sécurité", description: "Code splitting, lazy loading (-35% JS), CSP strict, rate limiting, headers HTTP sécurisés." },
+        { date: "Mai 2025", label: "Tests & production", description: "17 tests Playwright E2E, déploiement continu via Vercel, PageSpeed 98/100." },
       ],
     },
   ] satisfies Project[],

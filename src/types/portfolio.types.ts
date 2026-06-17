@@ -26,6 +26,18 @@ export interface SkillGroup {
   level: number;
 }
 
+export interface ProjectPhase {
+  date: string;
+  label: string;
+  description?: string;
+}
+
+export interface ProjectImage {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -38,6 +50,10 @@ export interface Project {
   githubUrl: string;
   liveUrl: string;
   highlights: string[];
+  challenge?: string;
+  result?: string;
+  timeline?: ProjectPhase[];
+  images?: ProjectImage[];
 }
 
 export interface ContactSubject {
