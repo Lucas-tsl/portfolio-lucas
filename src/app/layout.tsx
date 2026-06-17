@@ -92,7 +92,8 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <MotionConfig reducedMotion="user">
             <CommandPaletteProvider>
-              <div className="flex min-h-screen flex-col bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50">
+              {/* id="a11y-main" is targeted by the high-contrast CSS filter — AccessibilityToggle is a sibling so its fixed positioning is unaffected */}
+              <div id="a11y-main" className="flex min-h-screen flex-col bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50">
                 <Navbar />
                 <CommandPalette />
                 <ErrorBoundary>
@@ -101,8 +102,8 @@ export default function RootLayout({
                   </div>
                 </ErrorBoundary>
                 <Footer />
-                <AccessibilityToggle />
               </div>
+              <AccessibilityToggle />
             </CommandPaletteProvider>
           </MotionConfig>
         </ThemeProvider>
