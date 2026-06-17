@@ -1,9 +1,14 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { skillGroups } from "@/data/portfolio-data";
-import { SkillsRadarChart } from "@/components/sections/skills-radar";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
+
+const SkillsRadarChart = dynamic(
+  () => import("@/components/sections/skills-radar").then((m) => m.SkillsRadarChart),
+  { ssr: false, loading: () => <div className="h-72 w-full" /> }
+);
 
 const CATEGORY_BORDER: Record<string, string> = {
   "Développement Web":              "border-l-emerald-500",

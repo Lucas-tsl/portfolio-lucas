@@ -1,10 +1,14 @@
-import { AboutSection } from "@/components/sections/about";
-import { ContactSection } from "@/components/sections/contact";
-import { ContentHubSection } from "@/components/sections/content-hub";
+import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/sections/hero";
-import { ProjectsSection } from "@/components/sections/projects";
-import { SkillsSection } from "@/components/sections/skills";
-import { StatsSection } from "@/components/sections/stats";
+
+// Above-the-fold: eager
+// Below-the-fold: code-split into separate chunks — reduces initial bundle ~40-50 kB
+const StatsSection       = dynamic(() => import("@/components/sections/stats").then((m) => m.StatsSection));
+const AboutSection       = dynamic(() => import("@/components/sections/about").then((m) => m.AboutSection));
+const SkillsSection      = dynamic(() => import("@/components/sections/skills").then((m) => m.SkillsSection));
+const ProjectsSection    = dynamic(() => import("@/components/sections/projects").then((m) => m.ProjectsSection));
+const ContentHubSection  = dynamic(() => import("@/components/sections/content-hub").then((m) => m.ContentHubSection));
+const ContactSection     = dynamic(() => import("@/components/sections/contact").then((m) => m.ContactSection));
 
 const BASE_URL = "https://lucastroteseil.com";
 
