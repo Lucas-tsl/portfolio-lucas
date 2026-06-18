@@ -1,6 +1,7 @@
 import path from "node:path";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Clock, Tag } from "lucide-react";
+import { ArrowRight, Clock, Tag } from "lucide-react";
 import { MarkdownReader } from "@/components/sections/markdown-reader";
 import { BlogToc } from "@/components/blog/blog-toc";
 import { BlogShare } from "@/components/blog/blog-share";
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${title} | Blog`,
     description: String(post.frontmatter.summary || "Article de blog"),
+    alternates: { canonical: `/blog/${slug}` },
   };
 }
 
@@ -39,6 +41,10 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
   const readingTime = getReadingTime(post.body);
   const toc = extractToc(post.body);
   const pageUrl = `${BASE_URL}/blog/${slug}`;
+
+  const relatedPosts = readContentDirectory(BLOG_DIR)
+    .filter((p) => p.slug !== slug)
+    .slice(0, 3);
 
   const formattedDate = publishedAt
     ? new Date(publishedAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
@@ -100,6 +106,33 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
         <p className="text-sm text-zinc-500">Tu as aimé cet article ?</p>
         <BlogShare title={title} url={pageUrl} />
       </div>
+
+      {/* Related posts */}
+      {relatedPosts.length > 0 && (
+        <section className="mx-auto mt-16 max-w-3xl" aria-labelledby="related-heading">
+          <h2
+            id="related-heading"
+            className="mb-6 text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600"
+          >
+            Autres articles
+          </h2>
+          <ul className="space-y-3">
+            {relatedPosts.map((p) => (
+              <li key={p.slug}>
+                <Link
+                  href={`/blog/${p.slug}`}
+                  className="group flex items-center justify-between rounded-xl border border-zinc-200 px-4 py-3 transition hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-900"
+                >
+                  <span className="text-sm font-medium text-zinc-800 group-hover:text-zinc-950 dark:text-zinc-200 dark:group-hover:text-white">
+                    {String(p.frontmatter.title || p.slug)}
+                  </span>
+                  <ArrowRight size={14} className="shrink-0 text-zinc-400 transition group-hover:translate-x-0.5" aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </main>
   );
 }

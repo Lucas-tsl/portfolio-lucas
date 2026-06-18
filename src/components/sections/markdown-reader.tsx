@@ -1,4 +1,6 @@
 import { marked, Renderer } from "marked";
+import { markedHighlight } from "marked-highlight";
+import hljs from "highlight.js/lib/common";
 import sanitizeHtml from "sanitize-html";
 
 // Inject id attributes on h2/h3 so the TOC can link to them
@@ -17,6 +19,16 @@ renderer.heading = function ({ text, depth }) {
   }
   return `<h${depth}>${text}</h${depth}>\n`;
 };
+
+marked.use(
+  markedHighlight({
+    langPrefix: "hljs language-",
+    highlight(code, lang) {
+      const language = hljs.getLanguage(lang) ? lang : "plaintext";
+      return hljs.highlight(code, { language }).value;
+    },
+  }),
+);
 
 marked.setOptions({ gfm: true, breaks: true });
 

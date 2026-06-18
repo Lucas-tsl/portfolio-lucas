@@ -1,5 +1,7 @@
 /* tailwind v4 */
 @import "tailwindcss";
+/* Syntax highlighting (atom-one-dark — server-side via marked-highlight + hljs) */
+@import "highlight.js/styles/atom-one-dark.css";
 
 /* Dark mode via class (.dark sur <html>) — nécessaire pour next-themes avec attribute="class" */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -137,7 +139,8 @@ body {
   margin-bottom: 1em;
   font-size: 0.875rem;
 }
-.markdown-body pre code { background: none; padding: 0; color: inherit; }
+.markdown-body pre code,
+.markdown-body pre code.hljs { background: none; padding: 0; }
 .markdown-body blockquote {
   border-left: 4px solid #059669;
   padding-left: 1em;

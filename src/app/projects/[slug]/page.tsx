@@ -38,6 +38,7 @@ export async function generateMetadata({
   return {
     title: project.title,
     description: project.description,
+    alternates: { canonical: `/projects/${slug}` },
     openGraph: {
       title: `${project.title} | Lucas Troteseil`,
       description: project.description,
@@ -57,6 +58,7 @@ export default async function ProjectDetailPage({
   const project = projects[idx] as Project;
   const prev = idx > 0 ? projects[idx - 1] : null;
   const next = idx < projects.length - 1 ? projects[idx + 1] : null;
+  const otherProjects = projects.filter((_, i) => i !== idx).slice(0, 3);
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-16" id="main-content">
@@ -328,6 +330,36 @@ export default async function ProjectDetailPage({
             )}
           </div>
         </nav>
+      )}
+
+      {/* Other projects */}
+      {otherProjects.length > 0 && (
+        <section className="mt-16 border-t border-zinc-100 pt-10 dark:border-zinc-800" aria-labelledby="other-projects-heading">
+          <h2
+            id="other-projects-heading"
+            className="mb-6 text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600"
+          >
+            Autres projets
+          </h2>
+          <ul className="space-y-3">
+            {otherProjects.map((p) => (
+              <li key={p.id}>
+                <Link
+                  href={`/projects/${p.id}`}
+                  className="group flex items-center justify-between rounded-xl border border-zinc-200 px-4 py-3 transition hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-900"
+                >
+                  <div>
+                    <span className="text-sm font-medium text-zinc-800 group-hover:text-zinc-950 dark:text-zinc-200 dark:group-hover:text-white">
+                      {p.title}
+                    </span>
+                    <span className="ml-3 text-xs text-zinc-400 dark:text-zinc-600">{p.category}</span>
+                  </div>
+                  <ArrowRight size={14} className="shrink-0 text-zinc-400 transition group-hover:translate-x-0.5" aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
     </main>
   );
