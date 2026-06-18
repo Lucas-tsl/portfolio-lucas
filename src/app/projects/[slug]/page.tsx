@@ -15,6 +15,7 @@ import {
 import { projects } from "@/data/portfolio-data";
 import type { Project, ProjectStatus } from "@/types/portfolio.types";
 import { TechIcon, hasTechIcon } from "@/components/ui/tech-icon";
+import { Breadcrumb } from "@/components/shared/breadcrumb";
 
 const STATUS_COLORS: Record<ProjectStatus, string> = {
   Actif:           "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
@@ -83,14 +84,11 @@ export default async function ProjectDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppLd) }}
       />
-      {/* Back */}
-      <Link
-        href="/projects"
-        className="inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-zinc-900 dark:hover:text-zinc-100 mb-12"
-      >
-        <ArrowLeft size={15} aria-hidden="true" />
-        Retour aux projets
-      </Link>
+      <Breadcrumb items={[
+        { label: "Accueil", href: "/" },
+        { label: "Projets", href: "/projects" },
+        { label: project.title },
+      ]} />
 
       {/* Header */}
       <header className="mb-12">
