@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/sections/hero";
-import { FaqSection, FAQ_ITEMS } from "@/components/sections/faq";
+import { FaqSection } from "@/components/sections/faq";
+import { FAQ_ITEMS } from "@/data/faq-data";
 
 // Above-the-fold: eager
 // Below-the-fold: code-split into separate chunks — reduces initial bundle ~40-50 kB
