@@ -124,6 +124,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             title=""
             body={post.body}
             metadata={[]}
+            naked
           />
         </div>
 
