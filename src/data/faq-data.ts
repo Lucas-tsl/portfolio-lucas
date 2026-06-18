@@ -32,6 +32,6 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Comment te contacter ?",
     answer:
-      "Via le formulaire ci-dessous, ou directement par email. Je réponds généralement sous 24 à 48 h. Pour une demande de stage ou d'alternance post-Master, LinkedIn est aussi un bon canal.",
+      "Via le formulaire ci-dessous ou directement par email. Je réponds généralement sous 24 à 48 h. Si tu préfères, LinkedIn fonctionne aussi très bien.",
   },
 ];
