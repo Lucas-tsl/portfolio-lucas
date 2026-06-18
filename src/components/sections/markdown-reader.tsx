@@ -59,16 +59,18 @@ export function MarkdownReader({
   summary,
   body,
   metadata,
+  naked = false,
 }: {
   title: string;
   summary?: string;
   body: string;
   metadata: Array<[string, string | string[] | undefined]>;
+  naked?: boolean;
 }) {
   const htmlBody = renderMarkdown(body);
 
-  return (
-    <article className="mt-10 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+  const content = (
+    <>
       {metadata.length ? (
         <div className="flex flex-wrap gap-2 text-xs font-medium text-zinc-700 dark:text-zinc-300">
           {metadata.map(([label, value]) =>
@@ -87,6 +89,16 @@ export function MarkdownReader({
         className="markdown-body mt-6"
         dangerouslySetInnerHTML={{ __html: htmlBody }}
       />
+    </>
+  );
+
+  if (naked) {
+    return <article>{content}</article>;
+  }
+
+  return (
+    <article className="mt-10 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+      {content}
     </article>
   );
 }
