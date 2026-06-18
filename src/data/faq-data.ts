@@ -7,31 +7,31 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Tu es disponible pour de nouvelles missions ?",
     answer:
-      "Oui, je suis actuellement disponible pour des missions freelance en développement web (Next.js, WordPress) et en pilotage de projets Data / IA. N'hésite pas à me contacter via le formulaire ci-dessous pour qu'on échange.",
+      "Je suis actuellement en alternance en tant que Chef de Projet Data & IA chez Groupe NOVI à Bordeaux (jusqu'à la fin de mon Master Data & IA à Nexa). Je ne prends donc pas de missions freelance à plein temps, mais je reste ouvert aux petits projets ponctuels ou aux discussions pour la suite. N'hésite pas à me contacter pour qu'on voie ensemble ce qui est possible.",
   },
   {
-    question: "Tu travailles en remote ou en présentiel ?",
+    question: "Où travailles-tu ?",
     answer:
-      "Je travaille principalement en remote depuis Bordeaux, ce qui me permet d'intervenir sur des projets partout en France. Des déplacements ponctuels sont possibles selon les besoins du projet.",
+      "Je suis basé à Bordeaux et je travaille en mode hybride — présentiel chez Groupe NOVI et remote selon les besoins. Pour des projets annexes, je travaille principalement à distance.",
   },
   {
-    question: "Quels types de projets acceptes-tu ?",
+    question: "Sur quoi tu travailles en ce moment ?",
     answer:
-      "Refonte de sites WordPress, développement d'applications web avec Next.js, intégration de pipelines de données, automatisation IA, ou encore conseil SEO technique. Je suis particulièrement à l'aise sur des projets qui mêlent développement et stratégie digitale.",
+      "En alternance chez Groupe NOVI, je soutiens des marques e-commerce comme Les Senteurs Gourmandes, Jozz Beauty, Physiomins et Pure Eden sur leur stratégie digitale : SEO technique (structure, balisage, maillage, +250 fiches produits), Core Web Vitals, conformité WCAG/ARIA, et tout l'écosystème Google (Search Console, PageSpeed, Merchant Center, Analytics, Tag Manager).",
+  },
+  {
+    question: "Quels types de projets t'intéressent ?",
+    answer:
+      "Sites WordPress et WooCommerce, applications web Next.js, SEO technique et performance, intégration de pipelines de données, automatisation IA. Je suis particulièrement à l'aise sur des projets qui mêlent développement et stratégie digitale — le genre de choses que je fais au quotidien en alternance.",
   },
   {
     question: "Comment se déroule une collaboration ?",
     answer:
-      "On commence par un échange pour cerner le besoin, je propose une estimation et un cadrage. Ensuite on travaille en itérations courtes avec des points réguliers. Tu as accès à l'avancement en continu et on ajuste ensemble selon les retours.",
+      "On commence par un échange pour bien cerner le besoin, je propose un cadrage et une estimation. Ensuite on avance en itérations courtes avec des points réguliers. Tu vois l'avancement en continu et on ajuste ensemble au fil des retours.",
   },
   {
-    question: "Tu proposes de la maintenance après livraison ?",
+    question: "Comment te contacter ?",
     answer:
-      "Oui, je propose des contrats de maintenance pour les projets livrés : mises à jour, corrections, évolutions mineures et monitoring de performance. Les conditions sont définies selon le périmètre du projet.",
-  },
-  {
-    question: "Quels sont tes délais habituels ?",
-    answer:
-      "Ça dépend de la complexité du projet. Un site WordPress sur-mesure se livre généralement en 3 à 6 semaines, une application Next.js en 4 à 10 semaines. Je fournis toujours une estimation détaillée avant de démarrer.",
+      "Via le formulaire ci-dessous, ou directement par email. Je réponds généralement sous 24 à 48 h. Pour une demande de stage ou d'alternance post-Master, LinkedIn est aussi un bon canal.",
   },
 ];
