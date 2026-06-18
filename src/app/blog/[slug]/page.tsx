@@ -1,6 +1,7 @@
 import path from "node:path";
 import { notFound } from "next/navigation";
 import { Clock, Tag } from "lucide-react";
+import { Breadcrumb } from "@/components/shared/breadcrumb";
 import { MarkdownReader } from "@/components/sections/markdown-reader";
 import { BlogToc } from "@/components/blog/blog-toc";
 import { BlogShare } from "@/components/blog/blog-share";
@@ -46,6 +47,14 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
 
   return (
     <main className="mx-auto w-full max-w-7xl px-6 py-16">
+      <div className="mx-auto max-w-3xl">
+        <Breadcrumb items={[
+          { label: "Accueil", href: "/" },
+          { label: "Blog", href: "/blog" },
+          { label: title },
+        ]} />
+      </div>
+
       {/* Header */}
       <div className="mx-auto max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300">
