@@ -1,5 +1,7 @@
 import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/sections/hero";
+import { FaqSection } from "@/components/sections/faq";
+import { FAQ_ITEMS } from "@/data/faq-data";
 
 // Above-the-fold: eager
 // Below-the-fold: code-split into separate chunks — reduces initial bundle ~40-50 kB
@@ -11,6 +13,19 @@ const ContentHubSection  = dynamic(() => import("@/components/sections/content-h
 const ContactSection     = dynamic(() => import("@/components/sections/contact").then((m) => m.ContactSection));
 
 const BASE_URL = "https://lucastroteseil.com";
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -53,6 +68,10 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
       <div className="bg-[radial-gradient(1200px_600px_at_10%_-10%,#fcd34d22,transparent),radial-gradient(900px_500px_at_100%_0%,#34d39922,transparent)] dark:bg-[radial-gradient(1200px_600px_at_10%_-10%,#f59e0b1f,transparent),radial-gradient(900px_500px_at_100%_0%,#10b9811a,transparent)]">
         <main className="flex-1">
           <HeroSection />
@@ -61,6 +80,7 @@ export default function Home() {
           <SkillsSection />
           <ProjectsSection />
           <ContentHubSection />
+          <FaqSection />
           <ContactSection />
         </main>
       </div>
