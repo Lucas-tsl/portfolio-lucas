@@ -50,8 +50,33 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
     ? new Date(publishedAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
     : null;
 
+  const blogPostingLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description: summary || undefined,
+    url: pageUrl,
+    datePublished: publishedAt || undefined,
+    author: {
+      "@type": "Person",
+      name: "Lucas Troteseil",
+      url: BASE_URL,
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Lucas Troteseil",
+      url: BASE_URL,
+    },
+    inLanguage: "fr-FR",
+    keywords: tags.join(", ") || undefined,
+  };
+
   return (
     <main className="mx-auto w-full max-w-7xl px-6 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingLd) }}
+      />
       {/* Header */}
       <div className="mx-auto max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300">

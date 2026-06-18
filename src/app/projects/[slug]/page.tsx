@@ -60,8 +60,29 @@ export default async function ProjectDetailPage({
   const next = idx < projects.length - 1 ? projects[idx + 1] : null;
   const otherProjects = projects.filter((_, i) => i !== idx).slice(0, 3);
 
+  const BASE_URL = "https://lucastroteseil.com";
+  const softwareAppLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: project.title,
+    description: project.description,
+    url: project.liveUrl || `${BASE_URL}/projects/${slug}`,
+    applicationCategory: "WebApplication",
+    operatingSystem: "Web",
+    author: {
+      "@type": "Person",
+      name: "Lucas Troteseil",
+      url: BASE_URL,
+    },
+    ...(project.liveUrl ? { sameAs: project.liveUrl } : {}),
+  };
+
   return (
     <main className="mx-auto max-w-4xl px-6 py-16" id="main-content">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppLd) }}
+      />
       {/* Back */}
       <Link
         href="/projects"
