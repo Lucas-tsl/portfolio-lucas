@@ -7,7 +7,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Tu es disponible pour de nouvelles missions ?",
     answer:
-      "Je suis actuellement en alternance en tant que Chef de Projet Data & IA chez Groupe NOVI à Bordeaux (jusqu'à la fin de mon Master Data & IA à Nexa). Je ne prends donc pas de missions freelance à plein temps, mais je reste ouvert aux petits projets ponctuels ou aux discussions pour la suite. N'hésite pas à me contacter pour qu'on voie ensemble ce qui est possible.",
+      "Oui — avec un peu de flexibilité. Je suis en alternance chez Groupe NOVI jusqu'à la fin de mon Master, donc je ne peux pas m'engager sur des projets lourds au quotidien. En revanche, je suis tout à fait partant pour des missions ciblées : refonte de site, audit SEO, intégration d'une feature, mise en place d'un pipeline de données... Ce genre de projet qu'on peut avancer à son rythme. Si tu as un besoin concret, écris-moi — on voit ensemble ce qui est faisable.",
   },
   {
     question: "Où travailles-tu ?",
