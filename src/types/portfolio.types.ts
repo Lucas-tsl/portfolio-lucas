@@ -1,6 +1,6 @@
 export type ProjectStatus = "Actif" | "Disponible" | "Déployé" | "En production";
 
-export type ProjectCategory = "WordPress" | "PrestaShop" | "Next.js" | "Node.js" | "Full-stack" | "Portfolio";
+export type ProjectCategory = "WordPress" | "Next.js" | "Node.js" | "Full-stack" | "Portfolio";
 
 export interface Profile {
   name: string;
@@ -38,6 +38,13 @@ export interface ProjectImage {
   caption?: string;
 }
 
+/** Déclinaison d'un même projet sur une autre plateforme (ex. WordPress / PrestaShop) */
+export interface ProjectVariant {
+  label: string;
+  githubUrl: string;
+  liveUrl?: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -54,6 +61,8 @@ export interface Project {
   result?: string;
   timeline?: ProjectPhase[];
   images?: ProjectImage[];
+  /** Quand un même projet existe en plusieurs versions (ex. plugin WordPress + module PrestaShop) */
+  variants?: ProjectVariant[];
 }
 
 export interface ContactSubject {
