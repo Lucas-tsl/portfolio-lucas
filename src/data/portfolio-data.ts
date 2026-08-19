@@ -22,7 +22,7 @@ export const portfolioData = {
     wordpress: "https://profiles.wordpress.org/lucastsl/",
     location: "Bordeaux, France",
     available: true,
-    availabilityNote: "Fin d'alternance en novembre 2027 — recherche un CDI.",
+    availabilityNote: "CDI recherché à partir de novembre 2027, à la fin de mon alternance.",
   },
 
   skills: [
