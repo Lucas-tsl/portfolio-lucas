@@ -458,7 +458,7 @@ export const portfolioData = {
       liveUrl: "https://lucastroteseil.com",
       highlights: [
         "CI/CD automatique via GitHub + Vercel",
-        "Rendu markdown pour les articles blog et docs",
+        "Rendu markdown pour les articles de blog, avec table des matières et temps de lecture",
         "Formulaire de contact avec confirmation email via Resend",
       ],
       challenge:
@@ -467,7 +467,7 @@ export const portfolioData = {
         "First Load JS de 179 kB sur la homepage, 17 tests E2E Playwright, score PageSpeed 98/100, CSP strict et rate limiting sur le contact.",
       timeline: [
         { date: "Jan 2025", label: "Architecture", description: "Choix Next.js 15 App Router, design system Tailwind v4, structure des données et routing." },
-        { date: "Fév 2025", label: "Pages principales", description: "Homepage, /projects avec filtres, /blog et /docs avec rendu Markdown et sanitisation HTML." },
+        { date: "Fév 2025", label: "Pages principales", description: "Homepage, /projects avec filtres, /blog avec rendu Markdown et sanitisation HTML." },
         { date: "Mar 2025", label: "Fonctionnalités avancées", description: "Palette ⌘K, radar chart compétences (Recharts), OG images dynamiques, flux RSS." },
         { date: "Avr 2025", label: "Performance & sécurité", description: "Code splitting, lazy loading (-35% JS), CSP strict, rate limiting, headers HTTP sécurisés." },
         { date: "Mai 2025", label: "Tests & production", description: "17 tests Playwright E2E, déploiement continu via Vercel, PageSpeed 98/100." },

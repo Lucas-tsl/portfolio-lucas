@@ -53,12 +53,6 @@ export function AboutSection() {
               Mon parcours complet
             </Link>
             <Link
-              href="/docs"
-              className="rounded-full border border-zinc-300 px-4 py-2 transition hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500"
-            >
-              Documentations
-            </Link>
-            <Link
               href="/blog"
               className="rounded-full border border-zinc-300 px-4 py-2 transition hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500"
             >

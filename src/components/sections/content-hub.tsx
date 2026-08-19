@@ -2,13 +2,6 @@ import Link from "next/link";
 
 const spaces = [
   {
-    title: "Documentations",
-    href: "/docs",
-    description:
-      "Ressources internes, guides de fonctionnement et checklists pour l'équipe et les collaborateurs.",
-    label: "Espace lecture",
-  },
-  {
     title: "Blog",
     href: "/blog",
     description:
@@ -37,13 +30,11 @@ export function ContentHubSection() {
           </h2>
         </div>
         <p className="max-w-2xl text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-          L&apos;idée est de proposer un espace où les personnes de l&apos;entreprise peuvent
-          lire des documentations, et où les visiteurs peuvent suivre mes retours
-          d&apos;expérience et la stack que j&apos;utilise.
+          Un espace où suivre mes retours d&apos;expérience et la stack que j&apos;utilise.
         </p>
       </div>
 
-      <div className="mt-8 grid gap-4 md:grid-cols-3">
+      <div className="mt-8 grid gap-4 md:grid-cols-2">
         {spaces.map((space) => (
           <Link
             key={space.title}
