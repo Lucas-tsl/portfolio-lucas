@@ -344,6 +344,63 @@ export const portfolioData = {
       ],
     },
     {
+      id: "fiche-produit-dotations",
+      title: "Fiche Produit Dotations",
+      description:
+        "Extension Chrome interne qui affiche instantanément la fiche complète d'un produit (marque, type, contenance, description, image) depuis l'outil de gestion des dotations, sans appel API à chaque consultation. Une base products.json, générée une fois par trimestre via recherche web (API Anthropic), est distribuée à toute l'équipe. Dépôt privé.",
+      role: "Développeur / Outillage interne",
+      status: "Actif",
+      year: "2026",
+      category: "Automatisation",
+      technologies: ["JavaScript", "Chrome Extension", "Node.js", "Claude API"],
+      githubUrl: "",
+      liveUrl: "",
+      highlights: [
+        "Base produits statique générée une fois via l'API Anthropic (recherche web), distribuée sans clé API individuelle",
+        "Fiche produit affichée instantanément au double-clic, zéro appel réseau à l'usage",
+        "Reprise automatique à la régénération : seuls les nouveaux codes produits du catalogue sont traités",
+        "Script de génération idempotent, relançable sans risque sur un catalogue mis à jour",
+      ],
+      challenge:
+        "Donner à toute l'équipe un accès instantané à la fiche produit complète depuis l'outil de gestion des dotations, sans exposer de clé API individuelle ni générer d'appel réseau à chaque consultation.",
+      result:
+        "Extension installée par l'équipe dotations : fiche produit affichée instantanément depuis une base locale régénérée chaque trimestre.",
+      timeline: [
+        { date: "2026", label: "Génération de la base", description: "Script Node.js qui interroge l'API Anthropic avec recherche web pour identifier chaque produit du catalogue CSV, avec reprise automatique sur les mises à jour." },
+        { date: "2026", label: "Extension Chrome", description: "Extension embarquant products.json, affichage de la fiche produit au double-clic sans clé API ni appel réseau côté utilisateur." },
+      ],
+    },
+    {
+      id: "lsg-checkout-monitor",
+      title: "LSG Checkout Monitor",
+      description:
+        "Monitoring automatisé quotidien du tunnel de commande invité de lessenteursgourmandes.fr (point relais Colissimo et livraison à domicile), via Playwright et GitHub Actions. S'arrête volontairement avant la saisie de carte bancaire — le compte marchand n'a pas de mode test — et annule automatiquement chaque commande de test créée. Dépôt privé.",
+      role: "Développeur QA / Automatisation",
+      status: "Actif",
+      year: "2026",
+      category: "Automatisation",
+      technologies: ["TypeScript", "Playwright", "GitHub Actions", "WooCommerce REST API"],
+      githubUrl: "",
+      liveUrl: "",
+      highlights: [
+        "Deux scénarios quotidiens (point relais Colissimo, domicile) exécutés du lundi au vendredi via cron GitHub Actions",
+        "Reconnaissance en lecture seule du checkout WooCommerce Blocks avant conception des sélecteurs, pour fiabiliser le monitoring",
+        "Arrêt volontaire à la redirection vers la passerelle de paiement — aucune carte bancaire n'est jamais saisie par le script",
+        "Nettoyage automatique : chaque commande de test est retrouvée et annulée via l'API REST WooCommerce",
+        "Email de statut à chaque run (succès/échec), rapport Playwright complet en artefact",
+      ],
+      challenge:
+        "Surveiller quotidiennement un tunnel de commande en production, avec un compte marchand sans mode test, sans jamais risquer un paiement réel ni exposer de donnée bancaire.",
+      result:
+        "Monitoring en production cinq jours sur sept, avec alerte email immédiate en cas d'échec et nettoyage automatique des commandes de test.",
+      timeline: [
+        { date: "2026", label: "Reconnaissance du checkout", description: "Audit en lecture seule du tunnel WooCommerce Blocks Checkout, du widget Colissimo et de la passerelle de paiement, sans jamais soumettre de commande réelle." },
+        { date: "2026", label: "Scénarios Playwright", description: "Écriture des deux parcours (point relais, domicile), arrêt volontaire avant la saisie de carte bancaire." },
+        { date: "2026", label: "Nettoyage & alerting", description: "Annulation automatique des commandes de test via l'API REST WooCommerce, email de statut à chaque run." },
+        { date: "2026", label: "Cron GitHub Actions", description: "Exécution quotidienne du lundi au vendredi, avec déclenchement manuel possible via workflow_dispatch." },
+      ],
+    },
+    {
       id: "kaizen-formations",
       title: "Kaizen Formations",
       description:
