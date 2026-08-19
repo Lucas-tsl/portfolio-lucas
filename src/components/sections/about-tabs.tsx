@@ -7,9 +7,13 @@ import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon"
 
 /* ─── Données ─────────────────────────────────────────────── */
 
+/** Date de début du contrat NOVI (1ère alternance) — sert au calcul de l'ancienneté totale */
+const NOVI_SINCE = "2024-09-01";
+
 const noviRoles = [
   {
     period: "Oct. 2025 — Aujourd'hui",
+    since: "2025-10-01",
     duration: "9 mois",
     role: "Chef de Projet Data & IA",
     type: "Alternance",
@@ -26,6 +30,7 @@ const noviRoles = [
   },
   {
     period: "Sept. 2024 — Sept. 2025",
+    since: "2024-09-01",
     duration: "1 an 1 mois",
     role: "Développeur Web / Webmaster",
     type: "Alternance",
@@ -183,6 +188,32 @@ function BrandLink({ name }: { name: string }) {
   );
 }
 
+/* ─── Durées dynamiques ───────────────────────────────────── */
+/* Calculées à l'affichage plutôt qu'en dur, pour ne pas se désynchroniser au fil du temps. */
+
+function monthsSince(isoStart: string, until: Date): number {
+  const start = new Date(isoStart);
+  let months = (until.getFullYear() - start.getFullYear()) * 12 + (until.getMonth() - start.getMonth());
+  if (until.getDate() < start.getDate()) months -= 1;
+  return Math.max(months, 0);
+}
+
+function formatDuration(months: number): string {
+  const years = Math.floor(months / 12);
+  const rem = months % 12;
+  const parts: string[] = [];
+  if (years > 0) parts.push(`${years} an${years > 1 ? "s" : ""}`);
+  if (rem > 0 || years === 0) parts.push(`${rem} mois`);
+  return parts.join(" ");
+}
+
+/** null tant que le composant n'est pas monté côté client — évite tout écart d'hydratation avec le HTML pré-rendu */
+function useNow(): Date | null {
+  const [now, setNow] = useState<Date | null>(null);
+  useEffect(() => setNow(new Date()), []);
+  return now;
+}
+
 /* ─── Composants partagés ─────────────────────────────────── */
 
 function TimelineDot({ color }: { color: "amber" | "zinc" | "emerald" }) {
@@ -214,6 +245,9 @@ function TagList({ tags }: { tags: string[] }) {
 /* ─── Contenu des onglets ─────────────────────────────────── */
 
 function ExperiencePanel() {
+  const now = useNow();
+  const noviTotalDuration = now ? formatDuration(monthsSince(NOVI_SINCE, now)) : "1 an 11 mois";
+
   return (
     <>
       {/* NOVI */}
@@ -227,12 +261,14 @@ function ExperiencePanel() {
               </p>
             </div>
             <span className="shrink-0 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-              1 an 10 mois
+              {noviTotalDuration}
             </span>
           </div>
         </div>
         <div className="divide-y divide-zinc-100 dark:divide-zinc-800">
-          {noviRoles.map((role) => (
+          {noviRoles.map((role) => {
+            const duration = role.current && now ? formatDuration(monthsSince(role.since, now)) : role.duration;
+            return (
             <div key={role.role} className="px-6 py-5">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
@@ -244,7 +280,7 @@ function ExperiencePanel() {
                       </span>
                     )}
                   </div>
-                  <p className="mt-0.5 text-xs text-zinc-500">{role.type} · {role.duration}</p>
+                  <p className="mt-0.5 text-xs text-zinc-500">{role.type} · {duration}</p>
                 </div>
                 <span className="text-xs text-zinc-400 dark:text-zinc-600">{role.period}</span>
               </div>
@@ -272,7 +308,8 @@ function ExperiencePanel() {
               </ul>
               <TagList tags={role.tags} />
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
