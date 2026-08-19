@@ -287,6 +287,63 @@ export const portfolioData = {
       ],
     },
     {
+      id: "review-automator",
+      title: "Review Automator",
+      description:
+        "Automate Python qui publie les avis clients programmés sur Physiomins, sans intervention manuelle. Lit un Google Sheet planning (statut, date), puis pilote Playwright pour remplir et soumettre le formulaire d'avis en simulant une navigation humaine. Outil interne au Groupe NOVI, dépôt privé.",
+      role: "Développeur Python / Automatisation",
+      status: "Actif",
+      year: "2026",
+      category: "Automatisation",
+      technologies: ["Python", "Playwright", "Pandas", "Google Sheets"],
+      githubUrl: "",
+      liveUrl: "",
+      highlights: [
+        "Lecture et filtrage dynamique d'un Google Sheet (avis planifiés, statut TODO, date du jour) via Pandas",
+        "Navigation automatisée avec Playwright, un contexte incognito par avis pour éviter les conflits de session",
+        "Détection et fermeture automatique des popups bloquants avant soumission du formulaire",
+        "Mise à jour du statut (TODO → POSTED) et export CSV local de suivi après chaque exécution",
+      ],
+      challenge:
+        "Remplacer la publication manuelle d'avis clients programmés sur Physiomins — un processus répétitif et chronophage — sans API d'avis exposée par le CMS pour l'automatiser proprement côté back-end.",
+      result:
+        "Automatisation en production : avis publiés quotidiennement sans intervention manuelle, avec un rapport CSV de suivi généré à chaque exécution.",
+      timeline: [
+        { date: "2026", label: "Lecture & filtrage", description: "Script de lecture du Google Sheet et filtrage des avis à publier du jour avec Pandas." },
+        { date: "2026", label: "Bot Playwright", description: "Navigation automatisée, remplissage et soumission du formulaire d'avis, contexte incognito par avis." },
+        { date: "2026", label: "Fiabilisation", description: "Gestion des popups bloquants et des champs requis, mise à jour du statut et export CSV de suivi." },
+      ],
+    },
+    {
+      id: "novi-app",
+      title: "NOVI App",
+      description:
+        "Application mobile e-commerce premium en React Native/TypeScript qui agrège nativement 4 marques du Groupe NOVI (Les Senteurs Gourmandes, Jozz Beauty, Pure Eden, Physiomins) en unifiant les API WooCommerce et PrestaShop dans une seule expérience d'achat. Dépôt privé.",
+      role: "Développeur Mobile",
+      status: "Actif",
+      year: "2026",
+      category: "Mobile",
+      technologies: ["React Native", "TypeScript", "Zustand", "Stripe", "WooCommerce API", "PrestaShop API"],
+      githubUrl: "",
+      liveUrl: "",
+      highlights: [
+        "Agrégation native de 4 marques (WooCommerce et PrestaShop) dans une seule application mobile",
+        "Parsing bi-moteur : lecture simultanée des API REST WooCommerce et PrestaShop",
+        "Recherche prédictive dynamique avec suggestions tendances dès 2 caractères",
+        "Paiement natif via Stripe Payment Intents, panier et authentification persistés avec Zustand",
+      ],
+      challenge:
+        "Unifier l'expérience d'achat mobile de 4 marques du Groupe NOVI reposant sur deux écosystèmes e-commerce différents (WooCommerce et PrestaShop), sans dupliquer la logique métier marque par marque.",
+      result:
+        "Application fonctionnelle avec build Android de production (keystore configuré, App Bundle via Gradle), navigation et recherche unifiées sur les 4 marques.",
+      timeline: [
+        { date: "2026", label: "Architecture bi-moteur", description: "Couche de parsing commune pour les API REST WooCommerce et PrestaShop, unification du modèle de données produit." },
+        { date: "2026", label: "Navigation & recherche", description: "Navigation bottom bar minimaliste, recherche prédictive avec suggestions tendances." },
+        { date: "2026", label: "Paiement & persistance", description: "Intégration Stripe Payment Intents, gestion du panier et de l'authentification avec Zustand." },
+        { date: "2026", label: "Build de production", description: "Configuration du keystore Android et génération de l'App Bundle (AAB) pour le Play Store." },
+      ],
+    },
+    {
       id: "kaizen-formations",
       title: "Kaizen Formations",
       description:
