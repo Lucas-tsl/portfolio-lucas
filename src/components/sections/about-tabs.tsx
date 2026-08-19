@@ -142,16 +142,16 @@ const currentActivities = [
       "En alternance depuis octobre 2025 : formation en Data Science et IA appliquée à Nexa Digital School, en parallèle de mon poste chez Groupe NOVI.",
   },
   {
-    icon: "🏗️",
-    title: "Plugin WooCommerce Stories",
+    icon: "🧩",
+    title: "Navi — Hub WordPress & PrestaShop",
     description:
-      "Développement d'un plugin WordPress qui intègre une expérience vidéo type Stories dans les pages produits WooCommerce. Navigation swipe, lecture YouTube optimisée, zéro dépendance JS externe.",
+      "Plugin/module qui regroupe cookies, accessibilité, panier sticky et bulles vidéo Stories derrière un seul bouton flottant, décliné sur WordPress et PrestaShop.",
   },
   {
     icon: "🤖",
-    title: "IA & automatisation métier",
+    title: "Automatisation interne Groupe NOVI",
     description:
-      "Intégration de LLMs (ChatGPT, Claude) et GitHub Copilot pour automatiser les workflows de développement et les processus métier au sein du groupe.",
+      "Bots et outils internes (publication d'avis clients, monitoring du tunnel de commande, extension de gestion produits) pour fiabiliser des tâches répétitives côté marques.",
   },
   {
     icon: "🗾",
@@ -386,7 +386,8 @@ export function AboutContent() {
         <p>
           En parallèle, je poursuis un{" "}
           <strong className="text-zinc-900 dark:text-zinc-100">Master Data & IA à Nexa Digital School</strong> et je
-          développe des projets open-source comme le plugin WooCommerce Stories.
+          développe des projets internes et open-source, comme le hub d&apos;engagement{" "}
+          <strong className="text-zinc-900 dark:text-zinc-100">Navi</strong> (WordPress &amp; PrestaShop).
         </p>
       </div>
 
