@@ -186,6 +186,65 @@ export const portfolioData = {
       ],
     },
     {
+      id: "navi-wordpress",
+      title: "Navi — Hub d'engagement WordPress/WooCommerce",
+      description:
+        "Plugin WordPress/WooCommerce qui regroupe derrière un seul bouton flottant plusieurs modules d'engagement client : consentement cookies (Google Consent Mode V2), ajout au panier automatique, accessibilité numérique et bulles vidéo type Stories Instagram sur les fiches produit.",
+      role: "Développeur Plugin",
+      status: "Actif",
+      year: "2025",
+      category: "WordPress",
+      technologies: ["PHP", "JavaScript", "WordPress", "WooCommerce", "Google Consent Mode V2", "WPML"],
+      githubUrl: "https://github.com/Lucas-tsl/navi-wordpress",
+      liveUrl: "https://lessenteursgourmandes.fr/",
+      highlights: [
+        "Bouton flottant unique à 3 états, architecture à registre de modules découplés du noyau",
+        "Bannière RGPD + Google Consent Mode V2, logo auto-détecté depuis l'identité du site",
+        "Bulles vidéo type Stories Instagram sur les fiches produit (jusqu'à 4 par produit, YouTube ou MP4)",
+        "Panier automatique sur fiche produit, produits simples et à variations, sélecteur de teinte accessible au clavier",
+        "Traduction auto-suffisante (WPML ou repli sur la locale WordPress) sans plugin supplémentaire",
+      ],
+      challenge:
+        "Régler à la fois des problèmes de conformité RGPD sur les cookies, d'accessibilité numérique et d'expérience produit sur 3 boutiques WooCommerce du Groupe NOVI, sans multiplier les plugins tiers ni dégrader les Core Web Vitals.",
+      result:
+        "Plugin unique déployé sur Les Senteurs Gourmandes, Jozz Beauty et Pure Eden, fusionnant 3 déploiements site-spécifiques initiaux en une architecture à modules généralisée, prête pour une soumission au répertoire officiel WordPress.org.",
+      timeline: [
+        { date: "2024", label: "Déploiements site-spécifiques", description: "Développement initial de 3 hubs indépendants (hub-lsg, hub-pe, hub-jozz) pour répondre aux besoins cookies, accessibilité et panier de chaque boutique." },
+        { date: "2025", label: "Fusion & généralisation", description: "Fusion des 3 déploiements en un plugin unique, architecture à registre de modules découplés du noyau, sans dépendance entre eux." },
+        { date: "2025", label: "Module Stories", description: "Ajout du module bulles vidéo type Stories Instagram sur les fiches produit, jusqu'à 4 vidéos par produit, YouTube ou MP4." },
+        { date: "2025", label: "Préparation WordPress.org", description: "Rédaction du readme.txt au format officiel, bannière, icône et captures d'écran prêts pour soumission au répertoire public." },
+      ],
+    },
+    {
+      id: "navi-prestashop",
+      title: "Navi — Hub d'engagement PrestaShop",
+      description:
+        "Module PrestaShop, frère du plugin Navi pour WordPress : un bouton flottant unique regroupant consentement cookies (Google Consent Mode v2), accessibilité, panier sticky calé sur le bouton natif du thème et bulles vidéo Stories sur les fiches produit.",
+      role: "Développeur Module",
+      status: "Déployé",
+      year: "2025",
+      category: "PrestaShop",
+      technologies: ["PHP", "JavaScript", "PrestaShop", "Smarty", "Google Consent Mode v2"],
+      githubUrl: "https://github.com/Lucas-tsl/navi-prestashop",
+      liveUrl: "https://www.physiomins.com/",
+      highlights: [
+        "Panier sticky qui suit le vrai bouton \"Ajouter au panier\" du thème, y compris l'état rupture de stock",
+        "Stories vidéo natives par produit (table dédiée navi_story, jusqu'à 4 par fiche), sans dépendance à un module tiers",
+        "Consent Mode v2 injecté avant tout script tiers pour bloquer le tracking par défaut tant qu'aucun choix n'est fait",
+        "Compatible PrestaShop 1.7 à 8.x, configuration entièrement personnalisable depuis le Back Office",
+      ],
+      challenge:
+        "Adapter la même logique de hub d'engagement à l'écosystème PrestaShop pour Physiomins, avec des contraintes propres à la plateforme : ordre des hooks non garanti pour le Consent Mode, thème sans sélecteur de variation standard sur le panier sticky.",
+      result:
+        "Module en production sur physiomins.com, avec synchronisation Google Consent Mode v2 pour Analytics/Ads et un événement navi_cookie_consent_updated exploitable dans GTM pour synchroniser les pixels tiers (Meta, TikTok, Hotjar...).",
+      timeline: [
+        { date: "2025", label: "Conception du hub", description: "Reprise de l'architecture du bouton flottant à 3 états développée pour WordPress, adaptée aux hooks et au Back Office PrestaShop." },
+        { date: "2025", label: "Cookies & accessibilité", description: "Bannière de consentement Google Consent Mode v2, panneau accessibilité (taille du texte, contraste, curseur agrandi)." },
+        { date: "2025", label: "Panier sticky & stories", description: "Panier sticky calé sur le bouton natif du thème, gestion native des stories vidéo par produit." },
+        { date: "2025", label: "Déploiement Physiomins", description: "Mise en production sur physiomins.com, configuration Back Office et synchronisation des tags tiers via GTM." },
+      ],
+    },
+    {
       id: "kaizen-formations",
       title: "Kaizen Formations",
       description:

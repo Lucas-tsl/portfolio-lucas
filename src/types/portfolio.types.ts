@@ -1,6 +1,6 @@
 export type ProjectStatus = "Actif" | "Disponible" | "Déployé" | "En production";
 
-export type ProjectCategory = "WordPress" | "Next.js" | "Node.js" | "Full-stack" | "Portfolio";
+export type ProjectCategory = "WordPress" | "PrestaShop" | "Next.js" | "Node.js" | "Full-stack" | "Portfolio";
 
 export interface Profile {
   name: string;
