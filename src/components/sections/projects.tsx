@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, ExternalLink, Github } from "lucide-react";
+import { ArrowRight, CheckCircle2, ExternalLink, Github } from "lucide-react";
+import Link from "next/link";
 import { projects } from "@/data/portfolio-data";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
@@ -11,6 +12,11 @@ const statusColors: Record<string, string> = {
   Déployé:        "bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400",
   "En production":"bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 };
+
+const FEATURED_PROJECT_IDS = ["navi", "kaizen-formations"];
+const featuredProjects = FEATURED_PROJECT_IDS
+  .map((id) => projects.find((p) => p.id === id))
+  .filter((p): p is (typeof projects)[number] => Boolean(p));
 
 export function ProjectsSection() {
   return (
@@ -30,7 +36,7 @@ export function ProjectsSection() {
       </motion.div>
 
       <div className="mt-8 grid gap-5 md:grid-cols-2">
-        {projects.map((project, idx) => (
+        {featuredProjects.map((project, idx) => (
           <motion.article
             key={project.id}
             initial={{ opacity: 0, y: 20 }}
@@ -145,6 +151,16 @@ export function ProjectsSection() {
             </div>
           </motion.article>
         ))}
+      </div>
+
+      <div className="mt-8 flex justify-center">
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition hover:text-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400"
+        >
+          Voir tous les projets
+          <ArrowRight size={14} aria-hidden="true" />
+        </Link>
       </div>
     </section>
   );
