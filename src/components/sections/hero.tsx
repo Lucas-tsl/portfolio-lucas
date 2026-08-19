@@ -106,6 +106,11 @@ export function HeroSection() {
               </span>
             )}
           </p>
+          {profile.availabilityNote && (
+            <p className="mt-2 text-xs leading-relaxed text-zinc-500 dark:text-zinc-500">
+              {profile.availabilityNote}
+            </p>
+          )}
         </motion.div>
       </div>
     </section>

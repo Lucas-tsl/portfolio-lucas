@@ -114,10 +114,11 @@ export function ProjectsSection() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`Voir la version ${variant.label} de ${project.title}`}
+                    title={variant.label}
                     className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-xs font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
                   >
                     {variant.liveUrl ? <ExternalLink size={14} aria-hidden="true" /> : <Github size={14} aria-hidden="true" />}
-                    {variant.label}
+                    <TechIcon name={variant.label} size={14} />
                   </a>
                 ))
               ) : (

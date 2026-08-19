@@ -13,6 +13,8 @@ export interface Profile {
   wordpress: string;
   location: string;
   available: boolean;
+  /** Note affichée sous le badge de disponibilité (ex. échéance d'alternance, recherche de CDI) */
+  availabilityNote?: string;
 }
 
 export interface SkillGroup {
