@@ -192,7 +192,7 @@ export const portfolioData = {
         "Un seul bouton flottant qui regroupe plusieurs modules d'engagement client : consentement cookies (Google Consent Mode V2), accessibilité numérique, panier sticky et bulles vidéo type Stories Instagram sur les fiches produit. Deux implémentations, WordPress/WooCommerce et PrestaShop, même architecture et même logique de hub.",
       role: "Développeur Plugin",
       status: "Actif",
-      year: "2025",
+      year: "2026",
       category: "Full-stack",
       technologies: ["PHP", "JavaScript", "WordPress", "WooCommerce", "PrestaShop", "Google Consent Mode V2"],
       githubUrl: "https://github.com/Lucas-tsl/navi-wordpress",
@@ -224,7 +224,7 @@ export const portfolioData = {
         { date: "2024", label: "Déploiements site-spécifiques", description: "Développement initial de 3 hubs indépendants (hub-lsg, hub-pe, hub-jozz) pour répondre aux besoins cookies, accessibilité et panier de chaque boutique WooCommerce." },
         { date: "2025", label: "Fusion & généralisation (WordPress)", description: "Fusion des 3 déploiements en un plugin unique, architecture à registre de modules découplés du noyau, module Stories ajouté." },
         { date: "2025", label: "Portage PrestaShop", description: "Reprise de l'architecture du bouton flottant à 3 états pour PrestaShop : panier sticky calé sur le bouton natif du thème, stories natives par produit." },
-        { date: "2025", label: "Déploiements en production", description: "WordPress sur Les Senteurs Gourmandes, Jozz Beauty et Pure Eden ; PrestaShop sur Physiomins." },
+        { date: "2026", label: "Déploiements en production", description: "WordPress sur Les Senteurs Gourmandes, Jozz Beauty et Pure Eden ; PrestaShop sur Physiomins." },
       ],
     },
     {
