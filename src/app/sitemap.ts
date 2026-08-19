@@ -12,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/about`,                     lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE_URL}/projects`,                  lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE_URL}/blog`,                      lastModified: now, changeFrequency: "weekly",  priority: 0.8 },
-    { url: `${BASE_URL}/docs`,                      lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/accessibilite`,             lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
     { url: `${BASE_URL}/mentions-legales`,          lastModified: now, changeFrequency: "yearly",  priority: 0.2 },
     { url: `${BASE_URL}/politique-confidentialite`, lastModified: now, changeFrequency: "yearly",  priority: 0.2 },
@@ -30,13 +29,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  const docsDir = path.join(process.cwd(), "content/docs");
-  const docsRoutes: MetadataRoute.Sitemap = readContentDirectory(docsDir).map((doc) => ({
-    url: `${BASE_URL}/docs/${doc.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.6,
-  }));
-
-  return [...staticRoutes, ...blogRoutes, ...docsRoutes];
+  return [...staticRoutes, ...blogRoutes];
 }

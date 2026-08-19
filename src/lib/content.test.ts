@@ -3,7 +3,6 @@ import path from "path";
 import { readContentDirectory, readContentDocument } from "./content";
 
 const BLOG_DIR = path.resolve(process.cwd(), "content/blog");
-const DOCS_DIR = path.resolve(process.cwd(), "content/docs");
 
 describe("readContentDirectory", () => {
   it("returns an array (empty if dir missing)", () => {
@@ -54,10 +53,5 @@ describe("readContentDocument", () => {
     expect(doc).not.toBeNull();
     expect(doc?.slug).toBe(first.slug);
     expect(doc?.frontmatter.title).toBe(first.frontmatter.title);
-  });
-
-  it("returns null for missing doc in docs dir", () => {
-    const result = readContentDocument(DOCS_DIR, "slug-nope");
-    expect(result).toBeNull();
   });
 });
