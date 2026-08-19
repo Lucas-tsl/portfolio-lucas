@@ -253,34 +253,37 @@ export default async function ProjectDetailPage({
 
       {/* Actions — mobile only (desktop has floating bar) */}
       {hasVariants ? (
-        <div className="md:hidden flex flex-col gap-4 border-t border-zinc-100 pt-8 dark:border-zinc-800 mb-16">
+        <div className="md:hidden flex flex-col gap-5 border-t border-zinc-100 pt-8 dark:border-zinc-800 mb-16">
           {project.variants!.map((variant) => (
-            <div key={variant.label} className="flex flex-wrap items-center gap-3">
-              <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600">
+            <div key={variant.label} className="flex flex-col gap-2">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600">
+                <TechIcon name={variant.label} size={13} />
                 {variant.label}
               </span>
-              <a
-                href={variant.githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`Code source de la version ${variant.label} de ${project.title} sur GitHub`}
-                className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
-              >
-                <Github size={15} aria-hidden="true" />
-                Code source
-              </a>
-              {variant.liveUrl && (
+              <div className="flex flex-wrap gap-3">
                 <a
-                  href={variant.liveUrl}
+                  href={variant.githubUrl}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={`Voir la version ${variant.label} de ${project.title} en ligne`}
-                  className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-700 dark:hover:bg-emerald-500"
+                  aria-label={`Code source de la version ${variant.label} de ${project.title} sur GitHub`}
+                  className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
                 >
-                  <ExternalLink size={15} aria-hidden="true" />
-                  Voir en ligne
+                  <Github size={15} aria-hidden="true" />
+                  Code source
                 </a>
-              )}
+                {variant.liveUrl && (
+                  <a
+                    href={variant.liveUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Voir la version ${variant.label} de ${project.title} en ligne`}
+                    className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-700 dark:hover:bg-emerald-500"
+                  >
+                    <ExternalLink size={15} aria-hidden="true" />
+                    Voir en ligne
+                  </a>
+                )}
+              </div>
             </div>
           ))}
         </div>
@@ -320,8 +323,12 @@ export default async function ProjectDetailPage({
         <div className="fixed bottom-6 right-6 z-40 hidden md:flex flex-col items-end gap-2">
           {project.variants!.map((variant) => (
             <div key={variant.label} className="flex flex-row items-center gap-2">
-              <span className="rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-zinc-500 shadow backdrop-blur dark:bg-zinc-900/90 dark:text-zinc-400">
-                {variant.label}
+              <span
+                title={variant.label}
+                aria-label={variant.label}
+                className="inline-flex items-center rounded-full bg-white/90 p-1.5 shadow backdrop-blur dark:bg-zinc-900/90"
+              >
+                <TechIcon name={variant.label} size={14} />
               </span>
               {variant.liveUrl && (
                 <a
