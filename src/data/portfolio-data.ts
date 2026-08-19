@@ -298,6 +298,7 @@ export const portfolioData = {
       technologies: ["Python", "Playwright", "Pandas", "Google Sheets"],
       githubUrl: "",
       liveUrl: "",
+      internal: true,
       highlights: [
         "Lecture et filtrage dynamique d'un Google Sheet (avis planifiés, statut TODO, date du jour) via Pandas",
         "Navigation automatisée avec Playwright, un contexte incognito par avis pour éviter les conflits de session",
@@ -326,6 +327,7 @@ export const portfolioData = {
       technologies: ["React Native", "TypeScript", "Zustand", "Stripe", "WooCommerce API", "PrestaShop API"],
       githubUrl: "",
       liveUrl: "",
+      internal: true,
       highlights: [
         "Agrégation native de 4 marques (WooCommerce et PrestaShop) dans une seule application mobile",
         "Parsing bi-moteur : lecture simultanée des API REST WooCommerce et PrestaShop",
@@ -355,6 +357,7 @@ export const portfolioData = {
       technologies: ["JavaScript", "Chrome Extension", "Node.js", "Claude API"],
       githubUrl: "",
       liveUrl: "",
+      internal: true,
       highlights: [
         "Base produits statique générée une fois via l'API Anthropic (recherche web), distribuée sans clé API individuelle",
         "Fiche produit affichée instantanément au double-clic, zéro appel réseau à l'usage",
@@ -382,6 +385,7 @@ export const portfolioData = {
       technologies: ["TypeScript", "Playwright", "GitHub Actions", "WooCommerce REST API"],
       githubUrl: "",
       liveUrl: "",
+      internal: true,
       highlights: [
         "Deux scénarios quotidiens (point relais Colissimo, domicile) exécutés du lundi au vendredi via cron GitHub Actions",
         "Reconnaissance en lecture seule du checkout WooCommerce Blocks avant conception des sélecteurs, pour fiabiliser le monitoring",
