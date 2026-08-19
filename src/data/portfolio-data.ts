@@ -22,8 +22,7 @@ export const portfolioData = {
     wordpress: "https://profiles.wordpress.org/lucastsl/",
     location: "Bordeaux, France",
     available: true,
-    availabilityNote:
-      "Fin d'alternance en novembre 2026 — recherche un CDI de développeur web à partir de cette date (stack de prédilection : Next.js, TypeScript, Node.js, React).",
+    availabilityNote: "Fin d'alternance en novembre 2027 — recherche un CDI.",
   },
 
   skills: [
