@@ -126,29 +126,47 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
-        {project.githubUrl && (
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`Code source de ${project.title} sur GitHub`}
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-xs font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
-          >
-            <Github size={14} aria-hidden="true" />
-            Repository
-          </a>
-        )}
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`Voir ${project.title} en ligne`}
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500"
-          >
-            <ExternalLink size={14} aria-hidden="true" />
-            Voir en ligne
-          </a>
+        {project.variants && project.variants.length > 0 ? (
+          project.variants.map((variant) => (
+            <a
+              key={variant.label}
+              href={variant.liveUrl || variant.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Voir la version ${variant.label} de ${project.title}`}
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-xs font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
+            >
+              {variant.liveUrl ? <ExternalLink size={14} aria-hidden="true" /> : <Github size={14} aria-hidden="true" />}
+              {variant.label}
+            </a>
+          ))
+        ) : (
+          <>
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Code source de ${project.title} sur GitHub`}
+                className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-xs font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
+              >
+                <Github size={14} aria-hidden="true" />
+                Repository
+              </a>
+            )}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Voir ${project.title} en ligne`}
+                className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500"
+              >
+                <ExternalLink size={14} aria-hidden="true" />
+                Voir en ligne
+              </a>
+            )}
+          </>
         )}
         <Link
           href={`/projects/${project.id}`}

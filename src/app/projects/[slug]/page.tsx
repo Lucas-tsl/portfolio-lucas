@@ -60,6 +60,7 @@ export default async function ProjectDetailPage({
   const prev = idx > 0 ? projects[idx - 1] : null;
   const next = idx < projects.length - 1 ? projects[idx + 1] : null;
   const otherProjects = projects.filter((_, i) => i !== idx).slice(0, 3);
+  const hasVariants = Boolean(project.variants && project.variants.length > 0);
 
   const BASE_URL = "https://lucastroteseil.com";
   const softwareAppLd = {
@@ -251,63 +252,131 @@ export default async function ProjectDetailPage({
       )}
 
       {/* Actions — mobile only (desktop has floating bar) */}
-      {(project.githubUrl || project.liveUrl) && (
-        <div className="md:hidden flex flex-wrap gap-3 border-t border-zinc-100 pt-8 dark:border-zinc-800 mb-16">
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`Code source de ${project.title} sur GitHub`}
-              className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
-            >
-              <Github size={15} aria-hidden="true" />
-              Code source
-            </a>
-          )}
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`Voir ${project.title} en ligne`}
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-700 dark:hover:bg-emerald-500"
-            >
-              <ExternalLink size={15} aria-hidden="true" />
-              Voir en ligne
-            </a>
-          )}
+      {hasVariants ? (
+        <div className="md:hidden flex flex-col gap-4 border-t border-zinc-100 pt-8 dark:border-zinc-800 mb-16">
+          {project.variants!.map((variant) => (
+            <div key={variant.label} className="flex flex-wrap items-center gap-3">
+              <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600">
+                {variant.label}
+              </span>
+              <a
+                href={variant.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Code source de la version ${variant.label} de ${project.title} sur GitHub`}
+                className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
+              >
+                <Github size={15} aria-hidden="true" />
+                Code source
+              </a>
+              {variant.liveUrl && (
+                <a
+                  href={variant.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Voir la version ${variant.label} de ${project.title} en ligne`}
+                  className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-700 dark:hover:bg-emerald-500"
+                >
+                  <ExternalLink size={15} aria-hidden="true" />
+                  Voir en ligne
+                </a>
+              )}
+            </div>
+          ))}
         </div>
+      ) : (
+        (project.githubUrl || project.liveUrl) && (
+          <div className="md:hidden flex flex-wrap gap-3 border-t border-zinc-100 pt-8 dark:border-zinc-800 mb-16">
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Code source de ${project.title} sur GitHub`}
+                className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
+              >
+                <Github size={15} aria-hidden="true" />
+                Code source
+              </a>
+            )}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Voir ${project.title} en ligne`}
+                className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-700 dark:hover:bg-emerald-500"
+              >
+                <ExternalLink size={15} aria-hidden="true" />
+                Voir en ligne
+              </a>
+            )}
+          </div>
+        )
       )}
 
       {/* Floating action bar — desktop only */}
-      {(project.githubUrl || project.liveUrl) && (
-        <div className="fixed bottom-6 right-6 z-40 hidden md:flex flex-row gap-2">
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`Voir ${project.title} en ligne`}
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/20 transition hover:bg-emerald-700 hover:-translate-y-0.5 hover:shadow-xl dark:hover:bg-emerald-500"
-            >
-              <ExternalLink size={14} aria-hidden="true" />
-              Voir en ligne
-            </a>
-          )}
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`Code source de ${project.title} sur GitHub`}
-              className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white/90 px-4 py-2.5 text-sm font-medium text-zinc-800 shadow-lg backdrop-blur transition hover:bg-zinc-50 hover:-translate-y-0.5 hover:shadow-xl dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-200 dark:hover:bg-zinc-800"
-            >
-              <Github size={14} aria-hidden="true" />
-              Code source
-            </a>
-          )}
+      {hasVariants ? (
+        <div className="fixed bottom-6 right-6 z-40 hidden md:flex flex-col items-end gap-2">
+          {project.variants!.map((variant) => (
+            <div key={variant.label} className="flex flex-row items-center gap-2">
+              <span className="rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-zinc-500 shadow backdrop-blur dark:bg-zinc-900/90 dark:text-zinc-400">
+                {variant.label}
+              </span>
+              {variant.liveUrl && (
+                <a
+                  href={variant.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Voir la version ${variant.label} de ${project.title} en ligne`}
+                  className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/20 transition hover:bg-emerald-700 hover:-translate-y-0.5 hover:shadow-xl dark:hover:bg-emerald-500"
+                >
+                  <ExternalLink size={14} aria-hidden="true" />
+                  Voir en ligne
+                </a>
+              )}
+              <a
+                href={variant.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Code source de la version ${variant.label} de ${project.title} sur GitHub`}
+                className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white/90 px-4 py-2.5 text-sm font-medium text-zinc-800 shadow-lg backdrop-blur transition hover:bg-zinc-50 hover:-translate-y-0.5 hover:shadow-xl dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-200 dark:hover:bg-zinc-800"
+              >
+                <Github size={14} aria-hidden="true" />
+                Code source
+              </a>
+            </div>
+          ))}
         </div>
+      ) : (
+        (project.githubUrl || project.liveUrl) && (
+          <div className="fixed bottom-6 right-6 z-40 hidden md:flex flex-row gap-2">
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Voir ${project.title} en ligne`}
+                className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/20 transition hover:bg-emerald-700 hover:-translate-y-0.5 hover:shadow-xl dark:hover:bg-emerald-500"
+              >
+                <ExternalLink size={14} aria-hidden="true" />
+                Voir en ligne
+              </a>
+            )}
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Code source de ${project.title} sur GitHub`}
+                className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white/90 px-4 py-2.5 text-sm font-medium text-zinc-800 shadow-lg backdrop-blur transition hover:bg-zinc-50 hover:-translate-y-0.5 hover:shadow-xl dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-200 dark:hover:bg-zinc-800"
+              >
+                <Github size={14} aria-hidden="true" />
+                Code source
+              </a>
+            )}
+          </div>
+        )
       )}
 
       {/* Prev / Next */}
