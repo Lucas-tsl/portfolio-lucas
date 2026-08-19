@@ -13,18 +13,23 @@ type BlogItem = {
   publishedAt?: string;
 };
 
-const FILTER_OPTIONS = [
-  { value: "all",       label: "Tous les articles" },
-  { value: "wordpress", label: "WordPress" },
-  { value: "ia",        label: "IA" },
-  { value: "seo",       label: "SEO" },
-] as const;
-
-type FilterValue = (typeof FILTER_OPTIONS)[number]["value"];
-
 export function BlogBrowser({ posts }: { posts: BlogItem[] }) {
   const [query, setQuery] = useState("");
-  const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const filterOptions = useMemo(() => {
+    // Grande catégorie = premier segment avant " / " (ex. "IA / SEO" → "IA"),
+    // dérivée des articles plutôt qu'une liste figée qui oublie les nouveaux sujets.
+    const topics = new Set<string>();
+    for (const post of posts) {
+      if (!post.category) continue;
+      topics.add(post.category.split(" / ")[0].trim());
+    }
+    return [
+      { value: "all", label: "Tous les articles" },
+      ...[...topics].sort().map((topic) => ({ value: topic.toLowerCase(), label: topic })),
+    ];
+  }, [posts]);
 
   const filteredPosts = useMemo(() => {
     const normalizedQuery = query.toLowerCase();
@@ -54,10 +59,10 @@ export function BlogBrowser({ posts }: { posts: BlogItem[] }) {
           <select
             aria-label="Filtrer par catégorie"
             value={activeFilter}
-            onChange={(e) => setActiveFilter(e.target.value as FilterValue)}
+            onChange={(e) => setActiveFilter(e.target.value)}
             className="appearance-none cursor-pointer rounded-xl border border-zinc-300 bg-white py-2.5 pl-4 pr-9 text-sm font-medium text-zinc-700 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-300 dark:focus:border-emerald-600"
           >
-            {FILTER_OPTIONS.map((opt) => (
+            {filterOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>{opt.label}</option>
             ))}
           </select>
