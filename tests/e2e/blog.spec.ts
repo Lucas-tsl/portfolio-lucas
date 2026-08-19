@@ -12,10 +12,10 @@ test.describe("Blog", () => {
     await page.goto("/blog/ai-productivity-web");
     // Reading time
     await expect(page.getByText(/min de lecture/i)).toBeVisible();
-    // Share buttons
-    await expect(page.getByRole("link", { name: /partager sur x/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /partager sur linkedin/i })).toBeVisible();
-    await expect(page.getByRole("button", { name: /copier le lien/i })).toBeVisible();
+    // Share buttons (rendered twice on the page — top and bottom of the article)
+    await expect(page.getByRole("link", { name: /partager sur x/i }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /partager sur linkedin/i }).first()).toBeVisible();
+    await expect(page.getByRole("button", { name: /copier le lien/i }).first()).toBeVisible();
   });
 
   test("blog article TOC is present on desktop", async ({ page }) => {
