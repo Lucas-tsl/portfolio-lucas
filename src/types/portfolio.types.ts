@@ -66,6 +66,8 @@ export interface Project {
   result?: string;
   timeline?: ProjectPhase[];
   images?: ProjectImage[];
+  /** Outil interne à usage professionnel, dépôt privé — n'affiche ni bouton Repository ni Voir en ligne */
+  internal?: boolean;
   /** Quand un même projet existe en plusieurs versions (ex. plugin WordPress + module PrestaShop) */
   variants?: ProjectVariant[];
 }

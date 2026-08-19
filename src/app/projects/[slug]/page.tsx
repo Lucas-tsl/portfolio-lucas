@@ -8,6 +8,7 @@ import {
   ExternalLink,
   Github,
   Lightbulb,
+  Lock,
   Tag,
   TrendingUp,
 } from "lucide-react";
@@ -98,6 +99,15 @@ export default async function ProjectDetailPage({
             <Tag size={11} aria-hidden="true" />
             {project.category}
           </span>
+          {project.internal && (
+            <span
+              title="Outil interne, dépôt privé"
+              className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400"
+            >
+              <Lock size={11} aria-hidden="true" />
+              Interne
+            </span>
+          )}
           <span
             className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
               STATUS_COLORS[project.status] ?? "bg-zinc-100 text-zinc-700"

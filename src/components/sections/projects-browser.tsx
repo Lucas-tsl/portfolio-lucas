@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, ChevronDown, ExternalLink, Github, Search, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronDown, ExternalLink, Github, Lock, Search, X } from "lucide-react";
 import { projects } from "@/data/portfolio-data";
 import type { Project, ProjectStatus } from "@/types/portfolio.types";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
@@ -80,6 +80,15 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </Link>
         </h2>
         <div className="flex shrink-0 items-center gap-2">
+          {project.internal && (
+            <span
+              title="Outil interne, dépôt privé"
+              className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400"
+            >
+              <Lock size={10} aria-hidden="true" />
+              Interne
+            </span>
+          )}
           <span
             className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
               STATUS_COLORS[project.status] ?? "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"

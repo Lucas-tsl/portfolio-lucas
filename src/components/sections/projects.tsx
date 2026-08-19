@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, ExternalLink, Github } from "lucide-react";
+import { ArrowRight, CheckCircle2, ExternalLink, Github, Lock } from "lucide-react";
 import Link from "next/link";
 import { projects } from "@/data/portfolio-data";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
@@ -52,6 +52,15 @@ export function ProjectsSection() {
                 {project.title}
               </h3>
               <div className="flex shrink-0 items-center gap-2">
+                {project.internal && (
+                  <span
+                    title="Outil interne, dépôt privé"
+                    className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400"
+                  >
+                    <Lock size={10} aria-hidden="true" />
+                    Interne
+                  </span>
+                )}
                 <span
                   className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
                     statusColors[project.status] ??
