@@ -37,6 +37,9 @@ export interface ProjectPhase {
 export interface ProjectImage {
   src: string;
   alt: string;
+  /** Dimensions réelles du fichier — nécessaires à next/image, et préservent le ratio propre à chaque capture (portrait ou paysage) */
+  width: number;
+  height: number;
   caption?: string;
 }
 

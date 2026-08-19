@@ -214,15 +214,15 @@ export default async function ProjectDetailPage({
           >
             Captures d&apos;écran
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="columns-1 gap-4 sm:columns-2">
             {project.images.map((img, i) => (
-              <figure key={i} className="overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800">
+              <figure key={i} className="mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900">
                 <Image
                   src={img.src}
                   alt={img.alt}
-                  width={800}
-                  height={500}
-                  className="w-full object-cover"
+                  width={img.width}
+                  height={img.height}
+                  className="w-full h-auto"
                 />
                 {img.caption && (
                   <figcaption className="px-4 py-2 text-xs text-zinc-500 dark:text-zinc-500">
