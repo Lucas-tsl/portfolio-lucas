@@ -287,6 +287,35 @@ export const portfolioData = {
       ],
     },
     {
+      id: "navi-faq",
+      title: "Navi FAQ",
+      description:
+        "Plugin WordPress/WooCommerce compagnon de Navi : FAQ sur les articles, pages, produits et catégories de produits, avec regroupement optionnel des questions par thème (affichage en onglets) et schéma FAQPage (JSON-LD) généré côté serveur uniquement là où le contenu est réellement visible.",
+      role: "Développeur Plugin",
+      status: "Actif",
+      year: "2026",
+      category: "WordPress",
+      technologies: ["PHP", "WordPress", "WooCommerce", "JSON-LD", "Schema.org"],
+      githubUrl: "https://github.com/Lucas-tsl/navi-faq",
+      liveUrl: "",
+      highlights: [
+        "Couverture articles, pages, produits et catégories de produits (product_cat), extensible via les filtres navi_faq_post_types et navi_faq_taxonomies",
+        "Admin partagée entre fiches article/page/produit et écran d'édition de catégorie, ajout/suppression de questions en JS sans rechargement",
+        "Regroupement optionnel des questions par thème : accordéon simple si un seul thème (ou aucun), onglets sinon",
+        "Shortcodes [navi_faq] (contexte courant) et [navi_faq_all] (FAQ centralisée), affichage automatique sur les pages d'archive de catégorie",
+        "Navigation clavier flèches/Home/End entre les onglets de thème, conforme au pattern ARIA Tabs",
+      ],
+      challenge:
+        "Les plugins FAQ existants gèrent les articles, pages et produits, mais pas les catégories de produits WooCommerce — pas de moyen natif d'ajouter une FAQ à une page d'archive de catégorie. Combler ce manque avec une structure de données propre et un regroupement par thème pour les FAQ plus étoffées, sans dupliquer le schéma JSON-LD là où le contenu n'est pas visible.",
+      result:
+        "Plugin compagnon de Saito Navi, base fonctionnelle testée en environnement de développement local (version 0.1.0), pas encore soumis à WordPress.org.",
+      timeline: [
+        { date: "2026", label: "Constat du manque", description: "Les plugins FAQ du marché (ex. FAQ Magic) ne couvrent pas les pages d'archive de catégorie produit WooCommerce." },
+        { date: "2026", label: "Développement", description: "Structure de données par meta (_navi_faq_items), admin partagée, regroupement par thème, shortcodes et affichage automatique sur les archives." },
+        { date: "2026", label: "Schéma & accessibilité", description: "Génération JSON-LD FAQPage côté serveur conditionnée à la visibilité réelle du contenu, navigation clavier ARIA Tabs sur les onglets de thème." },
+      ],
+    },
+    {
       id: "review-automator",
       title: "Review Automator",
       description:
