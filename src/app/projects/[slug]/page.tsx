@@ -313,7 +313,7 @@ export default async function ProjectDetailPage({
 
       {/* Floating action bar — desktop only */}
       {hasVariants ? (
-        <div className="fixed bottom-6 right-6 z-40 hidden md:flex flex-col items-end gap-2">
+        <div className="fixed bottom-20 right-6 z-40 hidden md:flex flex-col items-end gap-2">
           {project.variants!.map((variant) => (
             <div key={variant.label} className="flex flex-row items-center gap-2">
               <span
@@ -350,7 +350,7 @@ export default async function ProjectDetailPage({
         </div>
       ) : (
         (project.githubUrl || project.liveUrl) && (
-          <div className="fixed bottom-6 right-6 z-40 hidden md:flex flex-row gap-2">
+          <div className="fixed bottom-20 right-6 z-40 hidden md:flex flex-row gap-2">
             {project.liveUrl && (
               <a
                 href={project.liveUrl}

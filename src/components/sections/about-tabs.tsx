@@ -548,26 +548,28 @@ export function AboutContent() {
           <button
             onClick={() => { setActiveTab("experience"); tabSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
             aria-pressed={activeTab === "experience"}
-            className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-medium transition-colors ${
+            aria-label="Expérience"
+            className={`flex items-center gap-2 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors sm:px-5 ${
               activeTab === "experience"
                 ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
                 : "text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
             }`}
           >
             <Briefcase size={15} aria-hidden="true" strokeWidth={activeTab === "experience" ? 2.2 : 1.7} />
-            Expérience
+            <span className="hidden sm:inline">Expérience</span>
           </button>
           <button
             onClick={() => { setActiveTab("formation"); tabSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
             aria-pressed={activeTab === "formation"}
-            className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-medium transition-colors ${
+            aria-label="Formation"
+            className={`flex items-center gap-2 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors sm:px-5 ${
               activeTab === "formation"
                 ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
                 : "text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
             }`}
           >
             <GraduationCap size={15} aria-hidden="true" strokeWidth={activeTab === "formation" ? 2.2 : 1.7} />
-            Formation
+            <span className="hidden sm:inline">Formation</span>
           </button>
         </nav>
       </div>
