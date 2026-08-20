@@ -316,6 +316,33 @@ export const portfolioData = {
       ],
     },
     {
+      id: "wc-prix-100ml",
+      title: "Prix au 100 ml (WooCommerce)",
+      description:
+        "Plugin WordPress/WooCommerce qui calcule et affiche automatiquement le prix unitaire au 100 ml sur les fiches produit — obligation légale d'affichage du prix à l'unité de mesure en France pour les produits cosmétiques et d'hygiène. Compatible produits simples et variables, champ ACF dédié ou attributs WooCommerce existants.",
+      role: "Développeur Plugin",
+      status: "Actif",
+      year: "2025",
+      category: "WordPress",
+      technologies: ["PHP", "WordPress", "WooCommerce", "ACF"],
+      githubUrl: "https://github.com/Lucas-tsl/wc-prix-100ml",
+      liveUrl: "",
+      highlights: [
+        "Calcul et affichage automatique du prix au 100 ml sur produits simples et variables",
+        "Lecture du champ ACF product_capacity ou, à défaut, des attributs produit contenant un volume (ex. « 15 ml », « 100 ml »)",
+        "Compatible blocs WooCommerce et templates classiques",
+        "Traductions dynamiques (FR/EN) et style personnalisable via une feuille CSS dédiée",
+      ],
+      challenge:
+        "Afficher un prix à l'unité de mesure conforme à la réglementation française sur l'étiquetage des prix, sans imposer une ressaisie systématique du volume quand celui-ci existe déjà comme attribut produit dans le catalogue WooCommerce.",
+      result:
+        "Plugin fonctionnel (v1.0.0), calcul automatique sur produits simples et variables, sans double saisie pour les produits dont le volume est déjà renseigné en attribut.",
+      timeline: [
+        { date: "2025", label: "Calcul & affichage", description: "Lecture du champ ACF product_capacity ou des attributs de volume, calcul et affichage automatique du prix au 100 ml sur la fiche produit." },
+        { date: "2025", label: "Compatibilité", description: "Support des blocs WooCommerce et des templates classiques, produits simples et variables, traductions FR/EN." },
+      ],
+    },
+    {
       id: "review-automator",
       title: "Review Automator",
       description:
@@ -431,6 +458,35 @@ export const portfolioData = {
         { date: "2026", label: "Scénarios Playwright", description: "Écriture des deux parcours (point relais, domicile), arrêt volontaire avant la saisie de carte bancaire." },
         { date: "2026", label: "Nettoyage & alerting", description: "Annulation automatique des commandes de test via l'API REST WooCommerce, email de statut à chaque run." },
         { date: "2026", label: "Cron GitHub Actions", description: "Exécution quotidienne du lundi au vendredi, avec déclenchement manuel possible via workflow_dispatch." },
+      ],
+    },
+    {
+      id: "rue-lucas",
+      title: "Rue Lucas — Réservations & Avis",
+      description:
+        "Projet de fin de Bachelor à Bordeaux (NexaDigitalClassroom) : système de réservation complet pour une location saisonnière, en trois dépôts — API REST Node.js/Express/MongoDB, dashboard admin Next.js 15/TypeScript et application mobile iOS native en Swift/SwiftUI. Dépôts privés, API et dashboard admin déployés en production sur Vercel.",
+      role: "Développeur Full-Stack",
+      status: "Déployé",
+      year: "2026",
+      category: "Full-stack",
+      technologies: ["Node.js", "Express", "MongoDB", "Next.js", "TypeScript", "Tailwind CSS", "Swift", "SwiftUI"],
+      githubUrl: "",
+      liveUrl: "https://rue-lucas-admin.vercel.app",
+      internal: true,
+      highlights: [
+        "API REST (Node.js/Express/MongoDB) : réservations avec codes uniques (RL-XXXXXX), avis clients, auth JWT, emails automatiques, sécurité renforcée (Helmet, rate limiting, validation, protection NoSQL)",
+        "Dashboard admin (Next.js 15/TypeScript/Tailwind CSS) : CRUD réservations et avis, recherche et filtrage avancés, architecture en couches de services, 26 tests unitaires (94 % de couverture services) + 25 tests E2E Playwright",
+        "Application iOS native (Swift/SwiftUI) : réservation en plusieurs étapes, paiements (Apple Pay, PayPal, Visa), avis et évaluations",
+        "CI/CD GitHub Actions sur l'admin (lint → type-check → test → build), déploiement automatique Vercel pour l'API et le dashboard",
+      ],
+      challenge:
+        "Concevoir un système de réservation complet pour une location saisonnière — API, back-office et application mobile — en trois dépôts séparés partageant un même contrat de données, dans le cadre d'un projet de fin de Bachelor.",
+      result:
+        "API et dashboard admin en production sur Vercel avec CI/CD automatisé, 26 tests unitaires et 25 tests E2E sur l'admin. Application iOS fonctionnelle (Xcode/simulateur).",
+      timeline: [
+        { date: "2026", label: "API REST", description: "Node.js/Express/MongoDB : CRUD réservations, avis clients, authentification JWT, emails automatiques, sécurité renforcée." },
+        { date: "2026", label: "Dashboard admin", description: "Next.js 15/TypeScript, architecture en couches de services, 26 tests unitaires + 25 tests E2E Playwright." },
+        { date: "2026", label: "Application iOS", description: "Réservation en plusieurs étapes et paiements en Swift/SwiftUI, projet de fin de Bachelor à Bordeaux." },
       ],
     },
     {
