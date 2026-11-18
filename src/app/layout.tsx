@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const BASE_URL = "https://lucastroteseil.com";
+const BASE_URL = "https://lucas-troteseil.fr";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),

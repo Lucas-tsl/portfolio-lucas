@@ -12,7 +12,7 @@ const ProjectsSection    = dynamic(() => import("@/components/sections/projects"
 const ContentHubSection  = dynamic(() => import("@/components/sections/content-hub").then((m) => m.ContentHubSection));
 const ContactSection     = dynamic(() => import("@/components/sections/contact").then((m) => m.ContactSection));
 
-const BASE_URL = "https://lucastroteseil.com";
+const BASE_URL = "https://lucas-troteseil.fr";
 
 const faqLd = {
   "@context": "https://schema.org",

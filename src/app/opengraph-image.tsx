@@ -164,7 +164,7 @@ export default function Image() {
             letterSpacing: "0.01em",
           }}
         >
-          lucastroteseil.com
+          lucas-troteseil.fr
         </div>
       </div>
     ),

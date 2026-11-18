@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import path from "node:path";
 import { readContentDirectory } from "@/lib/content";
+import { projects } from "@/data/portfolio-data";
 
-const BASE_URL = "https://lucastroteseil.com";
+const BASE_URL = "https://lucas-troteseil.fr";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -29,5 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  return [...staticRoutes, ...blogRoutes];
+  const projectRoutes: MetadataRoute.Sitemap = projects.map((p) => ({
+    url: `${BASE_URL}/projects/${p.id}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...projectRoutes, ...blogRoutes];
 }

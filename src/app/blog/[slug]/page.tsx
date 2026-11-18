@@ -9,7 +9,7 @@ import { BlogShare } from "@/components/blog/blog-share";
 import { readContentDirectory, readContentDocument } from "@/lib/content";
 import { extractToc, getReadingTime } from "@/lib/blog-utils";
 
-const BASE_URL = "https://lucastroteseil.com";
+const BASE_URL = "https://lucas-troteseil.fr";
 const BLOG_DIR = path.join(process.cwd(), "content/blog");
 
 // Slug inconnu → 404 statique (pas de lecture fs au runtime sur Cloudflare Workers)

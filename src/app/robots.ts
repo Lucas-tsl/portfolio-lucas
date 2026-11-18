@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://lucastroteseil.com/sitemap.xml",
+    sitemap: "https://lucas-troteseil.fr/sitemap.xml",
   };
 }

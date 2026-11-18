@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: `Projets — ${profile.name}`,
     description:
       "Découvrez mes réalisations : plugins WordPress, applications Next.js, outils Node.js et projets open-source.",
-    url: `${process.env.NEXT_PUBLIC_SITE_URL}/projects`,
+    url: `https://lucas-troteseil.fr/projects`,
   },
 };
 
