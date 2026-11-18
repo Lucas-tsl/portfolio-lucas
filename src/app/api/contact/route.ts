@@ -13,8 +13,19 @@ function esc(str: string): string {
     .replace(/'/g, "&#x27;");
 }
 
+// Lus à chaque requête : sur Cloudflare Workers, process.env est alimenté par requête
+// Expéditeur : doit appartenir à un domaine vérifié dans Resend (lucas-troteseil.fr)
+const mailFrom = () => process.env.MAIL_FROM || "Lucas Troteseil <contact@lucas-troteseil.fr>";
+// Destinataire des notifications (redirection OVH contact@ → ProtonMail)
+const contactEmail = () => process.env.CONTACT_EMAIL || "lucas-troteseil@protonmail.com";
+
+// Sujet d'email : texte brut, sans retour à la ligne (pas d'échappement HTML)
+function plain(str: string): string {
+  return str.replace(/[\r\n]+/g, " ").trim();
+}
+
 // In-memory rate limiter: max 3 requests per IP per 10 minutes
-// Note: resets on cold start (Vercel serverless), acts as a soft limit
+// Note: propre à chaque isolate Cloudflare Workers → limite "souple"
 const rateLimitMap = new Map<string, { count: number; reset: number }>();
 const RATE_LIMIT = 3;
 const RATE_WINDOW_MS = 10 * 60 * 1000;
@@ -138,7 +149,10 @@ function confirmationEmailHtml(name: string, subject: string, message: string): 
 }
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const ip =
+    req.headers.get("cf-connecting-ip") ??
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    "unknown";
   if (isRateLimited(ip)) {
     return NextResponse.json(
       { success: false, error: "Trop de tentatives. Réessayez dans quelques minutes." },
@@ -155,25 +169,43 @@ export async function POST(req: NextRequest) {
     const subjectData = contactSubjects.find((s) => s.value === subject);
     const subjectLabel = subjectData?.label ?? subject;
 
-    const ownerEmail = await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
-      to: process.env.CONTACT_EMAIL || "troteseil.lucas@gmail.com",
-      subject: `[${subjectLabel}] Nouveau message de ${esc(name)} via le Portfolio`,
+    // Resend ne lève pas d'exception : il renvoie { data, error } → toujours vérifier error
+    const owner = await resend.emails.send({
+      from: mailFrom(),
+      to: contactEmail(),
+      replyTo: email, // "Répondre" dans la messagerie écrit directement au visiteur
+      subject: plain(`[${subjectLabel}] Nouveau message de ${name} via le Portfolio`),
       html: ownerEmailHtml(name, email, subject, message),
     });
 
-    await resend.emails.send({
-      from: "Lucas Troteseil <onboarding@resend.dev>",
+    if (owner.error) {
+      console.error("[contact] Échec envoi notification:", owner.error);
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Le message n'a pas pu être envoyé. Réessayez plus tard ou écrivez à contact@lucas-troteseil.fr.",
+        },
+        { status: 502 }
+      );
+    }
+
+    // L'accusé de réception est secondaire : un échec ne doit pas faire échouer la demande
+    const confirmation = await resend.emails.send({
+      from: mailFrom(),
       to: email,
-      subject: `Confirmation de réception — ${subjectLabel}`,
+      subject: plain(`Confirmation de réception — ${subjectLabel}`),
       html: confirmationEmailHtml(name, subject, message),
     });
+    if (confirmation.error) {
+      console.error("[contact] Échec envoi accusé de réception:", confirmation.error);
+    }
 
-    return NextResponse.json({ success: true, message: "Email envoyé avec succès !", data: ownerEmail }, { status: 200 });
+    return NextResponse.json({ success: true, message: "Email envoyé avec succès !" }, { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ success: false, error: error.errors }, { status: 400 });
     }
+    console.error("[contact] Erreur inattendue:", error);
     return NextResponse.json({ success: false, error: "Erreur interne du serveur" }, { status: 500 });
   }
 }
