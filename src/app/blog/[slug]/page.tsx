@@ -12,6 +12,9 @@ import { extractToc, getReadingTime } from "@/lib/blog-utils";
 const BASE_URL = "https://lucastroteseil.com";
 const BLOG_DIR = path.join(process.cwd(), "content/blog");
 
+// Slug inconnu → 404 statique (pas de lecture fs au runtime sur Cloudflare Workers)
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return readContentDirectory(BLOG_DIR).map((post) => ({ slug: post.slug }));
 }

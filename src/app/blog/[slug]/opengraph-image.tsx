@@ -1,9 +1,17 @@
 import path from "node:path";
-import { readContentDocument } from "@/lib/content";
+import { readContentDirectory, readContentDocument } from "@/lib/content";
 import { createOGPage, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og-image";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
+
+// Pré-généré au build : pas d'accès fs à content/blog sur Cloudflare Workers
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  const blogDir = path.join(process.cwd(), "content/blog");
+  return readContentDirectory(blogDir).map((post) => ({ slug: post.slug }));
+}
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

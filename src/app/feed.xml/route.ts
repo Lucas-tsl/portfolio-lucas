@@ -3,6 +3,9 @@ import { readContentDirectory } from "@/lib/content";
 
 const BASE_URL = "https://lucastroteseil.com";
 
+// Généré au build : le runtime Cloudflare Workers n'a pas accès à content/blog via fs
+export const dynamic = "force-static";
+
 function escapeXml(str: string): string {
   return str
     .replace(/&/g, "&amp;")

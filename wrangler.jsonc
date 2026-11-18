@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Doit correspondre exactement au nom du Worker créé dans Cloudflare
+  "name": "portfolio-lucas",
+  "account_id": "6ebe1bb93965e4d80c26e3094e4f326b",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      // Auto-référence requise par OpenNext (cache / revalidation)
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "portfolio-lucas"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

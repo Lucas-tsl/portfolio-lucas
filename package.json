@@ -1,11 +1,16 @@
 {
-  "name": "web",
+  "name": "portfolio-lucas",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "cf:build": "opennextjs-cloudflare build",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -15,6 +20,7 @@
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.17",
     "@types/marked": "^5.0.2",
     "@types/sanitize-html": "^2.16.1",
     "@vercel/analytics": "^2.0.1",
@@ -23,7 +29,7 @@
     "lucide-react": "^0.468.0",
     "marked": "^18.0.5",
     "marked-highlight": "^2.2.4",
-    "next": "15.5.19",
+    "next": "~15.5.29",
     "next-themes": "^0.4.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -56,6 +62,7 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "vite": "^8.0.16",
-    "vitest": "^4.1.9"
+    "vitest": "^4.1.9",
+    "wrangler": "^4.164.0"
   }
 }
