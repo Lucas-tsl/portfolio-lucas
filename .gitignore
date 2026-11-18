@@ -20,3 +20,8 @@ storybook-static
 
 playwright-report/
 test-results/
+
+# Cloudflare / OpenNext
+.open-next/
+.wrangler/
+.dev.vars
