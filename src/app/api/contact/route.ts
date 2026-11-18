@@ -129,7 +129,7 @@ function confirmationEmailHtml(name: string, subject: string, message: string): 
       <p><strong>Lucas Troteseil</strong><br>Chef de projet Data / IA &amp; Développeur Web</p>
     </div>
     <div class="footer">
-      <p><a href="https://lucastroteseil.com">lucastroteseil.com</a></p>
+      <p><a href="https://lucas-troteseil.fr">lucas-troteseil.fr</a></p>
       <p>&copy; ${year} Lucas Troteseil. Tous droits réservés.</p>
     </div>
   </div>

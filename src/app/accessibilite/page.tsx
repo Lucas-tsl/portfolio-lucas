@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Déclaration d'accessibilité | Lucas Troteseil",
-  description: "Déclaration d'accessibilité du portfolio lucastroteseil.com conformément au RGAA 4.1.2.",
+  description: "Déclaration d'accessibilité du portfolio lucas-troteseil.fr conformément au RGAA 4.1.2.",
 };
 
 export default function AccessibilitePage() {
@@ -25,7 +25,7 @@ export default function AccessibilitePage() {
           </p>
           <p className="mt-3">
             La présente déclaration d&apos;accessibilité s&apos;applique au site{" "}
-            <strong className="text-zinc-800 dark:text-zinc-200">lucastroteseil.com</strong>. Elle a été établie
+            <strong className="text-zinc-800 dark:text-zinc-200">lucas-troteseil.fr</strong>. Elle a été établie
             le 15 juin 2026 sur la base d&apos;une évaluation interne réalisée le 15 juin 2026 selon le
             Référentiel général d&apos;amélioration de l&apos;accessibilité (RGAA), version 4.1.2.
           </p>
@@ -34,7 +34,7 @@ export default function AccessibilitePage() {
         <section>
           <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">État de conformité</h2>
           <p className="mt-3">
-            Le site <strong className="text-zinc-800 dark:text-zinc-200">lucastroteseil.com</strong> est{" "}
+            Le site <strong className="text-zinc-800 dark:text-zinc-200">lucas-troteseil.fr</strong> est{" "}
             <strong className="text-zinc-800 dark:text-zinc-200">partiellement conforme</strong> au RGAA.
             Cette conformité partielle s&apos;explique par l&apos;existence de non-conformités résiduelles et de
             contenus en cours d&apos;amélioration.
@@ -83,8 +83,8 @@ export default function AccessibilitePage() {
           </p>
           <p className="mt-3">
             <strong className="text-zinc-800 dark:text-zinc-200">Email :</strong>{" "}
-            <a href="mailto:contact@lucastroteseil.com" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">
-              contact@lucastroteseil.com
+            <a href="mailto:contact@lucas-troteseil.fr" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">
+              contact@lucas-troteseil.fr
             </a>
           </p>
           <p className="mt-2">
@@ -101,7 +101,7 @@ export default function AccessibilitePage() {
           <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">Environnement de test</h2>
           <ul className="mt-3 space-y-1.5 list-disc pl-5">
             <li>Système d&apos;exploitation : macOS.</li>
-            <li>Site testé en environnement de production : lucastroteseil.com.</li>
+            <li>Site testé en environnement de production : lucas-troteseil.fr.</li>
             <li>Évaluation basée sur un parcours utilisateur représentatif (navigation, formulaire, pages légales, blog).</li>
           </ul>
         </section>

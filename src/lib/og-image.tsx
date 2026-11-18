@@ -62,7 +62,7 @@ export function createOGPage({ label, title, subtitle }: OGPageProps) {
           <span style={{ fontSize: 20, fontWeight: 700, color: "#a1a1aa", letterSpacing: "-0.01em" }}>
             Lucas Troteseil
           </span>
-          <span style={{ fontSize: 16, color: "#3f3f46" }}>lucastroteseil.com</span>
+          <span style={{ fontSize: 16, color: "#3f3f46" }}>lucas-troteseil.fr</span>
         </div>
 
         {/* Label badge */}

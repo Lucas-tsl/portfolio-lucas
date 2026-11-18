@@ -540,7 +540,7 @@ export const portfolioData = {
       category: "Portfolio",
       technologies: ["Next.js 15", "TypeScript", "Tailwind CSS v4", "Resend", "Framer Motion"],
       githubUrl: "https://github.com/Lucas-tsl/portfolio-lucas",
-      liveUrl: "https://lucastroteseil.com",
+      liveUrl: "https://lucas-troteseil.fr",
       highlights: [
         "CI/CD automatique via GitHub + Vercel",
         "Rendu markdown pour les articles de blog, avec table des matières et temps de lecture",

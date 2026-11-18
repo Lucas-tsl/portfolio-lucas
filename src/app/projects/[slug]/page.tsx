@@ -63,7 +63,7 @@ export default async function ProjectDetailPage({
   const otherProjects = projects.filter((_, i) => i !== idx).slice(0, 3);
   const hasVariants = Boolean(project.variants && project.variants.length > 0);
 
-  const BASE_URL = "https://lucastroteseil.com";
+  const BASE_URL = "https://lucas-troteseil.fr";
   const softwareAppLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

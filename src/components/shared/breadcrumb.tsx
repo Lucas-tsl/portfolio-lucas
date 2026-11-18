@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
-const BASE_URL = "https://lucastroteseil.com";
+const BASE_URL = "https://lucas-troteseil.fr";
 
 export interface BreadcrumbItem {
   label: string;
