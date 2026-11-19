@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import { z } from "zod";
 import { contactSubjects } from "@/data/portfolio-data";
 import { MIN_FILL_TIME_MS, TURNSTILE_SITE_KEY } from "@/lib/turnstile";
+import { isHumanCheckValid } from "@/lib/human-check";
 
 // Escape HTML to prevent XSS in email templates
 function esc(str: string): string {
@@ -50,6 +51,8 @@ const contactSchema = z.object({
   message: z.string().min(10, "Le message doit contenir au moins 10 caractères").max(5000),
   // Anti-spam
   turnstileToken: z.string().max(2048).optional(),
+  humanCheckId: z.string().max(50).optional(),
+  humanCheck: z.string().max(50).optional(),
   website: z.string().max(500).optional(), // pot de miel : doit rester vide
   elapsedMs: z.number().optional(),
 });
@@ -192,11 +195,17 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const validatedData = contactSchema.parse(body);
-    const { name, email, subject, message, turnstileToken, website, elapsedMs } = validatedData;
+    const { name, email, subject, message, turnstileToken, humanCheckId, humanCheck, website, elapsedMs } =
+      validatedData;
 
-    // Robot probable (pot de miel rempli ou envoi trop rapide) : faux succès, rien n'est envoyé
-    if (website || (elapsedMs !== undefined && elapsedMs < MIN_FILL_TIME_MS)) {
-      console.warn(`[contact] Spam ignoré (pot de miel=${Boolean(website)}, délai=${elapsedMs}ms)`);
+    // Robot probable : pot de miel rempli, envoi trop rapide ou mauvaise réponse à la question
+    // (un humain est bloqué avant l'envoi côté client) → faux succès, rien n'est envoyé
+    const tooFast = elapsedMs !== undefined && elapsedMs < MIN_FILL_TIME_MS;
+    const humanOk = isHumanCheckValid(humanCheckId, humanCheck);
+    if (website || tooFast || !humanOk) {
+      console.warn(
+        `[contact] Spam ignoré (pot de miel=${Boolean(website)}, délai=${elapsedMs}ms, question=${humanOk})`
+      );
       return NextResponse.json({ success: true, message: "Email envoyé avec succès !" }, { status: 200 });
     }
 

@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { TURNSTILE_SITE_KEY } from "@/lib/turnstile";
+import { findHumanCheck } from "@/lib/human-check";
 
 export type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -10,6 +11,7 @@ export type FieldErrors = {
   name?: string;
   email?: string;
   message?: string;
+  humanCheck?: string;
 };
 
 export interface ContactFormState {
@@ -72,7 +74,15 @@ export function useContactForm(): ContactFormState {
       message: String(data.get("message") ?? ""),
     };
 
+    const humanCheckId = String(data.get("humanCheckId") ?? "");
+    const humanCheck = String(data.get("humanCheck") ?? "");
+
     const errors = validate(payload);
+    if (!humanCheck) {
+      errors.humanCheck = "Petite vérification : répondez à la question juste au-dessus 😉";
+    } else if (findHumanCheck(humanCheckId)?.answer !== humanCheck) {
+      errors.humanCheck = "Mauvaise réponse… réessayez, on ne le dira à personne.";
+    }
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
       return;
@@ -96,6 +106,8 @@ export function useContactForm(): ContactFormState {
         body: JSON.stringify({
           ...payload,
           turnstileToken,
+          humanCheckId,
+          humanCheck,
           website: String(data.get("website") ?? ""), // pot de miel : rempli seulement par les robots
           elapsedMs: Date.now() - mountedAtRef.current,
         }),

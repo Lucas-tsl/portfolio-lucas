@@ -6,6 +6,7 @@ import { contactSubjects } from "@/data/portfolio-data";
 import { useContactForm } from "@/hooks/use-contact-form";
 import { TURNSTILE_SITE_KEY } from "@/lib/turnstile";
 import { TurnstileWidget } from "@/components/shared/turnstile-widget";
+import { HumanCheckField } from "@/components/shared/human-check-field";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
 function fieldClass(hasError: boolean) {
@@ -166,6 +167,13 @@ export function ContactSection() {
             />
             <FieldError message={fieldErrors.message} />
           </div>
+
+          {/* Question anti-robot décalée */}
+          <HumanCheckField
+            error={fieldErrors.humanCheck}
+            cleared={status === "success"}
+            onAnswer={() => clearFieldError("humanCheck")}
+          />
 
           {/* Pot de miel anti-robot : hors écran, ignoré par les humains et les lecteurs d'écran */}
           <div aria-hidden="true" className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden">
