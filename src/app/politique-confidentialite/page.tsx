@@ -98,6 +98,11 @@ export default function PolitiqueConfidentialitePage() {
             La fréquentation du site est mesurée avec Cloudflare Web Analytics, un outil sans cookie qui ne collecte
             aucune donnée personnelle identifiante et ne suit pas les visiteurs d&apos;un site à l&apos;autre.
           </p>
+          <p className="mt-3">
+            Le formulaire de contact est protégé contre les robots par Cloudflare Turnstile. Ce service analyse des
+            signaux techniques du navigateur (sans cookie publicitaire ni suivi entre sites) dans le seul but de
+            distinguer un visiteur humain d&apos;un programme automatisé.
+          </p>
         </section>
       </div>
     </main>
