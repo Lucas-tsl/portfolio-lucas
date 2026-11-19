@@ -79,7 +79,7 @@ export function useContactForm(): ContactFormState {
 
     const errors = validate(payload);
     if (!humanCheck) {
-      errors.humanCheck = "Petite vérification : répondez à la question juste au-dessus 😉";
+      errors.humanCheck = "Petite vérification : un simple clic sur la bonne réponse suffit.";
     } else if (findHumanCheck(humanCheckId)?.answer !== humanCheck) {
       errors.humanCheck = "Mauvaise réponse… réessayez, on ne le dira à personne.";
     }

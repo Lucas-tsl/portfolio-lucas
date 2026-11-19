@@ -54,7 +54,7 @@ export function HumanCheckField({ error, cleared, onAnswer }: Props) {
             <motion.label
               key={option.value}
               whileTap={{ scale: 0.96 }}
-              className={`flex cursor-pointer items-center justify-center gap-2 rounded-xl border px-4 py-3 font-medium transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-emerald-500 ${tone}`}
+              className={`flex cursor-pointer items-center justify-center rounded-xl border px-4 py-3 font-medium transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-emerald-500 ${tone}`}
             >
               <input
                 type="radio"
@@ -67,9 +67,6 @@ export function HumanCheckField({ error, cleared, onAnswer }: Props) {
                 }}
                 className="sr-only"
               />
-              <span aria-hidden="true" className="text-lg leading-none">
-                {option.emoji}
-              </span>
               {option.label}
             </motion.label>
           );
