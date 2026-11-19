@@ -18,17 +18,15 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Next.js inline scripts + JSON-LD + Vercel preview toolbar
-      "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://vercel.live",
+      // Next.js inline scripts + JSON-LD + Cloudflare Web Analytics
+      "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com",
       // Tailwind inline styles + Framer Motion
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://vercel.live",
-      "font-src 'self' https://fonts.gstatic.com https://vercel.live",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "font-src 'self' https://fonts.gstatic.com",
       // Notion images + Unsplash
-      "img-src 'self' data: blob: https://s3.us-west-2.amazonaws.com https://prod-files-secure.s3.us-west-2.amazonaws.com https://secure.notion-static.com https://img.notionusercontent.com https://images.unsplash.com https://vercel.live",
-      // Resend email API + Vercel analytics + Vercel preview toolbar
-      "connect-src 'self' https://api.resend.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://vercel.live wss://vercel.live",
-      // Vercel preview toolbar iframe
-      "frame-src https://vercel.live",
+      "img-src 'self' data: blob: https://s3.us-west-2.amazonaws.com https://prod-files-secure.s3.us-west-2.amazonaws.com https://secure.notion-static.com https://img.notionusercontent.com https://images.unsplash.com",
+      // Cloudflare Web Analytics (envoi des mesures)
+      "connect-src 'self' https://cloudflareinsights.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
