@@ -115,7 +115,7 @@ export default async function ProjectDetailPage({
           >
             {project.status}
           </span>
-          <span className="text-xs text-zinc-400 dark:text-zinc-600">{project.year}</span>
+          <span className="text-xs text-zinc-500 dark:text-zinc-400">{project.year}</span>
         </div>
 
         <h1 className="mb-3 text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-100">
@@ -134,7 +134,7 @@ export default async function ProjectDetailPage({
           <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/60">
             <h2
               id="challenge-heading"
-              className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600"
+              className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400"
             >
               <Lightbulb size={13} aria-hidden="true" />
               Le défi
@@ -149,7 +149,7 @@ export default async function ProjectDetailPage({
         <section className="mb-12" aria-labelledby="timeline-heading">
           <h2
             id="timeline-heading"
-            className="mb-6 text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600"
+            className="mb-6 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400"
           >
             Déroulé du projet
           </h2>
@@ -157,7 +157,7 @@ export default async function ProjectDetailPage({
             {project.timeline.map((phase, i) => (
               <li key={i} className="mb-8 ml-6 last:mb-0">
                 <span className="absolute -left-[9px] flex h-[18px] w-[18px] items-center justify-center rounded-full border-2 border-white bg-emerald-500 dark:border-zinc-950 dark:bg-emerald-600" aria-hidden="true" />
-                <time className="mb-1 block text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                <time className="mb-1 block text-xs font-semibold text-emerald-700 dark:text-emerald-400">
                   {phase.date}
                 </time>
                 <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{phase.label}</p>
@@ -175,7 +175,7 @@ export default async function ProjectDetailPage({
         <section className="mb-12" aria-labelledby="highlights-heading">
           <h2
             id="highlights-heading"
-            className="mb-5 text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600"
+            className="mb-5 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400"
           >
             Points clés
           </h2>
@@ -198,7 +198,7 @@ export default async function ProjectDetailPage({
       <section className="mb-12" aria-labelledby="stack-heading">
         <h2
           id="stack-heading"
-          className="mb-5 text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600"
+          className="mb-5 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400"
         >
           Stack technique
         </h2>
@@ -220,7 +220,7 @@ export default async function ProjectDetailPage({
         <section className="mb-12" aria-labelledby="gallery-heading">
           <h2
             id="gallery-heading"
-            className="mb-5 text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600"
+            className="mb-5 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400"
           >
             Captures d&apos;écran
           </h2>
@@ -234,7 +234,7 @@ export default async function ProjectDetailPage({
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 dark:border-emerald-900/40 dark:bg-emerald-900/10">
             <h2
               id="result-heading"
-              className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-500"
+              className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-emerald-700 dark:text-emerald-500"
             >
               <TrendingUp size={13} aria-hidden="true" />
               Résultat
@@ -249,7 +249,7 @@ export default async function ProjectDetailPage({
         <div className="md:hidden flex flex-col gap-5 border-t border-zinc-100 pt-8 dark:border-zinc-800 mb-16">
           {project.variants!.map((variant) => (
             <div key={variant.label} className="flex flex-col gap-2">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
                 <TechIcon name={variant.label} size={13} />
                 {variant.label}
               </span>
@@ -257,8 +257,8 @@ export default async function ProjectDetailPage({
                 <a
                   href={variant.githubUrl}
                   target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Code source de la version ${variant.label} de ${project.title} sur GitHub`}
+                  rel="noopener noreferrer"
+                  aria-label={`Code source : ${project.title}, version ${variant.label}, sur GitHub`}
                   className="inline-flex items-center gap-1.5 rounded-full border border-zinc-300 px-3.5 py-1.5 text-xs font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
                 >
                   <Github size={13} aria-hidden="true" />
@@ -268,9 +268,9 @@ export default async function ProjectDetailPage({
                   <a
                     href={variant.liveUrl}
                     target="_blank"
-                    rel="noreferrer"
-                    aria-label={`Voir la version ${variant.label} de ${project.title} en ligne`}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-3.5 py-1.5 text-xs font-medium text-white transition hover:bg-emerald-700 dark:hover:bg-emerald-500"
+                    rel="noopener noreferrer"
+                    aria-label={`Voir en ligne : ${project.title}, version ${variant.label}`}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-emerald-700 px-3.5 py-1.5 text-xs font-medium text-white transition hover:bg-emerald-800 dark:hover:bg-emerald-500"
                   >
                     <ExternalLink size={13} aria-hidden="true" />
                     Voir en ligne
@@ -287,8 +287,8 @@ export default async function ProjectDetailPage({
               <a
                 href={project.githubUrl}
                 target="_blank"
-                rel="noreferrer"
-                aria-label={`Code source de ${project.title} sur GitHub`}
+                rel="noopener noreferrer"
+                aria-label={`Code source : ${project.title} sur GitHub`}
                 className="inline-flex items-center gap-1.5 rounded-full border border-zinc-300 px-3.5 py-1.5 text-xs font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
               >
                 <Github size={13} aria-hidden="true" />
@@ -299,9 +299,9 @@ export default async function ProjectDetailPage({
               <a
                 href={project.liveUrl}
                 target="_blank"
-                rel="noreferrer"
-                aria-label={`Voir ${project.title} en ligne`}
-                className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-3.5 py-1.5 text-xs font-medium text-white transition hover:bg-emerald-700 dark:hover:bg-emerald-500"
+                rel="noopener noreferrer"
+                aria-label={`Voir en ligne : ${project.title}`}
+                className="inline-flex items-center gap-1.5 rounded-full bg-emerald-700 px-3.5 py-1.5 text-xs font-medium text-white transition hover:bg-emerald-800 dark:hover:bg-emerald-500"
               >
                 <ExternalLink size={13} aria-hidden="true" />
                 Voir en ligne
@@ -327,9 +327,9 @@ export default async function ProjectDetailPage({
                 <a
                   href={variant.liveUrl}
                   target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Voir la version ${variant.label} de ${project.title} en ligne`}
-                  className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/20 transition hover:bg-emerald-700 hover:-translate-y-0.5 hover:shadow-xl dark:hover:bg-emerald-500"
+                  rel="noopener noreferrer"
+                  aria-label={`Voir en ligne : ${project.title}, version ${variant.label}`}
+                  className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/20 transition hover:bg-emerald-800 hover:-translate-y-0.5 hover:shadow-xl dark:hover:bg-emerald-500"
                 >
                   <ExternalLink size={14} aria-hidden="true" />
                   Voir en ligne
@@ -338,8 +338,8 @@ export default async function ProjectDetailPage({
               <a
                 href={variant.githubUrl}
                 target="_blank"
-                rel="noreferrer"
-                aria-label={`Code source de la version ${variant.label} de ${project.title} sur GitHub`}
+                rel="noopener noreferrer"
+                aria-label={`Code source : ${project.title}, version ${variant.label}, sur GitHub`}
                 className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white/90 px-4 py-2.5 text-sm font-medium text-zinc-800 shadow-lg backdrop-blur transition hover:bg-zinc-50 hover:-translate-y-0.5 hover:shadow-xl dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-200 dark:hover:bg-zinc-800"
               >
                 <Github size={14} aria-hidden="true" />
@@ -355,9 +355,9 @@ export default async function ProjectDetailPage({
               <a
                 href={project.liveUrl}
                 target="_blank"
-                rel="noreferrer"
-                aria-label={`Voir ${project.title} en ligne`}
-                className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/20 transition hover:bg-emerald-700 hover:-translate-y-0.5 hover:shadow-xl dark:hover:bg-emerald-500"
+                rel="noopener noreferrer"
+                aria-label={`Voir en ligne : ${project.title}`}
+                className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/20 transition hover:bg-emerald-800 hover:-translate-y-0.5 hover:shadow-xl dark:hover:bg-emerald-500"
               >
                 <ExternalLink size={14} aria-hidden="true" />
                 Voir en ligne
@@ -367,8 +367,8 @@ export default async function ProjectDetailPage({
               <a
                 href={project.githubUrl}
                 target="_blank"
-                rel="noreferrer"
-                aria-label={`Code source de ${project.title} sur GitHub`}
+                rel="noopener noreferrer"
+                aria-label={`Code source : ${project.title} sur GitHub`}
                 className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white/90 px-4 py-2.5 text-sm font-medium text-zinc-800 shadow-lg backdrop-blur transition hover:bg-zinc-50 hover:-translate-y-0.5 hover:shadow-xl dark:border-zinc-700 dark:bg-zinc-900/90 dark:text-zinc-200 dark:hover:bg-zinc-800"
               >
                 <Github size={14} aria-hidden="true" />
@@ -391,7 +391,7 @@ export default async function ProjectDetailPage({
                 href={`/projects/${prev.id}`}
                 className="group flex flex-col gap-1 rounded-2xl border border-zinc-200 p-4 transition hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-900"
               >
-                <span className="flex items-center gap-1 text-xs text-zinc-400 dark:text-zinc-600">
+                <span className="flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
                   <ArrowLeft size={12} aria-hidden="true" />
                   Précédent
                 </span>
@@ -407,7 +407,7 @@ export default async function ProjectDetailPage({
                 href={`/projects/${next.id}`}
                 className="group flex w-full flex-col items-end gap-1 rounded-2xl border border-zinc-200 p-4 text-right transition hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:border-zinc-700 dark:hover:bg-zinc-900"
               >
-                <span className="flex items-center gap-1 text-xs text-zinc-400 dark:text-zinc-600">
+                <span className="flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
                   Suivant
                   <ArrowRight size={12} aria-hidden="true" />
                 </span>
@@ -425,7 +425,7 @@ export default async function ProjectDetailPage({
         <section className="mt-16 border-t border-zinc-100 pt-10 dark:border-zinc-800" aria-labelledby="other-projects-heading">
           <h2
             id="other-projects-heading"
-            className="mb-6 text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600"
+            className="mb-6 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400"
           >
             Autres projets
           </h2>
@@ -440,7 +440,7 @@ export default async function ProjectDetailPage({
                     <span className="text-sm font-medium text-zinc-800 group-hover:text-zinc-950 dark:text-zinc-200 dark:group-hover:text-white">
                       {p.title}
                     </span>
-                    <span className="ml-3 text-xs text-zinc-400 dark:text-zinc-600">{p.category}</span>
+                    <span className="ml-3 text-xs text-zinc-500 dark:text-zinc-400">{p.category}</span>
                   </div>
                   <ArrowRight size={14} className="shrink-0 text-zinc-400 transition group-hover:translate-x-0.5" aria-hidden="true" />
                 </Link>

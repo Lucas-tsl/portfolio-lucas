@@ -213,7 +213,7 @@ export function CommandPalette() {
               >
                 {Object.entries(groups).map(([group, items]) => (
                   <li key={group}>
-                    <p className="px-4 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600">
+                    <p className="px-4 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
                       {group}
                     </p>
                     <ul>
@@ -258,7 +258,7 @@ export function CommandPalette() {
                 ))}
               </ul>
             ) : (
-              <div className="flex-1 py-10 text-center text-sm text-zinc-400 dark:text-zinc-600 sm:flex-none">
+              <div className="flex-1 py-10 text-center text-sm text-zinc-500 dark:text-zinc-400 sm:flex-none">
                 Aucun résultat pour «&nbsp;{query}&nbsp;»
               </div>
             )}

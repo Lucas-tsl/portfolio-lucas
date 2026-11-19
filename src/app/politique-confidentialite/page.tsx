@@ -1,6 +1,7 @@
 export const metadata = {
-  title: "Politique de confidentialité | Lucas Troteseil",
+  title: "Politique de confidentialité",
   description: "Politique de confidentialité et traitement des données personnelles.",
+  alternates: { canonical: "/politique-confidentialite" },
 };
 
 export default function PolitiqueConfidentialitePage() {
@@ -81,7 +82,7 @@ export default function PolitiqueConfidentialitePage() {
           </p>
           <p className="mt-3">
             Vous pouvez également introduire une réclamation auprès de la{" "}
-            <a href="https://www.cnil.fr" target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">
+            <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">
               CNIL
             </a>{" "}
             (Commission Nationale de l&apos;Informatique et des Libertés).

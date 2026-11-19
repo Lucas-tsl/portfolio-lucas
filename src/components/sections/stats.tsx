@@ -58,7 +58,7 @@ function MetricCard({ m, i }: { m: { value: string; label: string; sublabel: str
         {prefix}{count}{suffix}
       </span>
       <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{m.label}</span>
-      <span className="text-xs text-zinc-400 dark:text-zinc-600">{m.sublabel}</span>
+      <span className="text-xs text-zinc-500 dark:text-zinc-400">{m.sublabel}</span>
     </motion.div>
   );
 }

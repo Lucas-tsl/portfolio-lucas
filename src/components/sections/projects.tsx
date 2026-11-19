@@ -55,7 +55,7 @@ export function ProjectsSection() {
                 {project.internal && (
                   <span
                     title="Outil interne, dépôt privé"
-                    className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400"
+                    className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
                   >
                     <Lock size={10} aria-hidden="true" />
                     Interne
@@ -69,7 +69,7 @@ export function ProjectsSection() {
                 >
                   {project.status}
                 </span>
-                <span className="text-xs text-zinc-400 dark:text-zinc-600">{project.year}</span>
+                <span className="text-xs text-zinc-500 dark:text-zinc-400">{project.year}</span>
               </div>
             </div>
 
@@ -104,11 +104,10 @@ export function ProjectsSection() {
                 <span
                   key={tech}
                   title={tech}
-                  aria-label={tech}
                   className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-2.5 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
                 >
                   {hasTechIcon(tech) && <TechIcon name={tech} size={12} />}
-                  <span aria-hidden="true">{getTechAbbrev(tech)}</span>
+                  <span aria-hidden="true">{getTechAbbrev(tech)}</span><span className="sr-only">{tech}</span>
                 </span>
               ))}
             </div>
@@ -121,7 +120,7 @@ export function ProjectsSection() {
                     key={variant.label}
                     href={variant.liveUrl || variant.githubUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     aria-label={`Voir la version ${variant.label} de ${project.title}`}
                     title={variant.label}
                     className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-xs font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
@@ -136,8 +135,8 @@ export function ProjectsSection() {
                     <a
                       href={project.githubUrl}
                       target="_blank"
-                      rel="noreferrer"
-                      aria-label={`Voir le code source de ${project.title} sur GitHub`}
+                      rel="noopener noreferrer"
+                      aria-label={`Repository : code source de ${project.title} sur GitHub`}
                       className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-xs font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
                     >
                       <Github size={14} aria-hidden="true" />
@@ -148,9 +147,9 @@ export function ProjectsSection() {
                     <a
                       href={project.liveUrl}
                       target="_blank"
-                      rel="noreferrer"
-                      aria-label={`Voir ${project.title} en ligne`}
-                      className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-emerald-700"
+                      rel="noopener noreferrer"
+                      aria-label={`Démo : ${project.title}`}
+                      className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-4 py-2 text-xs font-medium text-white transition hover:bg-emerald-800"
                     >
                       <ExternalLink size={14} aria-hidden="true" />
                       Démo

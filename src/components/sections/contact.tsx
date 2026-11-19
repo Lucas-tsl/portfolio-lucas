@@ -194,8 +194,8 @@ export function ContactSection() {
               whileTap={status === "idle" ? { scale: 0.97 } : {}}
               className={`relative inline-flex min-w-[180px] items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed ${
                 status === "success"
-                  ? "bg-emerald-600 text-white dark:bg-emerald-500"
-                  : "bg-emerald-600 text-white hover:bg-emerald-700 focus-visible:outline-emerald-600"
+                  ? "bg-emerald-700 text-white dark:bg-emerald-500"
+                  : "bg-emerald-700 text-white hover:bg-emerald-800 focus-visible:outline-emerald-600"
               }`}
               aria-live="polite"
               aria-label={
@@ -318,7 +318,7 @@ export function ContactSection() {
             </div>
           ) : (
             <div className="rounded-2xl border border-dashed border-zinc-200 p-5 text-center dark:border-zinc-800">
-              <p className="text-xs text-zinc-400 dark:text-zinc-600">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">
                 Sélectionnez un sujet pour voir les compétences associées
               </p>
             </div>

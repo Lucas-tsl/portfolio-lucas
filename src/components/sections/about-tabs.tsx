@@ -282,7 +282,7 @@ function ExperiencePanel() {
                   </div>
                   <p className="mt-0.5 text-xs text-zinc-500">{role.type} · {duration}</p>
                 </div>
-                <span className="text-xs text-zinc-400 dark:text-zinc-600">{role.period}</span>
+                <span className="text-xs text-zinc-500 dark:text-zinc-400">{role.period}</span>
               </div>
               <p className="mt-2.5 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
                 {role.current ? (
@@ -326,7 +326,7 @@ function ExperiencePanel() {
                 </p>
               </div>
               <div className="flex flex-col items-end gap-1">
-                <span className="text-xs text-zinc-400 dark:text-zinc-600">{exp.period}</span>
+                <span className="text-xs text-zinc-500 dark:text-zinc-400">{exp.period}</span>
                 <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-500">
                   {exp.type} · {exp.duration}
                 </span>
@@ -359,7 +359,7 @@ function FormationPanel() {
               </div>
               <p className="text-xs text-zinc-500 dark:text-zinc-500">{edu.school}</p>
             </div>
-            <span className="text-xs text-zinc-400 dark:text-zinc-600">{edu.period}</span>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400">{edu.period}</span>
           </div>
           <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">{edu.description}</p>
           <TagList tags={edu.tags} />
@@ -475,7 +475,7 @@ export function AboutContent() {
               <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{cert.label}</p>
               <div className="mt-1 flex items-center justify-between">
                 <p className="text-xs text-zinc-500">{cert.issuer}</p>
-                <p className="text-xs text-zinc-400 dark:text-zinc-600">{cert.year}</p>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400">{cert.year}</p>
               </div>
             </div>
           ))}

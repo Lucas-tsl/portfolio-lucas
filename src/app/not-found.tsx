@@ -31,7 +31,7 @@ export default function NotFound() {
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-700"
+          className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-800"
         >
           <Home size={15} aria-hidden="true" />
           Accueil

@@ -28,7 +28,7 @@ export function WordpressProfile() {
               </div>
             </div>
           </div>
-          <a href={profile.wordpress} target="_blank" rel="noreferrer" className="flex items-center gap-2 rounded-lg bg-[#0073AA] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#005177] shrink-0">
+          <a href={profile.wordpress} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-lg bg-[#0073AA] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#005177] shrink-0">
             Voir le profil <ExternalLink className="h-4 w-4" />
           </a>
         </div>
