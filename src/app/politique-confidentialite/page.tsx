@@ -12,14 +12,14 @@ export default function PolitiqueConfidentialitePage() {
       <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-zinc-950 dark:text-zinc-50">
         Politique de confidentialité
       </h1>
-      <p className="mt-4 text-sm text-zinc-500">Dernière mise à jour : 15 juin 2026</p>
+      <p className="mt-4 text-sm text-zinc-500">Dernière mise à jour : 19 novembre 2026</p>
 
       <div className="mt-10 space-y-10 text-sm leading-7 text-zinc-600 dark:text-zinc-400">
         <section>
           <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">Responsable du traitement</h2>
           <p className="mt-3">
             <strong className="text-zinc-800 dark:text-zinc-200">Lucas Troteseil</strong><br />
-            Email : <a href="mailto:troteseil.lucas@gmail.com" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">troteseil.lucas@gmail.com</a>
+            Email : <a href="mailto:contact@lucas-troteseil.fr" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">contact@lucas-troteseil.fr</a>
           </p>
         </section>
 
@@ -75,8 +75,8 @@ export default function PolitiqueConfidentialitePage() {
           </ul>
           <p className="mt-3">
             Pour exercer ces droits, contactez :{" "}
-            <a href="mailto:troteseil.lucas@gmail.com" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">
-              troteseil.lucas@gmail.com
+            <a href="mailto:contact@lucas-troteseil.fr" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">
+              contact@lucas-troteseil.fr
             </a>
           </p>
           <p className="mt-3">

@@ -36,7 +36,7 @@ const jsonLd = {
       name: "Lucas Troteseil",
       jobTitle: "Chef de projet Data / IA & Développeur Web",
       url: BASE_URL,
-      email: "troteseil.lucas@gmail.com",
+      email: "contact@lucas-troteseil.fr",
       sameAs: [
         "https://github.com/Lucas-tsl",
         "https://www.linkedin.com/in/lucas-tsl/",

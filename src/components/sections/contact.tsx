@@ -305,10 +305,10 @@ export function ContactSection() {
           <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
             <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Contact direct</p>
             <a
-              href="mailto:troteseil.lucas@gmail.com"
+              href="mailto:contact@lucas-troteseil.fr"
               className="mt-2 block text-sm font-medium text-zinc-900 underline underline-offset-2 dark:text-zinc-100"
             >
-              troteseil.lucas@gmail.com
+              contact@lucas-troteseil.fr
             </a>
             <p className="mt-3 text-xs leading-5 text-zinc-500 dark:text-zinc-500">
               Basé à Bordeaux · Disponible pour des missions freelance et collaborations.
