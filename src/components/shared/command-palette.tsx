@@ -3,7 +3,7 @@
 import { useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, m as motion } from "framer-motion";
-import { ArrowRight, FolderOpen, Home, Mail, Newspaper, Search, User, X } from "lucide-react";
+import { ArrowRight, FolderOpen, GraduationCap, Home, Mail, Newspaper, Search, User, X } from "lucide-react";
 import { projects } from "@/data/portfolio-data";
 import { useCommandPalette } from "@/context/command-palette";
 import { useState } from "react";
@@ -21,6 +21,7 @@ const NAV_COMMANDS: CommandItem[] = [
   { id: "home",     label: "Accueil",         href: "/",         icon: <Home size={15} />,      group: "Navigation" },
   { id: "about",    label: "À propos",         href: "/about",    icon: <User size={15} />,      group: "Navigation" },
   { id: "projects", label: "Projets",           href: "/projects", icon: <FolderOpen size={15} />, group: "Navigation" },
+  { id: "formations", label: "Formations",      href: "/formations", icon: <GraduationCap size={15} />, group: "Navigation" },
   { id: "blog",     label: "Blog",              href: "/blog",     icon: <Newspaper size={15} />, group: "Navigation" },
   { id: "contact",  label: "Contact",           href: "/#contact", icon: <Mail size={15} />,      group: "Navigation" },
 ];
