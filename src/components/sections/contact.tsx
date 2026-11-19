@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, Loader2, Send } from "lucide-react";
 import { contactSubjects } from "@/data/portfolio-data";
 import { useContactForm } from "@/hooks/use-contact-form";
+import { TURNSTILE_SITE_KEY } from "@/lib/turnstile";
+import { TurnstileWidget } from "@/components/shared/turnstile-widget";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
 function fieldClass(hasError: boolean) {
@@ -41,6 +43,7 @@ export function ContactSection() {
     selectedSubject,
     setSelectedSubject,
     clearFieldError,
+    turnstileResetSignal,
     onSubmit,
   } = useContactForm();
 
@@ -163,6 +166,17 @@ export function ContactSection() {
             />
             <FieldError message={fieldErrors.message} />
           </div>
+
+          {/* Pot de miel anti-robot : hors écran, ignoré par les humains et les lecteurs d'écran */}
+          <div aria-hidden="true" className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden">
+            <label htmlFor="field-website">Ne pas remplir ce champ</label>
+            <input id="field-website" type="text" name="website" tabIndex={-1} autoComplete="off" />
+          </div>
+
+          {/* Vérification anti-spam Cloudflare Turnstile (active si une clé de site est définie) */}
+          {TURNSTILE_SITE_KEY && (
+            <TurnstileWidget siteKey={TURNSTILE_SITE_KEY} resetSignal={turnstileResetSignal} />
+          )}
 
           {/* Submit */}
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

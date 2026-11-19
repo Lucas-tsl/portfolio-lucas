@@ -18,8 +18,10 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Next.js inline scripts + JSON-LD + Cloudflare Web Analytics
-      "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com",
+      // Next.js inline scripts + JSON-LD + Cloudflare Web Analytics + Turnstile (anti-spam)
+      "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://challenges.cloudflare.com",
+      // Turnstile s'affiche dans une iframe Cloudflare
+      "frame-src https://challenges.cloudflare.com",
       // Tailwind inline styles + Framer Motion
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",

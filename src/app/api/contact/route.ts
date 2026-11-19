@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
 import { contactSubjects } from "@/data/portfolio-data";
+import { MIN_FILL_TIME_MS, TURNSTILE_SITE_KEY } from "@/lib/turnstile";
 
 // Escape HTML to prevent XSS in email templates
 function esc(str: string): string {
@@ -47,7 +48,35 @@ const contactSchema = z.object({
   email: z.string().email("L'adresse email n'est pas valide").max(254),
   subject: z.string().min(1, "Veuillez sélectionner un sujet").max(100),
   message: z.string().min(10, "Le message doit contenir au moins 10 caractères").max(5000),
+  // Anti-spam
+  turnstileToken: z.string().max(2048).optional(),
+  website: z.string().max(500).optional(), // pot de miel : doit rester vide
+  elapsedMs: z.number().optional(),
 });
+
+// Vérifie le jeton Turnstile auprès de Cloudflare (fail-closed : tout problème = refus)
+async function verifyTurnstile(token: string | undefined, ip: string): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    console.error("[contact] TURNSTILE_SECRET_KEY absente des Variables and Secrets du Worker");
+    return false;
+  }
+  if (!token) return false;
+  const form = new URLSearchParams({ secret, response: token });
+  if (ip !== "unknown") form.set("remoteip", ip);
+  try {
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      body: form,
+    });
+    const data = (await res.json()) as { success?: boolean; "error-codes"?: string[] };
+    if (!data.success) console.warn("[contact] Turnstile refusé:", data["error-codes"]);
+    return data.success === true;
+  } catch (error) {
+    console.error("[contact] Turnstile injoignable:", error);
+    return false;
+  }
+}
 
 function ownerEmailHtml(name: string, email: string, subject: string, message: string): string {
   const year = new Date().getFullYear();
@@ -161,10 +190,24 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const resend = new Resend(process.env.RESEND_API_KEY);
     const body = await req.json();
     const validatedData = contactSchema.parse(body);
-    const { name, email, subject, message } = validatedData;
+    const { name, email, subject, message, turnstileToken, website, elapsedMs } = validatedData;
+
+    // Robot probable (pot de miel rempli ou envoi trop rapide) : faux succès, rien n'est envoyé
+    if (website || (elapsedMs !== undefined && elapsedMs < MIN_FILL_TIME_MS)) {
+      console.warn(`[contact] Spam ignoré (pot de miel=${Boolean(website)}, délai=${elapsedMs}ms)`);
+      return NextResponse.json({ success: true, message: "Email envoyé avec succès !" }, { status: 200 });
+    }
+
+    if (TURNSTILE_SITE_KEY && !(await verifyTurnstile(turnstileToken, ip))) {
+      return NextResponse.json(
+        { success: false, error: "La vérification anti-spam a échoué. Rechargez la page et réessayez." },
+        { status: 403 }
+      );
+    }
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const subjectData = contactSubjects.find((s) => s.value === subject);
     const subjectLabel = subjectData?.label ?? subject;
@@ -174,7 +217,8 @@ export async function POST(req: NextRequest) {
       from: mailFrom(),
       to: contactEmail(),
       replyTo: email, // "Répondre" dans la messagerie écrit directement au visiteur
-      subject: plain(`[${subjectLabel}] Nouveau message de ${name} via le Portfolio`),
+      // Préfixe fixe « [Portfolio] » : sert de critère au filtre Proton qui range ces messages
+      subject: plain(`[Portfolio] ${subjectLabel} — ${name}`),
       html: ownerEmailHtml(name, email, subject, message),
     });
 

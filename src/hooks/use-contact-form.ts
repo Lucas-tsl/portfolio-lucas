@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import { TURNSTILE_SITE_KEY } from "@/lib/turnstile";
 
 export type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -18,6 +19,8 @@ export interface ContactFormState {
   selectedSubject: string;
   setSelectedSubject: (subject: string) => void;
   clearFieldError: (field: keyof FieldErrors) => void;
+  /** Incrémenté après chaque envoi pour régénérer le jeton Turnstile (usage unique) */
+  turnstileResetSignal: number;
   onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
 }
 
@@ -35,6 +38,13 @@ export function useContactForm(): ContactFormState {
   const [errorMessage, setErrorMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [selectedSubject, setSelectedSubject] = useState("");
+  const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
+  // Heure d'affichage du formulaire : un envoi quasi instantané trahit un robot
+  const mountedAtRef = useRef(0);
+
+  useEffect(() => {
+    mountedAtRef.current = Date.now();
+  }, []);
 
   useEffect(() => {
     if (status !== "success") return;
@@ -68,6 +78,13 @@ export function useContactForm(): ContactFormState {
       return;
     }
 
+    const turnstileToken = String(data.get("cf-turnstile-response") ?? "");
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setStatus("error");
+      setErrorMessage("Merci de patienter pendant la vérification anti-spam, puis renvoyez le message.");
+      return;
+    }
+
     setFieldErrors({});
     setStatus("loading");
     setErrorMessage("");
@@ -76,10 +93,16 @@ export function useContactForm(): ContactFormState {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          ...payload,
+          turnstileToken,
+          website: String(data.get("website") ?? ""), // pot de miel : rempli seulement par les robots
+          elapsedMs: Date.now() - mountedAtRef.current,
+        }),
       });
 
       const result = (await response.json()) as { error?: string; success?: boolean };
+      setTurnstileResetSignal((n) => n + 1);
 
       if (!response.ok) {
         setStatus("error");
@@ -91,10 +114,20 @@ export function useContactForm(): ContactFormState {
       setSelectedSubject("");
       setStatus("success");
     } catch {
+      setTurnstileResetSignal((n) => n + 1);
       setStatus("error");
       setErrorMessage("Impossible de contacter le serveur. Réessayez dans quelques instants.");
     }
   }
 
-  return { status, errorMessage, fieldErrors, selectedSubject, setSelectedSubject, clearFieldError, onSubmit };
+  return {
+    status,
+    errorMessage,
+    fieldErrors,
+    selectedSubject,
+    setSelectedSubject,
+    clearFieldError,
+    turnstileResetSignal,
+    onSubmit,
+  };
 }
