@@ -6,6 +6,7 @@
 // aucune image (souvent bloquées). Le bloc <style> ne sert qu'au mode sombre (Apple Mail, Outlook macOS…).
 
 import { contactSubjects, profile } from "@/data/portfolio-data";
+import { FORMATIONS } from "@/data/formations-data";
 
 const SITE = "https://lucas-troteseil.fr";
 // Délai de réponse annoncé dans l'accusé de réception (à ajuster librement)
@@ -17,7 +18,7 @@ const C = {
   ink: "#09090b",
   text: "#3f3f46",
   muted: "#71717a",
-  faint: "#a1a1aa",
+  faint: "#71717a", // libellés discrets, contraste suffisant sur blanc
   rule: "#d4d4d8",
   emerald: "#059669",
   emeraldText: "#047857",
@@ -53,10 +54,15 @@ function parisParts(date: Date) {
   return { day: get("day"), month: get("month"), year: get("year"), hour: get("hour"), minute: get("minute") };
 }
 
-/** Numéro de demande, calculé une fois par envoi et partagé par les deux emails : #LT-MMJJ-HHMM */
+// Sans caractères ambigus (0/O, 1/I)
+const REF_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+/** Numéro de demande, calculé une fois par envoi et partagé par les deux emails : #LT-MMJJ-HHMM-XX
+ *  (2 caractères aléatoires : deux messages dans la même minute ont des numéros différents) */
 export function ticketRef(date = new Date()): string {
   const p = parisParts(date);
-  return `LT-${p.month}${p.day}-${p.hour}${p.minute}`;
+  const suffix = Array.from(crypto.getRandomValues(new Uint8Array(2)), (b) => REF_ALPHABET[b % REF_ALPHABET.length]).join("");
+  return `LT-${p.month}${p.day}-${p.hour}${p.minute}-${suffix}`;
 }
 
 function receivedAt(date = new Date()): string {
@@ -139,7 +145,7 @@ function layout({ preheader, ref, body }: { preheader: string; ref: string; body
     .ink { color:#fafafa !important; }
     .text { color:#d4d4d8 !important; }
     .muted { color:#a1a1aa !important; }
-    .faint { color:#71717a !important; }
+    .faint { color:#a1a1aa !important; }
     .rule { border-color:#3f3f46 !important; }
     .link { color:#34d399 !important; }
   }
@@ -181,12 +187,106 @@ function layout({ preheader, ref, body }: { preheader: string; ref: string; body
 </html>`;
 }
 
+// ───────────────────────── Suite à donner, selon le sujet ─────────────────────────
+// `intro` : ce qui va se passer (accusé de réception) · `questions` : infos utiles pour bien répondre
+// (affichées au visiteur ET reprises dans le brouillon « Demander des précisions » de la notification)
+
+const NEXT_STEPS: Record<string, { intro: string; questions: string[] }> = {
+  formation: {
+    intro: "Je vous enverrai une proposition de programme et un devis adaptés à votre situation.",
+    questions: [
+      "Combien de personnes seraient formées ?",
+      "Préférez-vous une formation à distance ou en présentiel ?",
+      "Quelle période ou quelles dates envisagez-vous ?",
+    ],
+  },
+  "dev-web": {
+    intro: "Je reviendrai vers vous avec une première estimation et les points à cadrer ensemble.",
+    questions: [
+      "Quel est votre délai idéal ?",
+      "Avez-vous un budget indicatif ?",
+      "Avez-vous un exemple de site qui vous plaît ?",
+    ],
+  },
+  "wordpress-cms": {
+    intro: "Je reviendrai vers vous avec une première estimation et les points à cadrer ensemble.",
+    questions: [
+      "Votre site existe-t-il déjà ? Si oui, quelle est son adresse ?",
+      "Quelles fonctionnalités sont prioritaires pour vous ?",
+      "Quel est votre délai idéal ?",
+    ],
+  },
+  "seo-performance": {
+    intro: "Je regarderai le référencement et les performances de votre site avant de vous répondre.",
+    questions: [
+      "Quelle est l'adresse de votre site ?",
+      "Sur quelles recherches Google aimeriez-vous apparaître ?",
+      "Avez-vous accès à Google Search Console ?",
+    ],
+  },
+  "data-ia": {
+    intro: "Je reviendrai vers vous avec des pistes concrètes adaptées à votre activité.",
+    questions: [
+      "Quelles tâches aimeriez-vous automatiser ou accélérer ?",
+      "Quels outils utilisez-vous au quotidien ?",
+      "Des données sensibles ou confidentielles sont-elles concernées ?",
+    ],
+  },
+  "gestion-projet": {
+    intro: "Je reviendrai vers vous pour comprendre le contexte et vos attentes.",
+    questions: [
+      "Quel est le périmètre du projet ?",
+      "Quelle équipe est impliquée ?",
+      "Quelles sont les échéances clés ?",
+    ],
+  },
+  collaboration: {
+    intro: "Je reviendrai vers vous pour en discuter.",
+    questions: ["Pouvez-vous m'en dire plus sur le projet ?", "Quel rôle imagineriez-vous pour moi ?"],
+  },
+};
+const DEFAULT_STEPS = {
+  intro: "Je reviendrai vers vous rapidement.",
+  questions: ["Pouvez-vous préciser votre demande ?"],
+};
+
+function nextStepsOf(subject: string) {
+  return NEXT_STEPS[subject] ?? DEFAULT_STEPS;
+}
+
+function mailtoHref(to: string, subject: string, body?: string): string {
+  const params = [`subject=${encodeURIComponent(subject)}`];
+  if (body) params.push(`body=${encodeURIComponent(body)}`);
+  return `mailto:${encodeURIComponent(to)}?${params.join("&")}`;
+}
+
 // ───────────────────────── Notification (reçue par Lucas) ─────────────────────────
 
-export function ownerEmail(name: string, email: string, subject: string, message: string, ref: string) {
+export function ownerEmail(
+  name: string,
+  email: string,
+  subject: string,
+  message: string,
+  ref: string,
+  formationId?: string
+) {
   const subjectLabel = subjectLabelOf(subject);
-  const replyHref = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(`Re: ${subjectLabel} [#${ref}]`)}`;
+  const formation = FORMATIONS.find((f) => f.id === formationId);
+  const { questions } = nextStepsOf(subject);
+  const replySubject = `Re: ${subjectLabel} [#${ref}]`;
   const at = receivedAt();
+
+  // Brouillons pré-remplis : il ne reste qu'à compléter et envoyer
+  const callDraft = mailtoHref(
+    email,
+    replySubject,
+    `Bonjour ${name},\n\nMerci pour votre message concernant « ${formation?.title ?? subjectLabel} ». Le plus simple serait d'en parler de vive voix : seriez-vous disponible pour un appel de 15 minutes ? Je vous propose :\n- \n- \n\nBien à vous,\nLucas`
+  );
+  const detailsDraft = mailtoHref(
+    email,
+    replySubject,
+    `Bonjour ${name},\n\nMerci pour votre message. Pour vous faire une proposition adaptée, pourriez-vous me préciser :\n${questions.map((q) => `- ${q}`).join("\n")}\n\nBien à vous,\nLucas`
+  );
 
   const html = layout({
     preheader: `${name} · ${subjectLabel} — ${message.slice(0, 90)}`,
@@ -200,6 +300,7 @@ export function ownerEmail(name: string, email: string, subject: string, message
         ${receiptRow("De", esc(name))}
         ${receiptRow("Email", `<a href="mailto:${esc(email)}" class="link" style="color:${C.emeraldText};text-decoration:none;">${esc(email)}</a>`)}
         ${receiptRow("Sujet", esc(subjectLabel))}
+        ${formation ? receiptRow("Origine", `Page formations · ${esc(formation.title)}`) : ""}
         ${receiptRow("Reçu le", esc(at))}
       </table>
 
@@ -207,10 +308,14 @@ export function ownerEmail(name: string, email: string, subject: string, message
 
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:32px 0 0 0;">
         <tr><td class="ink" style="background:${C.ink};border-radius:2px;">
-          <a href="${esc(replyHref)}" style="display:inline-block;padding:13px 22px;font-family:${MONO};font-size:13px;font-weight:700;letter-spacing:0.5px;color:#ffffff;text-decoration:none;">Répondre&nbsp;&nbsp;<span style="color:#34d399;">&rarr;</span></a>
+          <a href="${esc(mailtoHref(email, replySubject))}" style="display:inline-block;padding:13px 22px;font-family:${MONO};font-size:13px;font-weight:700;letter-spacing:0.5px;color:#ffffff;text-decoration:none;">Répondre&nbsp;&nbsp;<span style="color:#34d399;">&rarr;</span></a>
         </td></tr>
       </table>
-      <p class="muted" style="margin:12px 0 0 0;font-family:${MONO};font-size:11px;color:${C.muted};">ou « Répondre » dans votre messagerie : la réponse part vers ${esc(email)}</p>`,
+      <p style="margin:16px 0 0 0;font-family:${MONO};font-size:12px;line-height:2;">
+        <span class="muted" style="color:${C.muted};">réponses rapides :</span><br>
+        <a href="${esc(callDraft)}" class="link" style="color:${C.emeraldText};text-decoration:none;">&#8627; proposer un appel</a><br>
+        <a href="${esc(detailsDraft)}" class="link" style="color:${C.emeraldText};text-decoration:none;">&#8627; demander des précisions</a>
+      </p>`,
   });
 
   const text = [
@@ -219,6 +324,7 @@ export function ownerEmail(name: string, email: string, subject: string, message
     `De      : ${name}`,
     `Email   : ${email}`,
     `Sujet   : ${subjectLabel}`,
+    ...(formation ? [`Origine : page formations · ${formation.title}`] : []),
     `Reçu le : ${at}`,
     "",
     "✂ ---------------------------- message",
@@ -235,6 +341,7 @@ export function ownerEmail(name: string, email: string, subject: string, message
 
 export function confirmationEmail(name: string, subject: string, message: string, ref: string) {
   const subjectLabel = subjectLabelOf(subject);
+  const { intro, questions } = nextStepsOf(subject);
   const at = receivedAt();
 
   const html = layout({
@@ -248,10 +355,23 @@ export function confirmationEmail(name: string, subject: string, message: string
       <div style="margin:0 0 34px 0;">
         ${statusTrack([
           { label: "Reçu", done: true },
-          { label: "Lu", done: false },
+          { label: "En cours", done: false },
           { label: "Réponse", done: false },
         ])}
       </div>
+
+      <div class="muted" style="font-family:${MONO};font-size:11px;letter-spacing:2px;text-transform:uppercase;color:${C.muted};margin:0 0 8px 0;">La suite</div>
+      <p class="text" style="margin:0 0 12px 0;font-family:${SANS};font-size:15px;line-height:1.65;color:${C.text};">${esc(intro)} Pour gagner du temps, vous pouvez déjà me répondre sur ces points :</p>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 32px 0;">
+        ${questions
+          .map(
+            (q) => `<tr>
+          <td class="link" style="font-family:${MONO};font-size:13px;color:${C.emeraldText};padding:4px 10px 4px 0;vertical-align:top;">&rarr;</td>
+          <td class="text" style="font-family:${SANS};font-size:15px;line-height:1.55;color:${C.text};padding:4px 0;">${esc(q)}</td>
+        </tr>`
+          )
+          .join("")}
+      </table>
 
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 32px 0;">
         ${receiptRow("Sujet", esc(subjectLabel))}
@@ -261,7 +381,7 @@ export function confirmationEmail(name: string, subject: string, message: string
 
       ${coupon(message, "votre message")}
 
-      <p class="text" style="margin:32px 0 10px 0;font-family:${SANS};font-size:15px;line-height:1.6;color:${C.text};">Besoin d'ajouter un détail ? Répondez simplement à cet email, en gardant la référence dans l'objet.</p>
+      <p class="text" style="margin:32px 0 10px 0;font-family:${SANS};font-size:15px;line-height:1.6;color:${C.text};">Pour compléter votre demande, répondez simplement à cet email en gardant la référence dans l'objet.</p>
       <p class="text" style="margin:0;font-family:${SANS};font-size:15px;line-height:1.6;color:${C.text};">En attendant : <a href="${SITE}/projects" class="link" style="color:${C.emeraldText};font-weight:600;text-decoration:none;">mes projets</a>, <a href="${SITE}/formations" class="link" style="color:${C.emeraldText};font-weight:600;text-decoration:none;">mes formations</a> ou <a href="${SITE}/blog" class="link" style="color:${C.emeraldText};font-weight:600;text-decoration:none;">le blog</a>.</p>
 
       <p class="ink" style="margin:30px 0 0 0;font-family:${SANS};font-size:15px;font-weight:700;color:${C.ink};">Lucas</p>`,
@@ -272,7 +392,11 @@ export function confirmationEmail(name: string, subject: string, message: string
     "",
     `Merci ${name}. Votre message est bien arrivé, je le lis attentivement et je vous réponds personnellement sous ${RESPONSE_DELAY}.`,
     "",
-    "[✓ Reçu] — [ Lu ] — [ Réponse ]",
+    "[✓ Reçu] — [ En cours ] — [ Réponse ]",
+    "",
+    "LA SUITE",
+    `${intro} Pour gagner du temps, vous pouvez déjà me répondre sur ces points :`,
+    ...questions.map((q) => `→ ${q}`),
     "",
     `Sujet     : ${subjectLabel}`,
     `Envoyé le : ${at}`,
@@ -282,7 +406,7 @@ export function confirmationEmail(name: string, subject: string, message: string
     message,
     "✂ -------------------------------- fin",
     "",
-    "Besoin d'ajouter un détail ? Répondez simplement à cet email.",
+    "Pour compléter votre demande, répondez simplement à cet email.",
     `Projets : ${SITE}/projects · Formations : ${SITE}/formations · Blog : ${SITE}/blog`,
     "",
     "Lucas",

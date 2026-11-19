@@ -44,6 +44,7 @@ const contactSchema = z.object({
   turnstileToken: z.string().max(2048).optional(),
   humanCheckId: z.string().max(50).optional(),
   humanCheck: z.string().max(50).optional(),
+  formation: z.string().max(60).optional(), // id de la formation si la demande vient de /formations
   website: z.string().max(500).optional(), // pot de miel : doit rester vide
   elapsedMs: z.number().optional(),
 });
@@ -87,7 +88,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const validatedData = contactSchema.parse(body);
-    const { name, email, subject, message, turnstileToken, humanCheckId, humanCheck, website, elapsedMs } =
+    const { name, email, subject, message, formation, turnstileToken, humanCheckId, humanCheck, website, elapsedMs } =
       validatedData;
 
     // Robot probable : pot de miel rempli, envoi trop rapide ou mauvaise réponse à la question
@@ -122,7 +123,7 @@ export async function POST(req: NextRequest) {
       replyTo: email, // "Répondre" dans la messagerie écrit directement au visiteur
       // Préfixe fixe « [Portfolio] » : sert de critère au filtre Proton qui range ces messages
       subject: plain(`[Portfolio] ${subjectLabel} — ${name} (#${ref})`),
-      ...ownerEmail(name, email, subject, message, ref), // { html, text }
+      ...ownerEmail(name, email, subject, message, ref, formation), // { html, text }
     });
 
     if (owner.error) {
