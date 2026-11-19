@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-import { MotionConfig } from "framer-motion";
+import { MotionProvider } from "@/components/providers/motion-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ErrorBoundary } from "@/components/providers/error-boundary";
 import { CommandPaletteProvider } from "@/context/command-palette";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
-import { CommandPalette } from "@/components/shared/command-palette";
+import { CommandPaletteLoader } from "@/components/shared/command-palette-loader";
 import { AccessibilityToggle } from "@/components/shared/accessibility-toggle";
 import { BackToTop } from "@/components/shared/back-to-top";
 import "./globals.css";
@@ -96,12 +96,12 @@ export default function RootLayout({
           Aller au contenu principal
         </a>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <MotionConfig reducedMotion="user">
+          <MotionProvider>
             <CommandPaletteProvider>
               {/* id="a11y-main" is targeted by the high-contrast CSS filter — AccessibilityToggle is a sibling so its fixed positioning is unaffected */}
               <div id="a11y-main" className="flex min-h-screen flex-col bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50">
                 <Navbar />
-                <CommandPalette />
+                <CommandPaletteLoader />
                 <ErrorBoundary>
                   <div id="main-content" className="flex-1 w-full" tabIndex={-1}>
                     {children}
@@ -112,7 +112,7 @@ export default function RootLayout({
               <AccessibilityToggle />
               <BackToTop />
             </CommandPaletteProvider>
-          </MotionConfig>
+          </MotionProvider>
         </ThemeProvider>
         {/* Cloudflare Web Analytics — sans cookie, jeton public (Web Analytics > lucas-troteseil.fr) */}
         {CF_BEACON_TOKEN && (

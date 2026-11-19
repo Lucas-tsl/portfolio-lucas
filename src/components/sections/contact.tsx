@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, Loader2, Send } from "lucide-react";
 import { contactSubjects } from "@/data/portfolio-data";
 import { useContactForm } from "@/hooks/use-contact-form";

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m as motion } from "framer-motion";
 import { ArrowRight, FolderOpen, Home, Mail, Newspaper, Search, User, X } from "lucide-react";
 import { projects } from "@/data/portfolio-data";
 import { useCommandPalette } from "@/context/command-palette";

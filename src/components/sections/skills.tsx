@@ -1,7 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { m as motion } from "framer-motion";
 import { skillGroups } from "@/data/portfolio-data";
 import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
 
@@ -9,6 +10,30 @@ const SkillsRadarChart = dynamic(
   () => import("@/components/sections/skills-radar").then((m) => m.SkillsRadarChart),
   { ssr: false, loading: () => <div className="h-72 w-full" /> }
 );
+
+// Recharts + d3 pèsent ~400 Ko : on ne les télécharge que lorsque le radar approche de l'écran
+function RadarWhenVisible() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return <div ref={ref}>{visible ? <SkillsRadarChart /> : <div className="h-72 w-full" />}</div>;
+}
 
 const CATEGORY_BORDER: Record<string, string> = {
   "Développement Web":              "border-l-emerald-500",
@@ -103,7 +128,7 @@ export function SkillsSection() {
 
         {/* Radar chart — sticky on large screens */}
         <div className="lg:sticky lg:top-24 lg:self-start">
-          <SkillsRadarChart />
+          <RadarWhenVisible />
         </div>
       </div>
     </section>

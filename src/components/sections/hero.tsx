@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
 import { profile } from "@/data/portfolio-data";
 

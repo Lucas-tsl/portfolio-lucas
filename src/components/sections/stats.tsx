@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { metrics } from "@/data/portfolio-data";
 
 const ease = [0.22, 1, 0.36, 1] as const;
