@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
 
 const BASE_URL = "https://lucas-troteseil.fr";
 // Jeton public Cloudflare Web Analytics (vide = script désactivé)
-const CF_BEACON_TOKEN = "";
+const CF_BEACON_TOKEN = "ee73a0d870d64fbe8b0be37cc0500495";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
