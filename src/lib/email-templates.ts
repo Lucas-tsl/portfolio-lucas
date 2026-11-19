@@ -1,27 +1,29 @@
-// Templates des emails du formulaire de contact, aux couleurs du site.
-// Contraintes des clients mail : mise en page en tables, styles INLINE (Gmail retire souvent <style>),
-// 600 px max, pas d'image (souvent bloquées) : le monogramme « LT » est dessiné en HTML.
-// Le bloc <style> ne sert qu'au mode sombre des clients qui le supportent (Apple Mail, Outlook macOS…).
+// Templates des emails du formulaire de contact — concept « ticket de demande ».
+// Chaque demande reçoit un numéro (#LT-MMJJ-HHMM), les métadonnées sont présentées comme un reçu
+// en police mono, le message du visiteur est imprimé sur un « coupon » entre deux lignes de découpe.
+//
+// Contraintes des clients mail : tables, styles INLINE (Gmail retire souvent <style>), 600 px max,
+// aucune image (souvent bloquées). Le bloc <style> ne sert qu'au mode sombre (Apple Mail, Outlook macOS…).
 
 import { contactSubjects, profile } from "@/data/portfolio-data";
 
 const SITE = "https://lucas-troteseil.fr";
 // Délai de réponse annoncé dans l'accusé de réception (à ajuster librement)
-const RESPONSE_DELAY = "sous 2 jours ouvrés";
+const RESPONSE_DELAY = "2 jours ouvrés";
 
 const C = {
   bg: "#f4f4f5",
-  card: "#ffffff",
+  paper: "#ffffff",
   ink: "#09090b",
   text: "#3f3f46",
   muted: "#71717a",
-  border: "#e4e4e7",
-  soft: "#fafafa",
+  faint: "#a1a1aa",
+  rule: "#d4d4d8",
   emerald: "#059669",
   emeraldText: "#047857",
-  emeraldSoft: "#ecfdf5",
 };
-const FONT = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
+const SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
+const MONO = "'Geist Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace";
 
 // Échappe les champs saisis par le visiteur (anti-injection HTML)
 export function esc(str: string): string {
@@ -38,22 +40,90 @@ function multiline(str: string): string {
   return esc(str).replace(/\r?\n/g, "<br>");
 }
 
-function subjectInfo(subject: string) {
-  const data = contactSubjects.find((s) => s.value === subject);
-  return { label: data?.label ?? subject, description: data?.description ?? "" };
-}
-
-function parisDate(): string {
-  return new Intl.DateTimeFormat("fr-FR", {
-    dateStyle: "full",
-    timeStyle: "short",
+function parisParts(date: Date) {
+  const parts = new Intl.DateTimeFormat("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
     timeZone: "Europe/Paris",
-  }).format(new Date());
+  }).formatToParts(date);
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
+  return { day: get("day"), month: get("month"), year: get("year"), hour: get("hour"), minute: get("minute") };
 }
 
-/** Squelette commun : liseré dégradé, en-tête monogramme, carte blanche, pied de page */
-function layout({ preheader, body }: { preheader: string; body: string }): string {
-  const year = new Date().getFullYear();
+/** Numéro de demande, calculé une fois par envoi et partagé par les deux emails : #LT-MMJJ-HHMM */
+export function ticketRef(date = new Date()): string {
+  const p = parisParts(date);
+  return `LT-${p.month}${p.day}-${p.hour}${p.minute}`;
+}
+
+function receivedAt(date = new Date()): string {
+  const p = parisParts(date);
+  return `${p.day}.${p.month}.${p.year} — ${p.hour}:${p.minute}`;
+}
+
+function subjectLabelOf(subject: string): string {
+  return contactSubjects.find((s) => s.value === subject)?.label ?? subject;
+}
+
+// ───────────────────────── Briques ─────────────────────────
+
+/** Ligne de reçu : CLÉ ........ valeur */
+function receiptRow(key: string, valueHtml: string): string {
+  return `<tr>
+    <td class="muted rule" style="padding:9px 0;font-family:${MONO};font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:${C.muted};white-space:nowrap;vertical-align:top;border-bottom:1px dotted ${C.rule};" width="110">${key}</td>
+    <td class="ink rule" style="padding:9px 0;font-family:${MONO};font-size:13px;color:${C.ink};text-align:right;border-bottom:1px dotted ${C.rule};">${valueHtml}</td>
+  </tr>`;
+}
+
+/** Ligne de découpe : ✂ - - - - - - - - - - - LIBELLÉ */
+function cutLine(caption: string): string {
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+    <td class="faint" style="font-family:${MONO};font-size:13px;color:${C.faint};width:18px;line-height:1;">&#9986;</td>
+    <td style="border-top:1px dashed ${C.rule};font-size:0;line-height:0;" class="rule">&nbsp;</td>
+    <td class="faint" style="font-family:${MONO};font-size:10px;letter-spacing:2px;text-transform:uppercase;color:${C.faint};padding-left:10px;white-space:nowrap;width:1%;">${caption}</td>
+  </tr></table>`;
+}
+
+/** Le message du visiteur, imprimé sur un coupon détachable */
+function coupon(message: string, caption: string): string {
+  return `${cutLine(caption)}
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0;">
+    <tr><td class="text" style="padding:22px 0 22px 0;font-family:${SANS};font-size:15px;line-height:1.7;color:${C.text};">${multiline(message)}</td></tr>
+  </table>
+  ${cutLine("fin")}`;
+}
+
+/** Grand titre court, terminé par un point émeraude */
+function headline(text: string): string {
+  return `<h1 class="ink" style="margin:0;font-family:${SANS};font-size:34px;line-height:1.1;font-weight:800;letter-spacing:-1px;color:${C.ink};">${text}<span style="color:${C.emerald};">.</span></h1>`;
+}
+
+/** Frise de statut type suivi de colis : étapes franchies pleines, à venir en contour */
+function statusTrack(steps: { label: string; done: boolean }[]): string {
+  const cells = steps
+    .map((step, i) => {
+      const dot = step.done
+        ? `background:${C.emerald};border:2px solid ${C.emerald};color:#ffffff;`
+        : `background:transparent;border:2px solid ${C.rule};color:${C.faint};`;
+      const labelColor = step.done ? C.ink : C.muted;
+      const line =
+        i < steps.length - 1
+          ? `<td style="padding:0 6px;vertical-align:middle;"><div class="rule" style="border-top:2px ${steps[i + 1].done ? "solid" : "dashed"} ${steps[i + 1].done ? C.emerald : C.rule};font-size:0;line-height:0;">&nbsp;</div></td>`
+          : "";
+      return `<td style="vertical-align:middle;white-space:nowrap;width:1%;">
+          <span style="display:inline-block;width:18px;height:18px;line-height:18px;border-radius:50%;text-align:center;font-family:${MONO};font-size:11px;font-weight:700;vertical-align:middle;${dot}">${step.done ? "&#10003;" : i + 1}</span>
+          <span class="${step.done ? "ink" : "muted"}" style="font-family:${MONO};font-size:11px;letter-spacing:1px;text-transform:uppercase;color:${labelColor};vertical-align:middle;padding-left:6px;">${step.label}</span>
+        </td>${line}`;
+    })
+    .join("");
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>${cells}</tr></table>`;
+}
+
+/** Squelette : bandeau mono (site / n° de ticket), feuille blanche, signature mono */
+function layout({ preheader, ref, body }: { preheader: string; ref: string; body: string }): string {
   return `<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -61,49 +131,48 @@ function layout({ preheader, body }: { preheader: string; body: string }): strin
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="supported-color-schemes" content="light dark">
-<title>Lucas Troteseil</title>
+<title>Lucas Troteseil — #${esc(ref)}</title>
 <style>
   @media (prefers-color-scheme: dark) {
     .bg { background:#09090b !important; }
-    .card { background:#18181b !important; border-color:#27272a !important; }
+    .paper { background:#18181b !important; border-color:#27272a !important; }
     .ink { color:#fafafa !important; }
     .text { color:#d4d4d8 !important; }
     .muted { color:#a1a1aa !important; }
-    .soft { background:#09090b !important; border-color:#27272a !important; }
-    .msgbox { background:#09090b !important; border-color:#27272a !important; border-left-color:#10b981 !important; }
-    .chip { background:#022c22 !important; color:#6ee7b7 !important; }
+    .faint { color:#71717a !important; }
+    .rule { border-color:#3f3f46 !important; }
     .link { color:#34d399 !important; }
   }
-  @media (max-width:620px) { .pad { padding-left:24px !important; padding-right:24px !important; } }
+  @media (max-width:620px) {
+    .pad { padding-left:22px !important; padding-right:22px !important; }
+    h1 { font-size:28px !important; }
+    .hide-sm { display:none !important; }
+  }
 </style>
 </head>
 <body style="margin:0;padding:0;background:${C.bg};" class="bg">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${esc(preheader)}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${C.bg};" class="bg">
-<tr><td align="center" style="padding:32px 12px;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:${C.card};border:1px solid ${C.border};border-radius:16px;overflow:hidden;" class="card">
-    <tr><td style="height:4px;line-height:4px;font-size:0;background:#10b981;background-image:linear-gradient(90deg,#059669,#10b981,#0d9488);">&nbsp;</td></tr>
-    <tr><td class="pad" style="padding:28px 40px 0 40px;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-        <td style="width:36px;height:36px;background:#09090b;border-radius:8px;text-align:center;vertical-align:middle;font-family:${FONT};font-size:15px;font-weight:800;letter-spacing:-0.5px;line-height:36px;">
-          <span style="color:#fafafa;">L</span><span style="color:#10b981;">T</span>
+<tr><td align="center" style="padding:28px 12px;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+    <tr><td class="pad" style="padding:0 4px 12px 4px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+        <td class="muted" style="font-family:${MONO};font-size:11px;letter-spacing:1px;color:${C.muted};white-space:nowrap;">
+          <span class="ink" style="color:${C.ink};font-weight:700;">L<span style="color:${C.emerald};">T</span></span>&nbsp;&nbsp;lucas-troteseil.fr<span class="hide-sm"> / contact</span>
         </td>
-        <td style="padding-left:12px;font-family:${FONT};">
-          <div class="ink" style="font-size:15px;font-weight:700;color:${C.ink};line-height:1.2;">Lucas Troteseil</div>
-          <div class="muted" style="font-size:12px;color:${C.muted};line-height:1.4;">${esc(profile.title)}</div>
-        </td>
+        <td class="muted" style="font-family:${MONO};font-size:11px;letter-spacing:1px;color:${C.muted};text-align:right;white-space:nowrap;">#${esc(ref)}</td>
       </tr></table>
     </td></tr>
-    <tr><td class="pad" style="padding:28px 40px 36px 40px;font-family:${FONT};font-size:15px;line-height:1.65;color:${C.text};">
+    <tr><td class="paper pad" style="background:${C.paper};border:1px solid #e4e4e7;border-radius:4px;padding:40px 44px 36px 44px;">
       ${body}
     </td></tr>
-    <tr><td class="pad soft" style="padding:20px 40px;background:${C.soft};border-top:1px solid ${C.border};font-family:${FONT};font-size:12px;line-height:1.6;color:${C.muted};">
-      <a href="${SITE}" class="link" style="color:${C.emeraldText};text-decoration:none;font-weight:600;">lucas-troteseil.fr</a>
-      &nbsp;·&nbsp; <a href="${SITE}/projects" class="link" style="color:${C.emeraldText};text-decoration:none;">Projets</a>
-      &nbsp;·&nbsp; <a href="${SITE}/formations" class="link" style="color:${C.emeraldText};text-decoration:none;">Formations</a>
-      &nbsp;·&nbsp; <a href="${profile.linkedin}" class="link" style="color:${C.emeraldText};text-decoration:none;">LinkedIn</a>
-      &nbsp;·&nbsp; <a href="${profile.github}" class="link" style="color:${C.emeraldText};text-decoration:none;">GitHub</a>
-      <div class="muted" style="margin-top:6px;color:${C.muted};">&copy; ${year} Lucas Troteseil · Bordeaux, France</div>
+    <tr><td class="pad" style="padding:18px 4px 0 4px;font-family:${MONO};font-size:11px;line-height:1.8;color:${C.muted};" >
+      <span class="muted" style="color:${C.muted};">— Lucas Troteseil · ${esc(profile.title)} · Bordeaux</span><br>
+      <a href="${SITE}" class="link" style="color:${C.emeraldText};text-decoration:none;">site</a>
+      <span class="faint" style="color:${C.faint};">/</span> <a href="${SITE}/projects" class="link" style="color:${C.emeraldText};text-decoration:none;">projets</a>
+      <span class="faint" style="color:${C.faint};">/</span> <a href="${SITE}/formations" class="link" style="color:${C.emeraldText};text-decoration:none;">formations</a>
+      <span class="faint" style="color:${C.faint};">/</span> <a href="${profile.linkedin}" class="link" style="color:${C.emeraldText};text-decoration:none;">linkedin</a>
+      <span class="faint" style="color:${C.faint};">/</span> <a href="${profile.github}" class="link" style="color:${C.emeraldText};text-decoration:none;">github</a>
     </td></tr>
   </table>
 </td></tr>
@@ -112,73 +181,51 @@ function layout({ preheader, body }: { preheader: string; body: string }): strin
 </html>`;
 }
 
-function chip(label: string): string {
-  return `<span class="chip" style="display:inline-block;background:${C.emeraldSoft};color:${C.emeraldText};border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;">${esc(label)}</span>`;
-}
-
-function messageBox(message: string): string {
-  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 0 0;">
-    <tr><td class="msgbox text" style="background:${C.soft};border:1px solid ${C.border};border-left:3px solid ${C.emerald};border-radius:10px;padding:16px 18px;font-size:14px;line-height:1.65;color:${C.text};">${multiline(message)}</td></tr>
-  </table>`;
-}
-
-function label(text: string): string {
-  return `<div class="muted" style="font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:${C.muted};margin:0 0 6px 0;">${text}</div>`;
-}
-
 // ───────────────────────── Notification (reçue par Lucas) ─────────────────────────
 
-export function ownerEmail(name: string, email: string, subject: string, message: string) {
-  const { label: subjectLabel, description } = subjectInfo(subject);
-  const replyHref = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(`Re: ${subjectLabel}`)}`;
-  const date = parisDate();
+export function ownerEmail(name: string, email: string, subject: string, message: string, ref: string) {
+  const subjectLabel = subjectLabelOf(subject);
+  const replyHref = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(`Re: ${subjectLabel} [#${ref}]`)}`;
+  const at = receivedAt();
 
   const html = layout({
-    preheader: `${name} — ${subjectLabel} : ${message.slice(0, 90)}`,
+    preheader: `${name} · ${subjectLabel} — ${message.slice(0, 90)}`,
+    ref,
     body: `
-      ${chip(subjectLabel)}
-      <h1 class="ink" style="margin:14px 0 4px 0;font-size:22px;line-height:1.3;font-weight:700;color:${C.ink};">Nouveau message de ${esc(name)}</h1>
-      <p class="muted" style="margin:0 0 24px 0;font-size:13px;color:${C.muted};">Reçu via le formulaire du portfolio · ${esc(date)}</p>
+      <div class="muted" style="font-family:${MONO};font-size:11px;letter-spacing:2px;text-transform:uppercase;color:${C.muted};margin:0 0 10px 0;">Ticket ouvert</div>
+      ${headline("Nouvelle demande")}
+      <p class="text" style="margin:12px 0 28px 0;font-family:${SANS};font-size:15px;line-height:1.6;color:${C.text};">${esc(name)} vous écrit au sujet de : <strong class="ink" style="color:${C.ink};">${esc(subjectLabel)}</strong></p>
 
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px 0;font-size:14px;">
-        <tr>
-          <td class="muted" style="padding:8px 0;width:90px;color:${C.muted};border-bottom:1px solid ${C.border};">Nom</td>
-          <td class="ink" style="padding:8px 0;color:${C.ink};font-weight:600;border-bottom:1px solid ${C.border};">${esc(name)}</td>
-        </tr>
-        <tr>
-          <td class="muted" style="padding:8px 0;color:${C.muted};border-bottom:1px solid ${C.border};">Email</td>
-          <td style="padding:8px 0;border-bottom:1px solid ${C.border};"><a href="mailto:${esc(email)}" class="link" style="color:${C.emeraldText};font-weight:600;text-decoration:none;">${esc(email)}</a></td>
-        </tr>
-        <tr>
-          <td class="muted" style="padding:8px 0;color:${C.muted};vertical-align:top;">Sujet</td>
-          <td class="ink" style="padding:8px 0;color:${C.ink};">${esc(subjectLabel)}${description ? `<div class="muted" style="font-size:12px;color:${C.muted};margin-top:2px;">${esc(description)}</div>` : ""}</td>
-        </tr>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 32px 0;">
+        ${receiptRow("De", esc(name))}
+        ${receiptRow("Email", `<a href="mailto:${esc(email)}" class="link" style="color:${C.emeraldText};text-decoration:none;">${esc(email)}</a>`)}
+        ${receiptRow("Sujet", esc(subjectLabel))}
+        ${receiptRow("Reçu le", esc(at))}
       </table>
 
-      ${label("Message")}
-      ${messageBox(message)}
+      ${coupon(message, "message")}
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:28px 0 0 0;">
-        <tr><td style="background:#047857;border-radius:999px;">
-          <a href="${esc(replyHref)}" style="display:inline-block;padding:12px 24px;font-size:14px;font-weight:600;color:#ffffff;text-decoration:none;">Répondre à ${esc(name)} &rarr;</a>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:32px 0 0 0;">
+        <tr><td class="ink" style="background:${C.ink};border-radius:2px;">
+          <a href="${esc(replyHref)}" style="display:inline-block;padding:13px 22px;font-family:${MONO};font-size:13px;font-weight:700;letter-spacing:0.5px;color:#ffffff;text-decoration:none;">Répondre&nbsp;&nbsp;<span style="color:#34d399;">&rarr;</span></a>
         </td></tr>
       </table>
-      <p class="muted" style="margin:12px 0 0 0;font-size:12px;color:${C.muted};">Ou utilisez simplement « Répondre » : la réponse part directement vers ${esc(email)}.</p>`,
+      <p class="muted" style="margin:12px 0 0 0;font-family:${MONO};font-size:11px;color:${C.muted};">ou « Répondre » dans votre messagerie : la réponse part vers ${esc(email)}</p>`,
   });
 
   const text = [
-    `Nouveau message de ${name} — ${subjectLabel}`,
-    `Reçu le ${date}`,
+    `NOUVELLE DEMANDE — #${ref}`,
     "",
-    `Nom : ${name}`,
-    `Email : ${email}`,
-    `Sujet : ${subjectLabel}`,
+    `De      : ${name}`,
+    `Email   : ${email}`,
+    `Sujet   : ${subjectLabel}`,
+    `Reçu le : ${at}`,
     "",
-    "Message :",
+    "✂ ---------------------------- message",
     message,
+    "✂ -------------------------------- fin",
     "",
-    "—",
-    `Répondre : utilisez « Répondre » (la réponse part vers ${email}).`,
+    `Répondre : « Répondre » dans votre messagerie (vers ${email}).`,
   ].join("\n");
 
   return { html, text };
@@ -186,50 +233,60 @@ export function ownerEmail(name: string, email: string, subject: string, message
 
 // ───────────────────────── Accusé de réception (envoyé au visiteur) ─────────────────────────
 
-export function confirmationEmail(name: string, subject: string, message: string) {
-  const { label: subjectLabel } = subjectInfo(subject);
+export function confirmationEmail(name: string, subject: string, message: string, ref: string) {
+  const subjectLabel = subjectLabelOf(subject);
+  const at = receivedAt();
 
   const html = layout({
-    preheader: `Merci ${name}, votre message est bien arrivé. Je vous réponds ${RESPONSE_DELAY}.`,
+    preheader: `Merci ${name} : votre demande #${ref} est bien arrivée. Réponse sous ${RESPONSE_DELAY}.`,
+    ref,
     body: `
-      <h1 class="ink" style="margin:0 0 16px 0;font-size:22px;line-height:1.3;font-weight:700;color:${C.ink};">Bonjour ${esc(name)},</h1>
-      <p class="text" style="margin:0 0 16px 0;color:${C.text};">Merci pour votre message : il est bien arrivé. Je le lis attentivement et je vous réponds personnellement, en général <strong class="ink" style="color:${C.ink};">${RESPONSE_DELAY}</strong>.</p>
-      <p class="text" style="margin:0 0 24px 0;color:${C.text};">Pour rappel, voici votre demande :</p>
+      <div class="muted" style="font-family:${MONO};font-size:11px;letter-spacing:2px;text-transform:uppercase;color:${C.muted};margin:0 0 10px 0;">Demande #${esc(ref)}</div>
+      ${headline("Message reçu")}
+      <p class="text" style="margin:14px 0 26px 0;font-family:${SANS};font-size:16px;line-height:1.65;color:${C.text};">Merci ${esc(name)}. Votre message est bien arrivé, je le lis attentivement et je vous réponds personnellement sous <strong class="ink" style="color:${C.ink};">${RESPONSE_DELAY}</strong>.</p>
 
-      ${label("Votre demande")}
-      <div style="margin:0 0 10px 0;">${chip(subjectLabel)}</div>
-      ${messageBox(message)}
+      <div style="margin:0 0 34px 0;">
+        ${statusTrack([
+          { label: "Reçu", done: true },
+          { label: "Lu", done: false },
+          { label: "Réponse", done: false },
+        ])}
+      </div>
 
-      <p class="text" style="margin:28px 0 12px 0;color:${C.text};">En attendant, vous pouvez découvrir :</p>
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 28px 0;font-size:14px;">
-        <tr><td style="padding:4px 0;"><a href="${SITE}/projects" class="link" style="color:${C.emeraldText};font-weight:600;text-decoration:none;">&rarr; Mes projets et réalisations</a></td></tr>
-        <tr><td style="padding:4px 0;"><a href="${SITE}/formations" class="link" style="color:${C.emeraldText};font-weight:600;text-decoration:none;">&rarr; Mes formations (WordPress, SEO, IA)</a></td></tr>
-        <tr><td style="padding:4px 0;"><a href="${SITE}/blog" class="link" style="color:${C.emeraldText};font-weight:600;text-decoration:none;">&rarr; Mes articles de blog</a></td></tr>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 32px 0;">
+        ${receiptRow("Sujet", esc(subjectLabel))}
+        ${receiptRow("Envoyé le", esc(at))}
+        ${receiptRow("Référence", `#${esc(ref)}`)}
       </table>
 
-      <p class="text" style="margin:0;color:${C.text};">À très bientôt,</p>
-      <p class="ink" style="margin:4px 0 0 0;color:${C.ink};font-weight:700;">Lucas Troteseil</p>
-      <p class="muted" style="margin:0;font-size:13px;color:${C.muted};">${esc(profile.title)} · Bordeaux</p>
-      <p class="muted" style="margin:24px 0 0 0;font-size:12px;color:${C.muted};">Vous recevez cet email car vous avez écrit via le formulaire de lucas-troteseil.fr. Pour compléter votre demande, répondez simplement à ce message.</p>`,
+      ${coupon(message, "votre message")}
+
+      <p class="text" style="margin:32px 0 10px 0;font-family:${SANS};font-size:15px;line-height:1.6;color:${C.text};">Besoin d'ajouter un détail ? Répondez simplement à cet email, en gardant la référence dans l'objet.</p>
+      <p class="text" style="margin:0;font-family:${SANS};font-size:15px;line-height:1.6;color:${C.text};">En attendant : <a href="${SITE}/projects" class="link" style="color:${C.emeraldText};font-weight:600;text-decoration:none;">mes projets</a>, <a href="${SITE}/formations" class="link" style="color:${C.emeraldText};font-weight:600;text-decoration:none;">mes formations</a> ou <a href="${SITE}/blog" class="link" style="color:${C.emeraldText};font-weight:600;text-decoration:none;">le blog</a>.</p>
+
+      <p class="ink" style="margin:30px 0 0 0;font-family:${SANS};font-size:15px;font-weight:700;color:${C.ink};">Lucas</p>`,
   });
 
   const text = [
-    `Bonjour ${name},`,
+    `MESSAGE REÇU — demande #${ref}`,
     "",
-    `Merci pour votre message : il est bien arrivé. Je le lis attentivement et je vous réponds personnellement, en général ${RESPONSE_DELAY}.`,
+    `Merci ${name}. Votre message est bien arrivé, je le lis attentivement et je vous réponds personnellement sous ${RESPONSE_DELAY}.`,
     "",
-    `Votre demande — ${subjectLabel} :`,
+    "[✓ Reçu] — [ Lu ] — [ Réponse ]",
+    "",
+    `Sujet     : ${subjectLabel}`,
+    `Envoyé le : ${at}`,
+    `Référence : #${ref}`,
+    "",
+    "✂ ---------------------- votre message",
     message,
+    "✂ -------------------------------- fin",
     "",
-    "En attendant :",
-    `- Mes projets : ${SITE}/projects`,
-    `- Mes formations : ${SITE}/formations`,
-    `- Mon blog : ${SITE}/blog`,
+    "Besoin d'ajouter un détail ? Répondez simplement à cet email.",
+    `Projets : ${SITE}/projects · Formations : ${SITE}/formations · Blog : ${SITE}/blog`,
     "",
-    "À très bientôt,",
-    "Lucas Troteseil",
-    `${profile.title} · Bordeaux`,
-    SITE,
+    "Lucas",
+    `— Lucas Troteseil · ${profile.title} · Bordeaux`,
   ].join("\n");
 
   return { html, text };
