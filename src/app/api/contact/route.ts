@@ -4,7 +4,7 @@ import { z } from "zod";
 import { contactSubjects } from "@/data/portfolio-data";
 import { MIN_FILL_TIME_MS, TURNSTILE_SITE_KEY } from "@/lib/turnstile";
 import { isHumanCheckValid } from "@/lib/human-check";
-import { confirmationEmail, ownerEmail } from "@/lib/email-templates";
+import { confirmationEmail, ownerEmail, ticketRef } from "@/lib/email-templates";
 
 // Lus à chaque requête : sur Cloudflare Workers, process.env est alimenté par requête
 // Expéditeur : doit appartenir à un domaine vérifié dans Resend (lucas-troteseil.fr)
@@ -112,6 +112,8 @@ export async function POST(req: NextRequest) {
 
     const subjectData = contactSubjects.find((s) => s.value === subject);
     const subjectLabel = subjectData?.label ?? subject;
+    // Numéro de demande commun aux deux emails (objet + corps), ex. LT-1119-1646
+    const ref = ticketRef();
 
     // Resend ne lève pas d'exception : il renvoie { data, error } → toujours vérifier error
     const owner = await resend.emails.send({
@@ -119,8 +121,8 @@ export async function POST(req: NextRequest) {
       to: contactEmail(),
       replyTo: email, // "Répondre" dans la messagerie écrit directement au visiteur
       // Préfixe fixe « [Portfolio] » : sert de critère au filtre Proton qui range ces messages
-      subject: plain(`[Portfolio] ${subjectLabel} — ${name}`),
-      ...ownerEmail(name, email, subject, message), // { html, text }
+      subject: plain(`[Portfolio] ${subjectLabel} — ${name} (#${ref})`),
+      ...ownerEmail(name, email, subject, message, ref), // { html, text }
     });
 
     if (owner.error) {
@@ -138,8 +140,8 @@ export async function POST(req: NextRequest) {
     const confirmation = await resend.emails.send({
       from: mailFrom(),
       to: email,
-      subject: plain(`Confirmation de réception — ${subjectLabel}`),
-      ...confirmationEmail(name, subject, message), // { html, text }
+      subject: plain(`Message reçu — ${subjectLabel} (#${ref})`),
+      ...confirmationEmail(name, subject, message, ref), // { html, text }
     });
     if (confirmation.error) {
       console.error("[contact] Échec envoi accusé de réception:", confirmation.error);
