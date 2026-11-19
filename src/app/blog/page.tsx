@@ -11,6 +11,7 @@ export const metadata = {
     description:
       "Articles sur le développement web, WordPress, le SEO technique, l'IA appliquée et la gestion de projet.",
   },
+  alternates: { canonical: "/blog" },
 };
 
 export default function BlogPage() {

@@ -3,7 +3,7 @@ import { ProjectsBrowser } from "@/components/sections/projects-browser";
 import { profile } from "@/data/portfolio-data";
 
 export const metadata: Metadata = {
-  title: `Projets — ${profile.name}`,
+  title: "Projets",
   description:
     "Découvrez mes réalisations : plugins WordPress, applications Next.js, outils Node.js et projets open-source. Filtrez par catégorie, année ou statut.",
   openGraph: {
@@ -12,6 +12,7 @@ export const metadata: Metadata = {
       "Découvrez mes réalisations : plugins WordPress, applications Next.js, outils Node.js et projets open-source.",
     url: `https://lucas-troteseil.fr/projects`,
   },
+  alternates: { canonical: "/projects" },
 };
 
 export default function ProjectsPage() {

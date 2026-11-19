@@ -58,7 +58,7 @@ export function SkillsSection() {
                     {group.name}
                   </h3>
                 </div>
-                <span className="shrink-0 font-mono text-xs font-bold text-zinc-400 dark:text-zinc-600">
+                <span className="shrink-0 font-mono text-xs font-bold text-zinc-500 dark:text-zinc-400">
                   {group.level}%
                 </span>
               </div>

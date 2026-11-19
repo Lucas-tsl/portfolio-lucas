@@ -1,6 +1,7 @@
 export const metadata = {
-  title: "Mentions légales | Lucas Troteseil",
+  title: "Mentions légales",
   description: "Mentions légales du portfolio de Lucas Troteseil.",
+  alternates: { canonical: "/mentions-legales" },
 };
 
 export default function MentionsLegalesPage() {

@@ -150,7 +150,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
         <section className="mx-auto mt-16 max-w-3xl" aria-labelledby="related-heading">
           <h2
             id="related-heading"
-            className="mb-6 text-xs font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-600"
+            className="mb-6 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400"
           >
             Autres articles
           </h2>

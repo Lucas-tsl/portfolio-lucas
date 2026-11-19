@@ -374,7 +374,7 @@ export function AccessibilityToggle() {
         aria-label="Ouvrir le panneau d'accessibilité"
         className={`flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold shadow-lg transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 ${
           isActive || open
-            ? "bg-emerald-600 text-white shadow-emerald-500/30"
+            ? "bg-emerald-700 text-white shadow-emerald-500/30"
             : "border border-zinc-200 bg-white text-zinc-600 shadow-zinc-200/60 hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:shadow-zinc-900/60 dark:hover:text-zinc-100"
         }`}
       >

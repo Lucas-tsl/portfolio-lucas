@@ -1,6 +1,7 @@
 export const metadata = {
-  title: "Déclaration d'accessibilité | Lucas Troteseil",
+  title: "Déclaration d'accessibilité",
   description: "Déclaration d'accessibilité du portfolio lucas-troteseil.fr conformément au RGAA 4.1.2.",
+  alternates: { canonical: "/accessibilite" },
 };
 
 export default function AccessibilitePage() {
@@ -148,13 +149,13 @@ export default function AccessibilitePage() {
           <ul className="mt-3 space-y-1.5 list-disc pl-5">
             <li>
               Formulaire en ligne :{" "}
-              <a href="https://formulaire.defenseurdesdroits.fr/" target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">
+              <a href="https://formulaire.defenseurdesdroits.fr/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">
                 formulaire.defenseurdesdroits.fr
               </a>
             </li>
             <li>
               Délégué territorial :{" "}
-              <a href="https://www.defenseurdesdroits.fr/saisir/delegues" target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">
+              <a href="https://www.defenseurdesdroits.fr/saisir/delegues" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">
                 defenseurdesdroits.fr/saisir/delegues
               </a>
             </li>

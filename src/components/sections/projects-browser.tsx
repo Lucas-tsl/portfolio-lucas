@@ -31,7 +31,7 @@ function SelectFilter({
 }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="w-20 shrink-0 text-xs font-semibold text-zinc-400 dark:text-zinc-600">
+      <span className="w-20 shrink-0 text-xs font-semibold text-zinc-500 dark:text-zinc-400">
         {label}
       </span>
       <div className="relative">
@@ -83,7 +83,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {project.internal && (
             <span
               title="Outil interne, dépôt privé"
-              className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400"
+              className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
             >
               <Lock size={10} aria-hidden="true" />
               Interne
@@ -96,7 +96,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           >
             {project.status}
           </span>
-          <span className="text-xs text-zinc-400 dark:text-zinc-600">{project.year}</span>
+          <span className="text-xs text-zinc-500 dark:text-zinc-400">{project.year}</span>
         </div>
       </div>
 
@@ -125,11 +125,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <span
             key={tech}
             title={tech}
-            aria-label={tech}
             className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-2.5 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
           >
             {hasTechIcon(tech) && <TechIcon name={tech} size={12} />}
-            <span aria-hidden="true">{getTechAbbrev(tech)}</span>
+            <span aria-hidden="true">{getTechAbbrev(tech)}</span><span className="sr-only">{tech}</span>
           </span>
         ))}
       </div>
@@ -141,7 +140,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               key={variant.label}
               href={variant.liveUrl || variant.githubUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               aria-label={`Voir la version ${variant.label} de ${project.title}`}
               title={variant.label}
               className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-xs font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
@@ -156,8 +155,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               <a
                 href={project.githubUrl}
                 target="_blank"
-                rel="noreferrer"
-                aria-label={`Code source de ${project.title} sur GitHub`}
+                rel="noopener noreferrer"
+                aria-label={`Repository : code source de ${project.title} sur GitHub`}
                 className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-xs font-medium text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800"
               >
                 <Github size={14} aria-hidden="true" />
@@ -168,9 +167,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               <a
                 href={project.liveUrl}
                 target="_blank"
-                rel="noreferrer"
-                aria-label={`Voir ${project.title} en ligne`}
-                className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-xs font-medium text-white transition hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500"
+                rel="noopener noreferrer"
+                aria-label={`Voir en ligne : ${project.title}`}
+                className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-4 py-2 text-xs font-medium text-white transition hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-500"
               >
                 <ExternalLink size={14} aria-hidden="true" />
                 Voir en ligne
@@ -180,8 +179,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         )}
         <Link
           href={`/projects/${project.id}`}
-          aria-label={`Voir les détails de ${project.title}`}
-          className="ml-auto inline-flex items-center gap-1 text-xs font-medium text-zinc-400 transition hover:text-emerald-600 dark:hover:text-emerald-400"
+          aria-label={`Détails : ${project.title}`}
+          className="ml-auto inline-flex items-center gap-1 text-xs font-medium text-zinc-500 transition hover:text-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400"
         >
           Détails
           <ArrowRight size={13} aria-hidden="true" />
@@ -249,7 +248,7 @@ export function ProjectsBrowser() {
       <div className="relative">
         <Search
           size={16}
-          className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-600"
+          className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 dark:text-zinc-400"
           aria-hidden="true"
         />
         <input
@@ -286,7 +285,6 @@ export function ProjectsBrowser() {
               key={tech}
               onClick={() => setActiveTech(active ? ALL : tech)}
               aria-pressed={active}
-              aria-label={`Filtrer par ${tech}`}
               title={tech}
               className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition ${
                 active
@@ -295,7 +293,8 @@ export function ProjectsBrowser() {
               }`}
             >
               {hasTechIcon(tech) && <TechIcon name={tech} size={12} />}
-              {getTechAbbrev(tech)}
+              <span aria-hidden="true">{getTechAbbrev(tech)}</span>
+              <span className="sr-only">{tech}</span>
             </button>
           );
         })}
@@ -355,7 +354,7 @@ export function ProjectsBrowser() {
               exit={{ opacity: 0 }}
               className="col-span-2 rounded-2xl border border-dashed border-zinc-200 p-12 text-center dark:border-zinc-800"
             >
-              <p className="text-sm text-zinc-400 dark:text-zinc-600">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
                 Aucun projet ne correspond à votre recherche.
               </p>
               <button

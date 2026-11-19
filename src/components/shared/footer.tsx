@@ -22,7 +22,7 @@ export function Footer() {
             <a
               href={profile.github}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               aria-label="GitHub"
               className="text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
             >
@@ -31,7 +31,7 @@ export function Footer() {
             <a
               href={profile.linkedin}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               aria-label="LinkedIn"
               className="text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
             >
@@ -41,7 +41,7 @@ export function Footer() {
               <a
                 href={profile.wordpress}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="WordPress"
                 className="text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
               >
@@ -54,7 +54,7 @@ export function Footer() {
         </div>
 
         <div className="mt-6 flex flex-col gap-3 border-t border-zinc-100 pt-6 dark:border-zinc-800 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-zinc-400 dark:text-zinc-600">
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">
             © {new Date().getFullYear()} {profile.name}. Tous droits réservés.
           </p>
           <nav className="flex flex-wrap gap-4" aria-label="Liens légaux">
@@ -62,7 +62,7 @@ export function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-xs text-zinc-400 underline-offset-2 transition hover:text-zinc-700 hover:underline dark:text-zinc-600 dark:hover:text-zinc-300"
+                className="text-xs text-zinc-500 underline-offset-2 transition hover:text-zinc-700 hover:underline dark:text-zinc-400 dark:hover:text-zinc-300"
               >
                 {link.label}
               </Link>
