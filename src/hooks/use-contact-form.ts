@@ -3,6 +3,8 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { TURNSTILE_SITE_KEY } from "@/lib/turnstile";
 import { findHumanCheck } from "@/lib/human-check";
+import { contactSubjects } from "@/data/portfolio-data";
+import { FORMATIONS } from "@/data/formations-data";
 
 export type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -46,6 +48,17 @@ export function useContactForm(): ContactFormState {
 
   useEffect(() => {
     mountedAtRef.current = Date.now();
+
+    // Pré-remplissage depuis l'URL, ex. /?sujet=formation&formation=seo-performance#contact
+    const params = new URLSearchParams(window.location.search);
+    const sujet = params.get("sujet");
+    if (sujet && contactSubjects.some((s) => s.value === sujet)) setSelectedSubject(sujet);
+
+    const formation = FORMATIONS.find((f) => f.id === params.get("formation"));
+    const messageField = document.getElementById("field-message") as HTMLTextAreaElement | null;
+    if (formation && messageField && !messageField.value) {
+      messageField.value = `Bonjour, je suis intéressé(e) par la formation « ${formation.title} ».\n\n`;
+    }
   }, []);
 
   useEffect(() => {

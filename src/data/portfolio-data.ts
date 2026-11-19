@@ -592,6 +592,12 @@ export const portfolioData = {
       skills: ["Agile", "GitHub Projects", "Notion", "Reporting"],
     },
     {
+      value: "formation",
+      label: "Formation",
+      description: "Demande de devis ou d'information sur une formation (WordPress, SEO, IA)",
+      skills: [],
+    },
+    {
       value: "collaboration",
       label: "Collaboration / Partenariat",
       description: "Projet commun, échange de compétences, opportunité professionnelle",
