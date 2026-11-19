@@ -16,7 +16,7 @@ export const portfolioData = {
     tagline: "En alternance chez Groupe NOVI et en Master Data & IA à Nexa, je soutiens des marques e-commerce dans leur performance web — SEO technique, Core Web Vitals, automatisation et IA appliquée.",
     about:
       "Chef de projet Data / IA en alternance chez Groupe NOVI à Bordeaux, où je travaille pour des marques comme Les Senteurs Gourmandes, Jozz Beauty, Physiomins et Pure Eden. SEO technique, Core Web Vitals, écosystème Google et intégration de LLMs dans les processus métier. En parallèle, je poursuis un Master Data & IA à Nexa Digital School. Dehors : surf sur l'Atlantique, escalade, et japonais en autodidacte.",
-    email: "troteseil.lucas@gmail.com",
+    email: "contact@lucas-troteseil.fr",
     github: "https://github.com/Lucas-tsl",
     linkedin: "https://www.linkedin.com/in/lucas-tsl/",
     wordpress: "https://profiles.wordpress.org/lucastsl/",
