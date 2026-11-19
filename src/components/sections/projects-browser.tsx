@@ -2,7 +2,10 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { LazyMotion, m as motion, AnimatePresence } from "framer-motion";
+
+// Animations de layout (réorganisation de la grille au filtrage) : moteur complet chargé en différé
+const loadLayoutFeatures = () => import("@/lib/motion-features-layout").then((mod) => mod.default);
 import { ArrowRight, CheckCircle2, ChevronDown, ExternalLink, Github, Lock, Search, X } from "lucide-react";
 import { projects } from "@/data/portfolio-data";
 import type { Project, ProjectStatus } from "@/types/portfolio.types";
@@ -243,6 +246,7 @@ export function ProjectsBrowser() {
   }
 
   return (
+    <LazyMotion features={loadLayoutFeatures}>
     <div>
       {/* Search */}
       <div className="relative">
@@ -368,5 +372,6 @@ export function ProjectsBrowser() {
         </AnimatePresence>
       </motion.div>
     </div>
+    </LazyMotion>
   );
 }

@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { skillGroups } from "@/data/portfolio-data";
 import type { SkillGroup } from "@/types/portfolio.types";
 

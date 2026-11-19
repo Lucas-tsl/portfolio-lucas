@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, ExternalLink, Github, Lock } from "lucide-react";
 import Link from "next/link";
 import { projects } from "@/data/portfolio-data";

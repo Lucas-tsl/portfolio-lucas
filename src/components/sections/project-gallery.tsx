@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { ProjectImage } from "@/types/portfolio.types";
 
@@ -26,13 +25,20 @@ export function ProjectGallery({ images }: { images: ProjectImage[] }) {
             className="flex w-[78%] shrink-0 snap-center flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 sm:w-[380px]"
           >
             <div className="flex items-center justify-center bg-zinc-100 dark:bg-zinc-950">
-              <Image
-                src={img.src}
-                alt={img.alt}
-                width={img.width}
-                height={img.height}
-                className="max-h-[480px] w-full object-contain"
-              />
+              {/* AVIF (≈95 % des navigateurs) avec repli WebP. Fichiers statiques servis par le cache
+                  Cloudflare : l'optimiseur next/image ne convertit rien sur Workers, il ajoute un détour. */}
+              <picture>
+                <source srcSet={img.src.replace(/\.webp$/, ".avif")} type="image/avif" />
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  width={img.width}
+                  height={img.height}
+                  loading="lazy"
+                  decoding="async"
+                  className="max-h-[480px] w-full object-contain"
+                />
+              </picture>
             </div>
             {img.caption && (
               <figcaption className="px-4 py-2 text-xs text-zinc-500 dark:text-zinc-500">
