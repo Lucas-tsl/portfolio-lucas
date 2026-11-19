@@ -30,10 +30,10 @@ export default function MentionsLegalesPage() {
         <section>
           <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">Hébergeur</h2>
           <p className="mt-3">
-            <strong className="text-zinc-800 dark:text-zinc-200">Vercel Inc.</strong><br />
-            340 Pine Street, Suite 701<br />
-            San Francisco, CA 94104 — États-Unis<br />
-            <a href="https://vercel.com" target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">vercel.com</a>
+            <strong className="text-zinc-800 dark:text-zinc-200">Cloudflare, Inc.</strong><br />
+            101 Townsend Street<br />
+            San Francisco, CA 94107 — États-Unis<br />
+            <a href="https://www.cloudflare.com" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-zinc-900 dark:hover:text-zinc-100">cloudflare.com</a>
           </p>
         </section>
 

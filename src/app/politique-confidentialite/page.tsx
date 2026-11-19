@@ -94,6 +94,10 @@ export default function PolitiqueConfidentialitePage() {
             Ce site n&apos;utilise aucun cookie de traçage, de mesure d&apos;audience ou de ciblage publicitaire.
             Seul un cookie technique peut être déposé par le navigateur pour mémoriser la préférence de thème (clair/sombre).
           </p>
+          <p className="mt-3">
+            La fréquentation du site est mesurée avec Cloudflare Web Analytics, un outil sans cookie qui ne collecte
+            aucune donnée personnelle identifiante et ne suit pas les visiteurs d&apos;un site à l&apos;autre.
+          </p>
         </section>
       </div>
     </main>

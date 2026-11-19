@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 import { MotionConfig } from "framer-motion";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ErrorBoundary } from "@/components/providers/error-boundary";
@@ -23,6 +23,8 @@ const geistMono = Geist_Mono({
 });
 
 const BASE_URL = "https://lucas-troteseil.fr";
+// Jeton public Cloudflare Web Analytics (vide = script désactivé)
+const CF_BEACON_TOKEN = "ee73a0d870d64fbe8b0be37cc0500495";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -112,7 +114,14 @@ export default function RootLayout({
             </CommandPaletteProvider>
           </MotionConfig>
         </ThemeProvider>
-        <Analytics />
+        {/* Cloudflare Web Analytics — sans cookie, jeton public (Web Analytics > lucas-troteseil.fr) */}
+        {CF_BEACON_TOKEN && (
+          <Script
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={JSON.stringify({ token: CF_BEACON_TOKEN })}
+            strategy="afterInteractive"
+          />
+        )}
       </body>
     </html>
   );
