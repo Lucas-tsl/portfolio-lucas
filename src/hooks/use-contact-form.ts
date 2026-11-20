@@ -45,6 +45,8 @@ export function useContactForm(): ContactFormState {
   const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
   // Heure d'affichage du formulaire : un envoi quasi instantané trahit un robot
   const mountedAtRef = useRef(0);
+  // Formation d'origine (lien « Demander un devis » de /formations), transmise à la notification
+  const formationRef = useRef("");
 
   useEffect(() => {
     mountedAtRef.current = Date.now();
@@ -55,6 +57,7 @@ export function useContactForm(): ContactFormState {
     if (sujet && contactSubjects.some((s) => s.value === sujet)) setSelectedSubject(sujet);
 
     const formation = FORMATIONS.find((f) => f.id === params.get("formation"));
+    formationRef.current = formation?.id ?? "";
     const messageField = document.getElementById("field-message") as HTMLTextAreaElement | null;
     if (formation && messageField && !messageField.value) {
       messageField.value = `Bonjour, je suis intéressé(e) par la formation « ${formation.title} ».\n\n`;
@@ -121,6 +124,7 @@ export function useContactForm(): ContactFormState {
           turnstileToken,
           humanCheckId,
           humanCheck,
+          formation: formationRef.current || undefined,
           website: String(data.get("website") ?? ""), // pot de miel : rempli seulement par les robots
           elapsedMs: Date.now() - mountedAtRef.current,
         }),
