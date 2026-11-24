@@ -14,7 +14,8 @@ function parseMetric(value: string) {
 
 function MetricCard({ m, i }: { m: { value: string; label: string; sublabel: string }; i: number }) {
   const { prefix, num, suffix } = parseMetric(m.value);
-  const [count, setCount] = useState(0);
+  // Valeur finale par défaut : visible pour Google, les aperçus de liens et sans JS
+  const [count, setCount] = useState(num);
   const ref = useRef<HTMLDivElement>(null);
   const started = useRef(false);
 
@@ -25,6 +26,8 @@ function MetricCard({ m, i }: { m: { value: string; label: string; sublabel: str
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
           started.current = true;
+          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+          setCount(0);
           const duration = 1200 + i * 100;
           const startTime = performance.now();
           const step = (now: number) => {

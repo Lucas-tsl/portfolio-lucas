@@ -85,7 +85,7 @@ const otherExperiences = [
 const education = [
   {
     period: "Oct. 2025 — Oct. 2027",
-    degree: "Master 1 — Data & Intelligence Artificielle",
+    degree: "Master Data & Intelligence Artificielle (M2 en cours)",
     school: "Nexa Digital School",
     current: true,
     description:
