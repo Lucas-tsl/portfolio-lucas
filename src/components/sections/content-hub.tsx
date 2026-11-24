@@ -6,14 +6,14 @@ const spaces = [
     href: "/blog",
     description:
       "Articles de fond, retours d'expérience et sujets utiles autour du web, du SEO et de l'IA.",
-    label: "Publication",
+    label: "Articles",
   },
   {
     title: "Projets",
     href: "/projects",
     description:
-      "La stack que j'utilise pour construire vite, proprement et de manière maintenable.",
-    label: "Stack",
+      "Tous mes projets en détail : contexte, rôle, technologies utilisées et résultats obtenus.",
+    label: "Études de cas",
   },
 ];
 

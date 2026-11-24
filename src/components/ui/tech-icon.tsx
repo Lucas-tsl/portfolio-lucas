@@ -239,6 +239,22 @@ export function getTechAbbrev(name: string): string {
   return ABBREV_MAP[name.toLowerCase()] ?? name;
 }
 
+/**
+ * Libellé d'une techno : abréviation visible + nom complet pour les lecteurs d'écran.
+ * Quand il n'y a pas d'abréviation, le nom n'est rendu qu'une fois (évite les doublons
+ * « Resend Resend » lus par les moteurs de recherche et les lecteurs d'écran).
+ */
+export function TechLabel({ name }: { name: string }) {
+  const abbrev = getTechAbbrev(name);
+  if (abbrev === name) return <span>{name}</span>;
+  return (
+    <>
+      <span aria-hidden="true">{abbrev}</span>
+      <span className="sr-only">{name}</span>
+    </>
+  );
+}
+
 export function hasTechIcon(name: string): boolean {
   return name.toLowerCase() in ICON_MAP;
 }

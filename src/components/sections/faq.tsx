@@ -58,7 +58,7 @@ export function FaqSection() {
         Questions fréquentes
       </h2>
       <p className="mt-3 text-center text-sm text-zinc-500 dark:text-zinc-400">
-        Tout ce que tu veux savoir avant de me contacter.
+        Tout ce que vous voulez savoir avant de me contacter.
       </p>
 
       <div className="mt-10">

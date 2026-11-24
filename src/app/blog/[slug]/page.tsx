@@ -141,7 +141,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
 
       {/* Bottom share */}
       <div className="mx-auto mt-12 flex max-w-3xl items-center justify-between border-t border-zinc-200 pt-8 dark:border-zinc-800">
-        <p className="text-sm text-zinc-500">Tu as aimé cet article ?</p>
+        <p className="text-sm text-zinc-500">Vous avez aimé cet article ?</p>
         <BlogShare title={title} url={pageUrl} />
       </div>
 
