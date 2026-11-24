@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// Geist auto-hébergée via le paquet officiel (même police que Google Fonts, sans requête externe au build)
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import Script from "next/script";
 import { MotionProvider } from "@/components/providers/motion-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
@@ -11,18 +13,11 @@ import { CommandPaletteLoader } from "@/components/shared/command-palette-loader
 import { AccessibilityToggle } from "@/components/shared/accessibility-toggle";
 import { BackToTop } from "@/components/shared/back-to-top";
 import "./globals.css";
+import { BASE_URL } from "@/lib/site";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const geistSans = GeistSans;
+const geistMono = GeistMono;
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const BASE_URL = "https://lucas-troteseil.fr";
 // Jeton public Cloudflare Web Analytics (vide = script désactivé)
 const CF_BEACON_TOKEN = "ee73a0d870d64fbe8b0be37cc0500495";
 

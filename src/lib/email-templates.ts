@@ -7,8 +7,9 @@
 
 import { contactSubjects, profile } from "@/data/portfolio-data";
 import { FORMATIONS } from "@/data/formations-data";
+import { BASE_URL } from "@/lib/site";
 
-const SITE = "https://lucas-troteseil.fr";
+const SITE = BASE_URL;
 // Délai de réponse annoncé dans l'accusé de réception (à ajuster librement)
 const RESPONSE_DELAY = "2 jours ouvrés";
 

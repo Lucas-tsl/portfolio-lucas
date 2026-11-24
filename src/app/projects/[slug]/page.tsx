@@ -17,6 +17,7 @@ import type { Project, ProjectStatus } from "@/types/portfolio.types";
 import { TechIcon, hasTechIcon } from "@/components/ui/tech-icon";
 import { Breadcrumb } from "@/components/shared/breadcrumb";
 import { ProjectGallery } from "@/components/sections/project-gallery";
+import { BASE_URL } from "@/lib/site";
 
 const STATUS_COLORS: Record<ProjectStatus, string> = {
   Actif:           "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
@@ -63,7 +64,6 @@ export default async function ProjectDetailPage({
   const otherProjects = projects.filter((_, i) => i !== idx).slice(0, 3);
   const hasVariants = Boolean(project.variants && project.variants.length > 0);
 
-  const BASE_URL = "https://lucas-troteseil.fr";
   const softwareAppLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

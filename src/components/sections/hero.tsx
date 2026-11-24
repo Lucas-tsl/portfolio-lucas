@@ -64,9 +64,8 @@ export function HeroSection() {
               Voir mon GitHub
             </a>
             <a
-              href="/cv.pdf"
-              download="CV_Lucas_Troteseil.pdf"
-              aria-label="Télécharger mon CV (PDF)"
+              href="/cv"
+              aria-label="Voir et télécharger mon CV"
               className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-6 py-3 text-sm font-semibold text-zinc-900 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500"
             >
               <Download size={15} aria-hidden="true" />
@@ -98,7 +97,7 @@ export function HeroSection() {
             </li>
           </ul>
           <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">
-            <span title="Localisation : Bordeaux, disponible à distance">Bordeaux · Remote</span>
+            <span title="Localisation : Bordeaux, disponible à distance">Bordeaux · Hybride ou à distance</span>
             {profile.available && (
               <span className="ml-3 inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" aria-hidden="true" />

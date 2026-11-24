@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import type { TechnologyItem } from "@/data/portfolio-data";
-import { TechIcon, hasTechIcon, getTechAbbrev } from "@/components/ui/tech-icon";
+import { TechIcon, hasTechIcon, TechLabel } from "@/components/ui/tech-icon";
 
 const FILTER_OPTIONS = [
   { value: "all",       label: "Toutes les stacks" },
@@ -82,7 +82,7 @@ export function TechnologyBrowser({ technologies }: { technologies: TechnologyIt
                       className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-xs font-medium text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300"
                     >
                       {hasTechIcon(name) && <TechIcon name={name} size={12} />}
-                      <span aria-hidden="true">{getTechAbbrev(name)}</span><span className="sr-only">{name}</span>
+                      <TechLabel name={name} />
                     </span>
                   );
                 })}

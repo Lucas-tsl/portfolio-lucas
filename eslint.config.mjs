@@ -12,7 +12,9 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-const eslintConfig = [...compat.extends("next/core-web-vitals", "next/typescript"), {
+const eslintConfig = [{
+  ignores: ["next-env.d.ts", ".next/**", ".open-next/**", "storybook-static/**", "node_modules/**"],
+}, ...compat.extends("next/core-web-vitals", "next/typescript"), {
   rules: {
     "react/no-unescaped-entities": "off",
     "@next/next/no-html-link-for-pages": "off",

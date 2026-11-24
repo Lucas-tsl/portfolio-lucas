@@ -8,8 +8,7 @@ description: Add a new project card to this portfolio from a GitHub repo (public
 This repo's `CLAUDE.md` mandates: never commit to `main` directly, and
 always run `npm run build` before merging. Follow that for every step
 below — it's not optional here (see "Des bugs de prod ont été
-introduits car des merges partaient sans vérification du build
-Vercel").
+introduits car des merges partaient sans vérification du build").
 
 ## 1. Gather source material
 
@@ -142,4 +141,4 @@ git branch -d feat/<project-id>
 
 Confirm with the user before the merge/push step unless they've
 already told you to proceed autonomously for this session — pushing
-to `main` deploys to production via Vercel's CI/CD.
+to `main` deploys to production via Cloudflare Workers Builds.

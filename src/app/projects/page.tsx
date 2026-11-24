@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ProjectsBrowser } from "@/components/sections/projects-browser";
 import { profile } from "@/data/portfolio-data";
+import { BASE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Projets",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     title: `Projets — ${profile.name}`,
     description:
       "Découvrez mes réalisations : plugins WordPress, applications Next.js, outils Node.js et projets open-source.",
-    url: `https://lucas-troteseil.fr/projects`,
+    url: `${BASE_URL}/projects`,
   },
   alternates: { canonical: "/projects" },
 };

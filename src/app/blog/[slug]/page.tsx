@@ -8,8 +8,8 @@ import { BlogToc } from "@/components/blog/blog-toc";
 import { BlogShare } from "@/components/blog/blog-share";
 import { readContentDirectory, readContentDocument } from "@/lib/content";
 import { extractToc, getReadingTime } from "@/lib/blog-utils";
+import { BASE_URL } from "@/lib/site";
 
-const BASE_URL = "https://lucas-troteseil.fr";
 const BLOG_DIR = path.join(process.cwd(), "content/blog");
 
 // Slug inconnu → 404 statique (pas de lecture fs au runtime sur Cloudflare Workers)
@@ -141,7 +141,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
 
       {/* Bottom share */}
       <div className="mx-auto mt-12 flex max-w-3xl items-center justify-between border-t border-zinc-200 pt-8 dark:border-zinc-800">
-        <p className="text-sm text-zinc-500">Tu as aimé cet article ?</p>
+        <p className="text-sm text-zinc-500">Vous avez aimé cet article ?</p>
         <BlogShare title={title} url={pageUrl} />
       </div>
 

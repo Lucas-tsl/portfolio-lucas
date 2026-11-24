@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 import path from "node:path";
 import { readContentDirectory } from "@/lib/content";
 import { projects } from "@/data/portfolio-data";
+import { BASE_URL } from "@/lib/site";
 
-const BASE_URL = "https://lucas-troteseil.fr";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/about`,                     lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE_URL}/projects`,                  lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE_URL}/formations`,                lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/cv`,                        lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/blog`,                      lastModified: now, changeFrequency: "weekly",  priority: 0.8 },
     { url: `${BASE_URL}/accessibilite`,             lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
     { url: `${BASE_URL}/mentions-legales`,          lastModified: now, changeFrequency: "yearly",  priority: 0.2 },

@@ -7,7 +7,7 @@ metadata:
 
 Portfolio de Lucas Troteseil — Next.js 15 App Router + TypeScript strict + Tailwind v4 + Framer Motion.
 
-**Why:** Personal portfolio for job applications, deployed at lucastroteseil.com via Vercel.
+**Why:** Personal portfolio for job applications, deployed at lucas-troteseil.fr on Cloudflare Workers (OpenNext).
 
 **How to apply:** When suggesting changes, keep the stack and design system consistent. Tailwind v4 with CSS custom properties for theming.
 

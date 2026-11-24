@@ -292,3 +292,23 @@ body {
   cursor: pointer !important;
   outline: 1px dashed rgba(5, 150, 105, 0.4) !important;
 }
+
+/* ── Page CV : impression / export PDF sur une page A4, sans le décor du site ── */
+@media print {
+  @page { size: A4; margin: 0; }
+  html:has(#cv-sheet), body:has(#cv-sheet) { background: #fff !important; }
+  body:has(#cv-sheet) > a,
+  body:has(#cv-sheet) #a11y-main ~ *,
+  body:has(#cv-sheet) #a11y-main > :not(#main-content) { display: none !important; }
+  body:has(#cv-sheet) #a11y-main { min-height: 0 !important; background: #fff !important; filter: none !important; }
+  #cv-sheet { margin: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* Page CV à l'écran : la feuille A4 (≈ 794 px) est réduite pour tenir sur mobile */
+@media screen and (max-width: 860px) { #cv-sheet { zoom: 0.92; } }
+@media screen and (max-width: 760px) { #cv-sheet { zoom: 0.8; } }
+@media screen and (max-width: 660px) { #cv-sheet { zoom: 0.68; } }
+@media screen and (max-width: 560px) { #cv-sheet { zoom: 0.57; } }
+@media screen and (max-width: 460px) { #cv-sheet { zoom: 0.47; } }
+@media screen and (max-width: 400px) { #cv-sheet { zoom: 0.44; } }
+@media screen and (max-width: 360px) { #cv-sheet { zoom: 0.39; } }
