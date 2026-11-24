@@ -1,7 +1,7 @@
 import path from "node:path";
 import { readContentDirectory } from "@/lib/content";
+import { BASE_URL } from "@/lib/site";
 
-const BASE_URL = "https://lucas-troteseil.fr";
 
 // Généré au build : le runtime Cloudflare Workers n'a pas accès à content/blog via fs
 export const dynamic = "force-static";

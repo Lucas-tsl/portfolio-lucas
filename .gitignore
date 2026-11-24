@@ -1,6 +1,5 @@
 node_modules/
 .next/
-.vercel/
 dist/
 build/
 .env.local
@@ -12,8 +11,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 coverage/
-pnpm-lock.yaml
-package-lock.json
 
 *storybook.log
 storybook-static

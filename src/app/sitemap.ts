@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 import path from "node:path";
 import { readContentDirectory } from "@/lib/content";
 import { projects } from "@/data/portfolio-data";
+import { BASE_URL } from "@/lib/site";
 
-const BASE_URL = "https://lucas-troteseil.fr";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

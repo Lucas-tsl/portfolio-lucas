@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/sections/hero";
 import { FaqSection } from "@/components/sections/faq";
 import { FAQ_ITEMS } from "@/data/faq-data";
+import { BASE_URL } from "@/lib/site";
 
 // Above-the-fold: eager
 // Below-the-fold: code-split into separate chunks — reduces initial bundle ~40-50 kB
@@ -12,7 +13,6 @@ const ProjectsSection    = dynamic(() => import("@/components/sections/projects"
 const ContentHubSection  = dynamic(() => import("@/components/sections/content-hub").then((m) => m.ContentHubSection));
 const ContactSection     = dynamic(() => import("@/components/sections/contact").then((m) => m.ContactSection));
 
-const BASE_URL = "https://lucas-troteseil.fr";
 
 const faqLd = {
   "@context": "https://schema.org",

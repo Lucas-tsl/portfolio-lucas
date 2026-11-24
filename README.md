@@ -2,7 +2,7 @@
 
 > Portfolio de Lucas Troteseil — Chef de projet Data / IA & Développeur Web en alternance chez Groupe NOVI à Bordeaux.
 
-**Live :** [lucastroteseil.com](https://lucastroteseil.com)
+**Live :** [lucas-troteseil.fr](https://lucas-troteseil.fr)
 
 ---
 
@@ -20,8 +20,8 @@
 | Charts | Recharts |
 | Icônes tech | simple-icons |
 | Icônes UI | Lucide React |
-| Déploiement | Vercel |
-| Analytiques | Vercel Analytics |
+| Déploiement | Cloudflare Workers (OpenNext) |
+| Analytiques | Cloudflare Web Analytics |
 
 ---
 
@@ -152,16 +152,20 @@ Contenu en Markdown...
 
 ## Déploiement
 
-Le projet est déployé automatiquement sur **Vercel** à chaque push sur `main`.
+Le projet est déployé automatiquement sur **Cloudflare Workers** (via OpenNext, Workers Builds) à chaque push sur `main`.
 
-Les variables d'environnement sont à configurer dans le dashboard Vercel.
+- `npm run cf:build` : build Cloudflare en local
+- `npm run preview` : build + aperçu local du Worker
+- `npm run deploy` : déploiement manuel
+
+Les variables d'environnement sont à configurer dans le dashboard Cloudflare (Workers → portfolio-lucas → Settings → Variables).
 
 ---
 
 ## Contact
 
-Lucas Troteseil — [lucastroteseil.com](https://lucastroteseil.com) — [LinkedIn](https://linkedin.com/in/lucas-troteseil) — [GitHub](https://github.com/Lucas-tsl)
+Lucas Troteseil — [lucas-troteseil.fr](https://lucas-troteseil.fr) — [LinkedIn](https://www.linkedin.com/in/lucas-tsl/) — [GitHub](https://github.com/Lucas-tsl)
 
 ---
 
-*Next.js 15 · TypeScript · Tailwind CSS v4 · Vercel*
+*Next.js 15 · TypeScript · Tailwind CSS v4 · Cloudflare Workers*

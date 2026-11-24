@@ -10,7 +10,7 @@ Pour chaque feature ou fix :
 3. **`npm run build`** — build prod complet, zéro erreur avant tout merge
 4. `git checkout main && git merge --no-ff feat/nom && git push origin main && git branch -d feat/nom`
 
-> Des bugs de prod ont été introduits car des merges partaient sans vérification du build Vercel. Le dev server masque des erreurs que `next build` détecte.
+> Des bugs de prod ont été introduits car des merges partaient sans vérification du build. `npm run cf:build` reproduit le build Cloudflare (OpenNext) si besoin. Le dev server masque des erreurs que `next build` détecte.
 
 ## Contraintes Next.js connues
 
@@ -22,7 +22,8 @@ Pour chaque feature ou fix :
 
 - Next.js 15 App Router, TypeScript strict, Tailwind CSS v4
 - Framer Motion pour les animations
-- Vercel pour le déploiement (CI/CD automatique sur push main)
+- Cloudflare Workers via OpenNext (`wrangler.jsonc`) pour le déploiement — Workers Builds automatique sur push main
+- URL canonique centralisée dans `src/lib/site.ts` (`BASE_URL`)
 - Resend pour les emails
 - next-themes pour le thème sombre/clair
 

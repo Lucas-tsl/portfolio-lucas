@@ -11,6 +11,7 @@ import { CommandPaletteLoader } from "@/components/shared/command-palette-loader
 import { AccessibilityToggle } from "@/components/shared/accessibility-toggle";
 import { BackToTop } from "@/components/shared/back-to-top";
 import "./globals.css";
+import { BASE_URL } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +23,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const BASE_URL = "https://lucas-troteseil.fr";
 // Jeton public Cloudflare Web Analytics (vide = script désactivé)
 const CF_BEACON_TOKEN = "ee73a0d870d64fbe8b0be37cc0500495";
 

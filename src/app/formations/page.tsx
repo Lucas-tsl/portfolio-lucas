@@ -9,10 +9,10 @@ import {
   FORMATION_STEPS,
   type Formation,
 } from "@/data/formations-data";
+import { BASE_URL } from "@/lib/site";
 
 // Page 100 % statique et sans JavaScript : <details> natifs pour le programme et la FAQ
 
-const BASE_URL = "https://lucas-troteseil.fr";
 const DESCRIPTION =
   "Formations WordPress & WooCommerce, SEO et IA appliquée pour indépendants, TPE et PME. À distance ou en présentiel à Bordeaux, programme adapté, sur devis.";
 

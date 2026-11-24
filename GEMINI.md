@@ -1,6 +1,6 @@
 ﻿# Instructions Projet : Portfolio
 
-Ce fichier `GEMINI.md` définit les règles et le workflow à suivre pour garantir un développement propre, une intégration continue fluide et un déploiement Vercel stable. L'agent Gemini CLI s'y conformera lors de ses interventions.
+Ce fichier `GEMINI.md` définit les règles et le workflow à suivre pour garantir un développement propre, une intégration continue fluide et un déploiement Cloudflare stable. L'agent Gemini CLI s'y conformera lors de ses interventions.
 
 ## 1. Workflow Git & Branches
 - **Branches par défaut** : La branche principale est `main` (ou `master`).
@@ -29,14 +29,14 @@ Ce fichier `GEMINI.md` définit les règles et le workflow à suivre pour garant
 - **Validation** : Une PR doit être relue et validée (Review) avant d'être fusionnée.
 - **Fusion** : Privilégiez un historique propre (ex: "Squash and merge") lors de l'intégration dans la branche principale.
 
-## 4. CI/CD & Déploiement Vercel
+## 4. CI/CD & Déploiement Cloudflare
 - **Tests locaux obligatoires avant push** : 
   - Exécutez le linter (ex: `npm run lint`) pour éviter les erreurs de style ou de syntaxe.
   - Vérifiez que le build passe (ex: `npm run build`).
-- **Déploiements Vercel** :
-  - Chaque push sur une branche (ex: `feat/xxx`) génère un **Preview Deployment**. Celui-ci doit être testé avant la fusion.
+- **Déploiements Cloudflare Workers (OpenNext)** :
+  - Chaque push sur une branche (ex: `feat/xxx`) génère un **build de preview** Workers Builds. Celui-ci doit être testé avant la fusion.
   - La fusion sur `main` déclenche le **Production Deployment**. La branche `main` doit TOUJOURS être dans un état déployable et fonctionnel.
-- **Variables d'environnement** : Ne commitez **jamais** de secrets (clés d'API, mots de passe). Utilisez un fichier `.env.example` pour lister les clés requises et configurez les vraies valeurs directement dans l'interface de Vercel.
+- **Variables d'environnement** : Ne commitez **jamais** de secrets (clés d'API, mots de passe). Utilisez un fichier `.env.example` pour lister les clés requises et configurez les vraies valeurs directement dans le dashboard Cloudflare.
 
 ## 5. Bonnes Pratiques de Code
 - **Typage Strict** : Utilisez TypeScript de manière rigoureuse. Évitez l'utilisation de `any` ou des directives comme `@ts-ignore`.
