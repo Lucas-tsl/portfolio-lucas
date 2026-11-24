@@ -102,7 +102,7 @@ export function HeroSection() {
             {profile.available && (
               <span className="ml-3 inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" aria-hidden="true" />
-                Disponible · À distance
+                Disponible pour des projets
               </span>
             )}
           </p>

@@ -22,7 +22,7 @@ export const portfolioData = {
     wordpress: "https://profiles.wordpress.org/lucastsl/",
     location: "Bordeaux, France",
     available: true,
-    availabilityNote: "CDI recherché à partir de novembre 2027, à la fin de mon alternance.",
+    availabilityNote: "Disponible dès maintenant pour des projets · Poste recherché à partir de septembre 2027, à la fin de mon Master.",
   },
 
   skills: [
@@ -77,7 +77,7 @@ export const portfolioData = {
       category: "Data & Intelligence Artificielle",
       name: "Data & IA Appliquée",
       description: "Intégration de LLMs, automatisation de workflows et valorisation des données au service des besoins métier.",
-      focus: "LLMs, automatisation, Data Science (M1 en cours)",
+      focus: "LLMs, automatisation, Data Science (M2 en cours)",
       level: 68,
       items: [
         "ChatGPT / GPT-4",

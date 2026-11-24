@@ -333,7 +333,7 @@ export function ContactSection() {
               contact@lucas-troteseil.fr
             </a>
             <p className="mt-3 text-xs leading-5 text-zinc-500 dark:text-zinc-500">
-              Basé à Bordeaux · Disponible pour des missions freelance et collaborations.
+              Basé à Bordeaux · Disponible pour des projets · Poste recherché à partir de septembre 2027.
             </p>
           </div>
         </motion.aside>
